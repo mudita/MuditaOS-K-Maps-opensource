@@ -1,0 +1,1951 @@
+<?xml version="1.0" encoding="utf-8"?>
+<regions_list>
+		<!-- translate:
+		1. translate="=TRANSLATION"
+			Translation name will be assigned to TRANSLATION and won't be looked up in osm files
+		2. translate is omit
+			Translation will be looked up per $name of region, name="$name" first and second name:en="$name"
+			same as translate="entity=node;$name"
+		3. translate="no"
+			translation will not be looked up and assigned to $name with capital case
+		4. translate="name=NAME;ref=REF"
+			translation will be looked up by 2 specified tags (so the target entity will have 2 tags)
+			special tag supported entity=[node|way|relation]
+			translate="NAME" is equavalent to translate="name=NAME"
+		-->
+		<!-- boundary:
+		1. boundary="no" - no boundary for this region
+		2. boundary omit - boundary will be looked up by name
+		3. boundary="$FILENAME" boundary will be looked up by $FILENAME
+			in case FILENAME duplicates i.e. 'georgia', it will be accessible in 2 ways
+			$PARENT_FOLDER/$FILENAME - 'us/georgia' and 'asia/georgia'
+		-->
+		<!-- type, map, wiki, roads, srtm, hillshade, slope, heightmap
+			1. by default map=yes, srtm=yes, hillshade=yes (in case 'type' not specified)
+			2. in case wiki/roads not specified, wiki/roads same as maps
+			3. if map, wiki, roads, srtm, hillshade specified, it sets to value specified
+			4. in case type specified it takes precedence and sets all flags = no
+				Examples
+				type=srtm: map=no, srtm=yes, hillshade=no
+				type=hillshade: map=no, srtm=no, hillshade=yes
+				type=continent: map=no, srtm=no, hillshade=no
+		-->
+		<!--
+			download_suffix, inner_download_suffix, download_prefix, inner_download_prefix
+			1. In case download_suffix, download_prefix specified, then
+				download_name = download_prefix + "_" + name + "_" + download_suffix
+			   In case only download_suffix speicfied
+			   	download_name =  name + "_" + download_suffix
+			   	In case only download_prefix speicfied
+			   	download_name =  download_prefix + "_" + name
+			2. If download_suffix is not specified it is taken from parent region or from parent parent region ...
+			2.1 If parent region has inner_download_suffix, then download_suffix=inner_download_suffix
+		-->
+		<region type="continent" name="europe" translate="=Europe" inner_download_suffix="europe" boundary="no" poly_extract="planet">
+
+			<region type="area-extract" name="north-europe" boundary="no" poly_extract="europe" download_suffix=""/>
+			<region type="area-extract" name="south-europe" boundary="no" poly_extract="europe" download_suffix=""/>
+			<region type="area-extract" name="west-europe" boundary="no" poly_extract="europe" download_suffix=""/>
+			<region type="area-extract" name="east-europe" boundary="no" poly_extract="europe" download_suffix=""/>
+			<region type="area-extract" name="great-britain" boundary="no" poly_extract="west-europe" download_suffix=""/>
+
+			<!-- north-europe -->
+			<region name="denmark" lang="da" poly_extract="north-europe" inner_download_prefix="$name" join_map_files="yes">
+				<region type="map" name="capital-region" translate="name:en=Capital Region of Denmark;entity=relation"/>
+				<region type="map" name="central-region" translate="name:en=Central Denmark Region;entity=relation"/>
+				<region type="map" name="north-region" translate="name:en=North Denmark Region;entity=relation"/>
+				<region type="map" name="southern-region" translate="name:en=Region of Southern Denmark;entity=relation"/>
+				<region type="map" name="zealand-region" translate="name:en=Region Zealand;entity=relation"/>
+			</region>
+			<region name="estonia" lang="et" poly_extract="north-europe"/>
+			<region name="iceland" lang="is" poly_extract="north-europe"/>
+			<region name="faroe-islands" translate="Faroe Islands;entity=node" lang="fo" poly_extract="north-europe"/>
+			<region name="finland" inner_download_prefix="$name" srtm="no" lang="fi,sv" poly_extract="north-europe" join_map_files="yes">
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" name="aland" translate="name:en=Åland Islands;admin_level=3;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" name="central-finland" translate="name:en=Central Finland;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" name="central-ostrobothnia" translate="name:en=Central Ostrobothnia;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" name="kainuu" translate="name:fi=Kainuu;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" name="kanta-hame" translate="name:en=Kanta-Häme;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" name="kymenlaakso" translate="name:en=Kymenlaakso;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" name="lapland" translate="name:en=Lapland;admin_level=6;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" name="north-ostrobothnia" translate="name:en=North Ostrobothnia;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" name="north-karelia" translate="name:en=North Karelia;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" name="north-savo" translate="name:en=North Savo;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" name="ostrobothnia" translate="name:en=Ostrobothnia;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" name="paijat-hame" translate="name:en=Päijät-Häme;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" name="pirkanmaa" translate="name:en=Pirkanmaa;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" name="satakunta" translate="name:en=Satakunta;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" name="south-karelia" translate="name:en=South Karelia;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" name="south-ostrobothnia" translate="name:en=South Ostrobothnia;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" name="south-savo" translate="name:en=South Savo;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" name="southwest-finland" translate="name:en=Southwest Finland;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" name="uusimaa" translate="name:en=Uusimaa;entity=relation"/>
+			</region>
+			<region name="latvia" lang="lv" poly_extract="north-europe"/>
+			<region name="lithuania" lang="lt" poly_extract="north-europe"/>
+			<region name="norway" wiki="yes" inner_download_prefix="$name" lang="nb,nn" map="no" roads="yes" poly_extract="north-europe" join_map_files="no" join_road_files="yes">
+				<region name="agder" translate="name=Agder;entity=relation"/>
+				<region name="innlandet" translate="name=Innlandet;entity=relation"/>
+				<region name="more-og-romsdal" translate="name=Møre og Romsdal;entity=relation"/>
+				<region name="nordland" translate="name=Nordland;entity=relation"/>
+				<region name="oslo" translate="name:en=Oslo;entity=relation"/>
+				<region name="rogaland" translate="name:en=Rogaland;entity=relation"/>
+				<region name="svalbard-and-jan-mayen" translate="name:en=Svalbard;entity=relation"/>
+				<region name="trondelag" translate="name:en=Trøndelag;entity=relation"/>
+				<region name="vestfold-og-telemark" translate="name=Vestfold og Telemark;entity=relation"/>
+				<region name="vestland" translate="name=Vestland;entity=relation"/>
+				<region name="bouvet" translate="name:en=Bouvet Island;entity=relation"/>
+				<region name="akershus" translate="name:en=Akershus;entity=relation"/>
+				<region name="buskerud" translate="name:en=Buskerud;entity=relation"/>
+				<region name="finnmark" translate="name:en=Finnmark;entity=relation"/>
+				<region name="ostfold" translate="name:en=Østfold;entity=relation"/>
+				<region name="troms" translate="name:en=Troms;entity=relation"/>
+				<region name="vestfold" translate="name:en=Vestfold;entity=relation"/>
+				<region name="telemark" translate="name:en=Telemark;entity=relation"/>
+			</region>
+			<region name="sweden" inner_download_prefix="$name" lang="sv" poly_extract="north-europe" join_map_files="yes">
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" wiki="no" name="blekinge" translate="Blekinge län;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" wiki="no" name="dalarna" translate="name:en=Dalarna County;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" wiki="no" name="gavleborg" translate="Gävleborgs län;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" wiki="no" name="gotland" translate="Gotlands län;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" wiki="no" name="halland" translate="Hallands län;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" wiki="no" name="jamtland" translate="Jämtlands län;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" wiki="no" name="jonkoping" translate="Jönköpings län;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" wiki="no" name="kalmar" translate="Kalmar län;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" wiki="no" name="kronoberg" translate="Kronobergs län;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" wiki="no" name="norrbotten" translate="Norrbottens län;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" wiki="no" name="orebro" translate="Örebro län;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" wiki="no" name="ostergotland" translate="Östergötlands län;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" wiki="no" name="skane" translate="Skåne län;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" wiki="no" name="sodermanland" translate="Södermanlands län;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" wiki="no" name="stockholm" translate="Stockholms län;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" wiki="no" name="uppsala" translate="Uppsala län;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" wiki="no" name="varmland" translate="Värmlands län;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" wiki="no" name="vasterbotten" translate="Västerbottens län;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" wiki="no" name="vasternorrland" translate="Västernorrlands län;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" wiki="no" name="vastmanland" translate="Västmanlands län;entity=relation"/>
+				<region map="yes" srtm="yes" hillshade="no" slope="no" heightmap="no" wiki="no" name="vastra-gotaland" translate="Västra Götalands län;entity=relation"/>
+			</region>
+
+			<!-- east-europe -->
+			<region name="belarus" lang="be,ru" poly_extract="east-europe" inner_download_prefix="$name" join_map_files="yes" translate="name:en=Belarus;entity=relation">
+				<region type="map" name="brest" translate="name:en=Brest Region;entity=relation"/>
+				<region type="map" name="gomel" translate="name:en=Homyel region;entity=relation"/>
+				<region type="map" name="hrodna" translate="name:en=Hrodna Region;entity=relation"/>
+				<region type="map" name="magilyow" translate="name:en=Mahilyow Region;entity=relation"/>
+				<region type="map" name="minsk" translate="name:en=Minsk;entity=relation"/>
+				<region type="map" name="vitebsk" translate="name:en=Vitsebsk Region;entity=relation"/>
+			</region>
+			<region name="bulgaria" lang="bg" poly_extract="east-europe"/>
+			<region name="czech-republic" inner_download_prefix="$name" translate="name:en=Czechia;entity=relation" lang="cs,sk" poly_extract="east-europe" join_map_files="yes">
+				<region name="jihovychod" srtm="no" hillshade="no" slope="no" heightmap="no" wiki="no" translate="name:en=Southeast;ref:nuts=CZ06;entity=relation"/>
+				<region name="jihozapad" srtm="no" hillshade="no" slope="no" heightmap="no" wiki="no" translate="name:en=Southwest;ref:nuts=CZ03;entity=relation"/>
+				<region name="moravskoslezsko" srtm="no" hillshade="no" slope="no" heightmap="no" wiki="no" translate="name:en=Moravia-Silesia;entity=relation"/>
+				<region name="praha" srtm="no" hillshade="no" slope="no" heightmap="no" wiki="no" translate="name:en=Prague;entity=relation"/>
+				<region name="severovychod" srtm="no" hillshade="no" slope="no" heightmap="no" wiki="no" translate="name:en=Northeast;ref:nuts=CZ05;entity=relation"/>
+				<region name="severozapad" srtm="no" hillshade="no" slope="no" heightmap="no" wiki="no" translate="name:en=Northwest;ref:nuts=CZ04;entity=relation"/>
+				<region name="stredni-cechy" srtm="no" hillshade="no" slope="no" heightmap="no" wiki="no" translate="name:en=Central Bohemia;entity=relation"/>
+				<region name="stredni-morava" srtm="no" hillshade="no" slope="no" heightmap="no" wiki="no" translate="name:en=Central Moravia;entity=relation"/>
+			</region>
+			<region name="hungary" lang="hu" poly_extract="east-europe"/>
+			<region name="moldova" lang="ro" poly_extract="east-europe"/>
+			<region name="poland" inner_download_prefix="$name" lang="pl" poly_extract="east-europe" map="no" roads="yes" wiki="yes" translate="name:en=Poland;entity=relation" join_map_files="no" join_road_files="no">
+				<region name="greater-poland" srtm="no" hillshade="no" slope="no" heightmap="no" translate="name:en=Greater Poland Voivodeship;entity=relation"/>
+				<region name="kuyavian-pomeranian" srtm="no" hillshade="no" slope="no" heightmap="no" translate="name:en=Kuyavian-Pomeranian Voivodeship;entity=relation"/>
+				<region name="lesser-poland" srtm="no" hillshade="no" slope="no" heightmap="no" translate="name:en=Lesser Poland Voivodeship;entity=relation"/>
+				<region name="lodz" srtm="no" hillshade="no" slope="no" heightmap="no" translate="name:en=Łódź Voivodeship;entity=relation"/>
+				<region name="lower-silesian" srtm="no" hillshade="no" slope="no" heightmap="no" translate="name:en=Lower Silesian Voivodeship;entity=relation"/>
+				<region name="lublin" srtm="no" hillshade="no" slope="no" heightmap="no" translate="name:en=Lublin Voivodeship;entity=relation"/>
+				<region name="lubusz" srtm="no" hillshade="no" slope="no" heightmap="no" translate="name:en=Lubusz Voivodeship;entity=relation"/>
+				<region name="masovian" srtm="no" hillshade="no" slope="no" heightmap="no" translate="name:en=Masovian Voivodeship;entity=relation"/>
+				<region name="opole" srtm="no" hillshade="no" slope="no" heightmap="no" translate="name:en=Opole Voivodeship;entity=relation"/>
+				<region name="podlachian" srtm="no" hillshade="no" slope="no" heightmap="no" translate="name:en=Podlachian Voivodeship;entity=node"/>
+				<region name="pomeranian" srtm="no" hillshade="no" slope="no" heightmap="no" translate="name:en=Pomeranian Voivodeship;entity=relation"/>
+				<region name="silesian" srtm="no" hillshade="no" slope="no" heightmap="no" translate="name:en=Silesian Voivodeship;entity=relation"/>
+				<region name="subcarpathian" srtm="no" hillshade="no" slope="no" heightmap="no" translate="name:en=Subcarpathian Voivodeship;entity=relation"/>
+				<region name="swietokrzyskie" srtm="no" hillshade="no" slope="no" heightmap="no" translate="name:en=Holy Cross Voivodeship;entity=relation"/>
+				<region name="warmian-masurian" srtm="no" hillshade="no" slope="no" heightmap="no" translate="name:en=Warmian-Masurian Voivodeship;entity=relation"/>
+				<region name="west-pomeranian" srtm="no" hillshade="no" slope="no" heightmap="no" translate="name:en=West Pomeranian Voivodeship;entity=relation"/>
+			</region>
+			<region name="romania" lang="ro" poly_extract="east-europe"/>
+			<region name="slovakia" lang="sk" poly_extract="east-europe"/>
+			<region name="transnistria" lang="ru,uk,ro" poly_extract="east-europe"/>
+			<region name="ukraine" inner_download_prefix="$name" lang="uk,ru" poly_extract="east-europe" join_map_files="yes">
+				<region name="cherkasy" hillshade="no" slope="no" heightmap="no" srtm="no" wiki="yes" translate="name:en=Cherkasy Oblast;entity=relation"/>
+				<region name="chernihiv" hillshade="no" slope="no" heightmap="no" srtm="no" wiki="yes" translate="name:en=Chernihiv Oblast;entity=relation"/>
+				<region name="chernivtsi" hillshade="no" slope="no" heightmap="no" srtm="no" wiki="yes" translate="name:en=Chernivtsi Oblast;entity=relation"/>
+				<region name="crimea" hillshade="yes" slope="yes" heightmap="yes" srtm="yes" wiki="yes" boundary="ukraine/crimea" translate="name:en=Autonomous Republic of Crimea;entity=relation"/>
+				<region name="dnipro" hillshade="no" slope="no" heightmap="no" srtm="no" wiki="yes" translate="name:en=Dnipropetrovsk Oblast;entity=relation"/>
+				<region name="donetsk" hillshade="no" slope="no" heightmap="no" srtm="no" wiki="yes" translate="name:en=Donetsk Oblast;entity=relation"/>
+				<region name="ivano-frankivsk" hillshade="no" slope="no" heightmap="no" srtm="no" wiki="yes" translate="name:en=Ivano-Frankivsk Oblast;entity=relation"/>
+				<region name="kharkiv" hillshade="no" slope="no" heightmap="no" srtm="no" wiki="yes" translate="name:en=Kharkiv Oblast;entity=relation"/>
+				<region name="kherson" hillshade="no" slope="no" heightmap="no" srtm="no" wiki="yes" translate="name:en=Kherson Oblast;entity=relation"/>
+				<region name="khmelnytskyy" hillshade="no" slope="no" heightmap="no" srtm="no" wiki="yes" translate="name:en=Khmelnytskyi Oblast;entity=relation"/>
+				<region name="kyiv" hillshade="no" slope="no" heightmap="no" srtm="no" wiki="yes" translate="name:en=Kyiv Oblast;entity=relation"/>
+				<region name="kyiv-city" hillshade="no" slope="no" heightmap="no" srtm="no" wiki="yes" translate="name:en=Kyiv;entity=relation"/>
+				<region name="kropyvnytskyi" hillshade="no" slope="no" heightmap="no" srtm="no" wiki="yes" translate="name:en=Kirovohrad Oblast;entity=relation"/>
+				<region name="luhansk" hillshade="no" slope="no" heightmap="no" srtm="no" wiki="yes" translate="name:en=Luhansk Oblast;entity=relation"/>
+				<region name="lviv" hillshade="no" slope="no" heightmap="no" srtm="no" wiki="yes" translate="name:en=Lviv Oblast;entity=relation"/>
+				<region name="mykolayiv" hillshade="no" slope="no" heightmap="no" srtm="no" wiki="yes" translate="name:en=Mykolaiv Oblast;entity=relation"/>
+				<region name="odesa" hillshade="no" slope="no" heightmap="no" srtm="no" wiki="yes" translate="name:en=Odesa Oblast;entity=relation"/>
+				<region name="poltava" hillshade="no" slope="no" heightmap="no" srtm="no" wiki="yes" translate="name:en=Poltava Oblast;entity=relation"/>
+				<region name="rivne" hillshade="no" slope="no" heightmap="no" srtm="no" wiki="yes" translate="name:en=Rivne Oblast;entity=relation"/>
+				<region name="sumy" hillshade="no" slope="no" heightmap="no" srtm="no" wiki="yes" translate="name:en=Sumy Oblast;entity=relation"/>
+				<region name="ternopil" hillshade="no" slope="no" heightmap="no" srtm="no" wiki="yes" translate="name:en=Ternopil Oblast;entity=relation"/>
+				<region name="transcarpathia" hillshade="no" slope="no" heightmap="no" srtm="no" wiki="yes" translate="name:en=Zakarpattia Oblast;entity=relation"/>
+				<region name="vinnytsya" hillshade="no" slope="no" heightmap="no" srtm="no" wiki="yes" translate="name:en=Vinnytsia Oblast;entity=relation"/>
+				<region name="volyn" hillshade="no" slope="no" heightmap="no" srtm="no" wiki="yes" translate="name:en=Volyn Oblast;entity=relation"/>
+				<region name="zaporizhzhya" hillshade="no" slope="no" heightmap="no" srtm="no" wiki="yes" translate="name:en=Zaporizhia Oblast;entity=relation"/>
+				<region name="zhytomyr" hillshade="no" slope="no" heightmap="no" srtm="no" wiki="yes" translate="name:en=Zhytomyr Oblast;entity=relation"/>
+			</region>
+
+			<!-- south-europe -->
+			<region name="albania" lang="sq" poly_extract="south-europe"/>
+			<region name="andorra" lang="ca" poly_extract="south-europe"/>
+			<region name="bosnia-herzegovina" translate="Bosnia and Herzegovina;entity=node" lang="bs,hr,sr" poly_extract="south-europe"/>
+			<region name="croatia" lang="hr" poly_extract="south-europe"/>
+			<region name="cyprus" translate="name:en=Cyprus;entity=node" lang="el,tr" left_hand_navigation="yes" poly_extract="south-europe"/>
+			<region name="greece" lang="el" poly_extract="south-europe"/>
+			<region name="italy" map="no" roads="yes" wiki="yes" heightmap="yes" inner_download_prefix="$name" lang="it" poly_extract="south-europe" join_road_files="no">
+				<region hillshade="no" slope="no" heightmap="no" name="abruzzo" translate="Abruzzo;entity=relation" />
+				<region hillshade="no" slope="no" heightmap="no" name="basilicata" translate="Basilicata;entity=relation" />
+				<region hillshade="no" slope="no" heightmap="no" name="calabria" translate="Calabria;entity=relation" />
+				<region hillshade="no" slope="no" heightmap="no" name="campania" translate="Campania;entity=relation" />
+				<region hillshade="no" slope="no" heightmap="no" name="emilia-romagna" translate="Emilia-Romagna;entity=relation" />
+				<region hillshade="no" slope="no" heightmap="no" name="friuli-venezia-giulia" translate="name:en=Friuli – Venezia Giulia;entity=relation" />
+				<region hillshade="no" slope="no" heightmap="no" name="lazio" translate="Lazio;entity=relation" />
+				<region hillshade="no" slope="no" heightmap="no" name="liguria" translate="Liguria;entity=relation" />
+				<region hillshade="no" slope="no" heightmap="no" name="lombardia" translate="Lombardia;entity=relation" />
+				<region hillshade="no" slope="no" heightmap="no" name="marche" translate="Marche;entity=relation" />
+				<region hillshade="no" slope="no" heightmap="no" name="molise" translate="Molise;entity=relation" />
+				<region hillshade="no" slope="no" heightmap="no" name="piemonte" translate="Piemonte;entity=relation" />
+				<region hillshade="no" slope="no" heightmap="no" name="puglia" translate="Puglia;entity=relation" />
+				<region hillshade="no" slope="no" heightmap="no" name="sardegna" translate="name:en=Sardinia;entity=relation"/>
+				<region hillshade="no" slope="no" heightmap="no" name="sicilia" translate="Sicilia;entity=relation" />
+				<region hillshade="no" slope="no" heightmap="no" name="toscana" translate="Toscana;entity=relation" />
+				<region hillshade="no" slope="no" heightmap="no" name="trentino-alto-adige" translate="name:en=Trentino – Alto Adige/Südtirol;entity=relation" />
+				<region hillshade="no" slope="no" heightmap="no" name="umbria" translate="Umbria;entity=relation" />
+				<region hillshade="no" slope="no" heightmap="no" name="valle-aosta" translate="name:en=Aosta Valley;entity=relation" />
+				<region hillshade="no" slope="no" heightmap="no" name="veneto" translate="Veneto;entity=relation" />
+			</region>
+			<region name="kosovo" translate="name:en=Kosovo;entity=relation" lang="sq,sr" poly_extract="south-europe"/>
+			<region name="macedonia" lang="mk" translate="name:en=North Macedonia;entity=relation" poly_extract="south-europe"/>
+			<region name="malta" translate="name:en=Malta;admin_level=2;entity=relation" lang="mt,en" left_hand_navigation="yes" poly_extract="south-europe"/>
+			<region name="montenegro" lang="sr,bs,hr,sq" poly_extract="south-europe"/>
+			<region name="portugal" translate="name:en=Portugal;entity=relation" lang="pt" poly_extract="south-europe">
+				<region name="azores" translate="Azores;entity=relation"/>
+				<region name="madeira" translate="name:en=Madeira;entity=relation"/>
+			</region>
+			<region name="san-marino" translate="San Marino;entity=node" lang="it" poly_extract="south-europe"/>
+			<region name="serbia" lang="sr" poly_extract="south-europe"/>
+			<region name="slovenia" lang="sl" poly_extract="south-europe"/>
+			<region name="spain" inner_download_prefix="$name" srtm="no" map="no" wiki="yes" roads="yes" lang="es,ca,gl,eu" poly_extract="south-europe" join_map_files="no" join_road_files="yes">
+				<region name="andalusia" hillshade="no" slope="no" heightmap="no" />
+				<region name="aragon" hillshade="no" slope="no" heightmap="no"/>
+				<region name="asturias" translate="Asturias;entity=relation" hillshade="no" slope="no" heightmap="no" />
+				<region name="baleares" translate="Balearic Islands;entity=relation" hillshade="no" slope="no" heightmap="no" />
+				<region name="basque-country" translate="Basque Country;entity=node" hillshade="no" slope="no" heightmap="no" />
+				<region name="canarias" translate="Canary Islands;entity=relation" hillshade="no" slope="no" heightmap="no" />
+				<region name="cantabria" hillshade="no" slope="no" heightmap="no"/>
+				<region name="castilla-la-mancha" translate="Castile-La Mancha;entity=node" hillshade="no" slope="no" heightmap="no"/>
+				<region name="castilla-leon" translate="Castile and León;entity=node" hillshade="no" slope="no" heightmap="no"/>
+				<region name="catalunya" hillshade="no" slope="no" heightmap="no"/>
+				<region name="ceuta" hillshade="no" slope="no" heightmap="no" translate="Ceuta;entity=relation"/>
+				<region name="extremadura" hillshade="no" slope="no" heightmap="no"/>
+				<region name="galicia" hillshade="no" slope="no" heightmap="no"/>
+				<region name="madrid" translate="Community of Madrid;entity=relation" hillshade="no" slope="no" heightmap="no"/>
+				<region name="melilla" hillshade="no" slope="no" heightmap="no"/>
+				<region name="murcia" translate="Region of Murcia;entity=node" hillshade="no" slope="no" heightmap="no" />
+				<region name="navarra" translate="name:en=Navarre;admin_level=4;entity=relation" hillshade="no" slope="no" heightmap="no" />
+				<region name="rioja" translate="Rioja;entity=relation"  hillshade="no" slope="no" heightmap="no" />
+				<region name="valencia" translate="Valencian Community;entity=node" hillshade="no" slope="no" heightmap="no"/>
+			</region>
+			<region name="turkey" inner_download_prefix="$name" srtm="no" heightmap="yes" lang="tr" poly_extract="south-europe" join_map_files="yes">
+				<region srtm="yes" hillshade="no" slope="no" heightmap="yes" wiki="no" name="aegean" translate="name:en=Aegean Region;entity=relation"/>
+				<region srtm="yes" hillshade="no" slope="no" heightmap="yes" wiki="no" name="black-sea" translate="name:en=Black Sea Region;entity=relation"/>
+				<region srtm="yes" hillshade="no" slope="no" heightmap="yes" wiki="no" name="central-anatolia" translate="name:en=Central Anatolia Region;entity=relation"/>
+				<region srtm="yes" hillshade="no" slope="no" heightmap="yes" wiki="no" name="eastern-anatolia" translate="name:en=Eastern Anatolia Region;entity=relation"/>
+				<region srtm="yes" hillshade="no" slope="no" heightmap="yes" wiki="no" name="marmara" translate="name:en=Marmara Region;entity=relation"/>
+				<region srtm="yes" hillshade="no" slope="no" heightmap="yes" wiki="no" name="mediterranean" translate="name:en=Mediterranean Region;entity=relation"/>
+				<region srtm="yes" hillshade="no" slope="no" heightmap="yes" wiki="no" name="southeastern-anatolia" translate="name:en=Southeastern Anatolia Region;entity=relation"/>
+			</region>
+
+			<!-- west-europe -->
+			<region name="austria" inner_download_prefix="$name" lang="de" poly_extract="west-europe" join_map_files="yes">
+				<region type="map" name="burgenland"/>
+				<region type="map" name="carinthia"/>
+				<region type="map" name="lower-austria" translate="name:en=Lower Austria;entity=relation"/>
+				<region type="map" name="salzburg"/>
+				<region type="map" name="styria"/>
+				<region type="map" name="tyrol"/>
+				<region type="map" name="upper-austria" translate="name:en=Upper Austria;entity=relation"/>
+				<region type="map" name="vorarlberg"/>
+			</region>
+			<region name="belgium" lang="nl,fr,de" inner_download_prefix="$name" poly_extract="west-europe" join_map_files="yes">
+				<region type="map" name="flanders" translate="name:en=Flanders, Brussels-Capital;entity=relation"/>
+				<region type="map" name="wallonia" translate="name:en=Wallonia;entity=relation"/>
+			</region>
+			<region name="france" inner_download_prefix="$name" map="no" roads="no" lang="fr" poly_extract="europe" join_road_files="no">
+				<region name="corse" hillshade="no" slope="no" heightmap="no" translate="name:en=Corsica;entity=relation"/>
+				<region name="ile-de-france" hillshade="no" slope="no" heightmap="no"/>
+				<region name="pays-de-la-loire" translate="name:en=Pays de la Loire;entity=relation" hillshade="no" slope="no" heightmap="no"/>
+				<region name="provence-alpes-cote-d-azur" translate="Provence-Alpes-Côte d'Azur;entity=node" inner_download_prefix="france_provence-alpes-cote-d-azur" hillshade="no" slope="no" heightmap="yes" join_map_files="yes">
+					<region type="map" name="alpes-de-haute-provence" translate="name=Alpes-de-Haute-Provence;entity=relation"/>
+					<region type="map" name="alpes-maritimes" translate="name:en=Maritime Alps;entity=relation"/>
+					<region type="map" name="bouches-du-rhone" translate="name=Bouches-du-Rhône;entity=relation"/>
+					<region type="map" name="hautes-alpes" translate="name=Hautes-Alpes;entity=relation"/>
+					<region type="map" name="var" translate="name=Var;entity=relation"/>
+					<region type="map" name="vaucluse" translate="name=Vaucluse;entity=relation"/>
+				</region>
+				<region name="auvergne-rhone-alpes" translate="Auvergne-Rhône-Alpes;entity=relation" inner_download_prefix="france_auvergne-rhone-alpes" hillshade="no" slope="no" heightmap="yes" join_map_files="yes">
+					<region type="map" name="ain" translate="Ain;entity=relation"/>
+					<region type="map" name="allier" translate="Allier;entity=relation"/>
+					<region type="map" name="ardeche" translate="Ardèche;entity=relation"/>
+					<region type="map" name="cantal" translate="Cantal;entity=relation"/>
+					<region type="map" name="drome" translate="Drôme;entity=relation"/>
+					<region type="map" name="haute-loire" translate="Haute-Loire;entity=relation"/>
+					<region type="map" name="isere" translate="Isère;entity=relation"/>
+					<region type="map" name="loire" translate="Loire;entity=relation"/>
+					<region type="map" name="lyon" translate="Métropole de Lyon;entity=relation"/>
+					<region type="map" name="puy-de-dome" translate="Puy-de-Dôme;entity=relation"/>
+					<region type="map" name="savoy" translate="Savoie;entity=relation"/>
+					<region type="map" name="upper-savoy" translate="Haute-Savoie;entity=relation"/>
+				</region>
+				<region name="bourgogne-franche-comte" translate="Bourgogne-Franche-Comté;entity=relation" hillshade="no" slope="no" heightmap="yes">
+					<region type="map" name="cote-dor" translate="Côte-d'Or;entity=relation"/>
+					<region type="map" name="doubs" translate="Doubs;entity=relation"/>
+					<region type="map" name="jura" translate="Jura;admin_level=6;entity=relation"/>
+					<region type="map" name="nievre" translate="Nièvre;entity=relation"/>
+					<region type="map" name="haute-saone" translate="Haute-Saône;entity=relation"/>
+					<region type="map" name="saone-et-loire" translate="Saône-et-Loire;entity=relation"/>
+					<region type="map" name="yonne" translate="Yonne;entity=relation"/>
+					<region type="map" name="territoire-de-belfort" translate="Territoire-de-Belfort;entity=relation"/>
+				</region>
+				<region name="brittany" translate="name:en=Brittany;entity=relation" hillshade="no" slope="no" heightmap="yes"/>
+				<region name="centre-loire-valley" translate="name:en=Centre-Val de Loire;entity=relation" hillshade="no" slope="no" heightmap="yes"/>
+				<region name="great-east" inner_download_prefix="france_great-east" translate="name:en=Grand Est;entity=relation" hillshade="no" slope="no" heightmap="yes" join_map_files="yes">
+					<region type="map" name="ardennes" translate="Ardennes;entity=relation"/>
+					<region type="map" name="aube" translate="Aube;entity=relation"/>
+					<region type="map" name="bas-rhin" translate="Bas-Rhin;entity=relation"/>
+					<region type="map" name="haute-marne" translate="Haute-Marne;entity=relation"/>
+					<region type="map" name="haut-rhin" translate="Haut-Rhin;entity=relation"/>
+					<region type="map" name="marne" translate="Marne;entity=relation"/>
+					<region type="map" name="meurthe-et-moselle" translate="Meurthe-et-Moselle;entity=relation"/>
+					<region type="map" name="meuse" translate="Meuse;entity=relation"/>
+					<region type="map" name="moselle" translate="Moselle;entity=relation"/>
+					<region type="map" name="vosges" translate="Vosges;entity=relation"/>
+				</region>
+				<region name="hauts-de-france" translate="name=Hauts-de-France;entity=relation" hillshade="no" slope="no" heightmap="yes"/>
+				<region name="new-aquitaine" inner_download_prefix="france_new-aquitaine" translate="name:en=Nouvelle-Aquitaine;entity=relation" hillshade="no" slope="no" heightmap="yes" join_map_files="yes">
+					<region type="map" name="charente" translate="Charente;entity=relation"/>
+					<region type="map" name="charente-maritime" translate="Charente-Maritime;entity=relation"/>
+					<region type="map" name="correze" translate="Corrèze;entity=relation"/>
+					<region type="map" name="creuse" translate="Creuse;entity=relation"/>
+					<region type="map" name="deux-sevres" translate="Deux-Sèvres;entity=relation"/>
+					<region type="map" name="dordogne" translate="Dordogne;entity=relation"/>
+					<region type="map" name="gironde" translate="Gironde;entity=relation"/>
+					<region type="map" name="haute-vienne" translate="Haute-Vienne;entity=relation"/>
+					<region type="map" name="landes" translate="Landes;entity=relation"/>
+					<region type="map" name="lot-et-garonne" translate="Lot-et-Garonne;entity=relation"/>
+					<region type="map" name="pyrenees-atlantiques" translate="Pyrénées-Atlantiques;entity=relation"/>
+					<region type="map" name="vienne" translate="Vienne;entity=relation"/>
+				</region>
+				<region name="normandy" translate="name:en=Normandy;entity=relation" hillshade="no" slope="no" heightmap="yes"/>
+				<region name="occitania" inner_download_prefix="france_occitania" translate="name:en=Occitania;entity=relation" hillshade="no" slope="no" heightmap="yes" join_map_files="yes">
+					<region type="map" name="ariege" translate="Ariège;entity=relation"/>
+					<region type="map" name="aude" translate="Aude;entity=relation"/>
+					<region type="map" name="aveyron" translate="Aveyron;entity=relation"/>
+					<region type="map" name="gard" translate="Gard;entity=relation"/>
+					<region type="map" name="gers" translate="Gers;entity=relation"/>
+					<region type="map" name="haute-garonne" translate="Haute-Garonne;entity=relation"/>
+					<region type="map" name="hautes-pyrenees" translate="Hautes-Pyrénées;entity=relation"/>
+					<region type="map" name="herault" translate="Hérault;entity=relation"/>
+					<region type="map" name="lot" translate="Lot;entity=relation"/>
+					<region type="map" name="lozere" translate="Lozère;entity=relation"/>
+					<region type="map" name="pyrenees-orientales" translate="Pyrénées-Orientales;entity=relation"/>
+					<region type="map" name="tarn" translate="Tarn;entity=relation"/>
+					<region type="map" name="tarn-et-garonne" translate="Tarn-et-Garonne;entity=relation"/>
+				</region>
+			</region>
+			<region name="germany" inner_download_prefix="$name" map="no" roads="yes" lang="de" poly_extract="europe">
+				<region name="baden-wuerttemberg" inner_download_prefix="germany_baden-wuerttemberg" translate="Baden-Württemberg;entity=node" hillshade="no" slope="no" heightmap="no" join_map_files="yes">
+					<region type="map" name="freiburg" translate="name=Regierungsbezirk Freiburg;entity=relation"/>
+					<region type="map" name="karlsruhe" translate="name=Regierungsbezirk Karlsruhe;entity=relation"/>
+					<region type="map" name="stuttgart" translate="name=Regierungsbezirk Stuttgart;entity=relation"/>
+					<region type="map" name="tubingen" translate="name=Regierungsbezirk Tübingen;entity=relation"/>
+				</region>
+				<region name="bayern" inner_download_prefix="germany_bayern" hillshade="no" slope="no" heightmap="no" join_map_files="yes">
+					<region type="map" name="lower-bavaria" translate="name:en=Lower Bavaria;entity=relation"/>
+					<region type="map" name="lower-franconia" translate="name:en=Lower Franconia;entity=relation"/>
+					<region type="map" name="middle-franconia" translate="name:en=Middle Franconia;entity=relation"/>
+					<region type="map" name="swabia" translate="name:en=Swabia;entity=relation"/>
+					<region type="map" name="upper-bavaria" translate="name:en=Upper Bavaria;entity=relation"/>
+					<region type="map" name="upper-franconia" translate="name:en=Upper Franconia;entity=relation"/>
+					<region type="map" name="upper-palatinate" translate="name:en=Upper Palatinate;entity=relation"/>
+				</region>
+				<region name="berlin" hillshade="no" slope="no" heightmap="no" translate="name:en=Berlin;entity=relation"/>
+				<region name="brandenburg" hillshade="no" slope="no" heightmap="no" translate="name:en=Brandenburg, Berlin;entity=relation"/>
+				<region name="bremen-city" translate="name:fr=Brême;admin_level=4;entity=relation" hillshade="no" slope="no" heightmap="no"/>
+				<region name="hamburg" hillshade="no" slope="no" heightmap="no" translate="name:en=Hamburg;entity=relation"/>
+				<region name="hessen" hillshade="no" slope="no" heightmap="no" inner_download_prefix="germany_hessen" join_map_files="yes">
+					<region type="map" name="darmstadt" translate="Regierungsbezirk Darmstadt;entity=relation"/>
+					<region type="map" name="giessen" translate="Regierungsbezirk Gießen;entity=relation"/>
+					<region type="map" name="kassel" translate="Regierungsbezirk Kassel;entity=relation"/>
+				</region>
+				<region name="mecklenburg-vorpommern" hillshade="no" slope="no" heightmap="no"/>
+				<region name="niedersachsen" hillshade="no" slope="no" heightmap="no" translate="name:en=Lower Saxony, Bremen;entity=relation" inner_download_prefix="germany_niedersachsen" join_map_files="yes">
+					<region type="map" name="braunschweig"/>
+					<region type="map" name="buchholz-in-der-nordheide" translate="Lüneburg;entity=node"/>
+					<region type="map" name="hannover"/>
+					<region type="map" name="oldenburg"/>
+					<region name="bremen" translate="name:en=Bremen and surroundings;entity=relation" hillshade="no" slope="no" heightmap="no" boundary="germany/bremen"/>
+				</region>
+				<region name="nordrhein-westfalen" hillshade="no" slope="no" heightmap="no" inner_download_prefix="germany_nordrhein-westfalen" join_map_files="yes">
+					<region type="map" name="cologne-government-region" translate="name:en=Cologne Government Region;entity=relation"/>
+					<region type="map" name="arnsberg" translate="name=Regierungsbezirk Arnsberg;entity=relation"/>
+					<region type="map" name="detmold" translate="name=Regierungsbezirk Detmold;entity=relation"/>
+					<region type="map" name="dusseldorf" translate="name=Regierungsbezirk Düsseldorf;entity=relation"/>
+					<region type="map" name="munster" translate="name=Regierungsbezirk Münster;entity=relation"/>
+				</region>
+				<region name="rheinland-pfalz" hillshade="no" slope="no" heightmap="no"/>
+				<region name="saarland" hillshade="no" slope="no" heightmap="no"/>
+				<region name="sachsen" hillshade="no" slope="no" heightmap="no"/>
+				<region name="sachsen-anhalt" hillshade="no" slope="no" heightmap="no"/>
+				<region name="schleswig-holstein" hillshade="no" slope="no" heightmap="no"/>
+				<region name="thueringen" translate="Thuringia;entity=node" hillshade="no" slope="no" heightmap="no"/>
+			</region>
+			<region name="gb" translate="United Kingdom;entity=relation" boundary="no" map="no" roads="yes" hillshade="no" slope="no" heightmap="no" inner_download_prefix="$name" lang="en" metric="miles" left_hand_navigation="yes">
+				<region name="scotland" hillshade="yes" slope="yes" heightmap="yes" poly_extract="great-britain" translate="name:en=Scotland;entity=relation"/>
+				<region name="wales" hillshade="yes" slope="yes" heightmap="yes" poly_extract="great-britain" translate="name:en=Wales;entity=relation"/>
+				<region name="northern_ireland" translate="name:en=Northern Ireland;entity=relation" hillshade="yes" slope="yes" heightmap="yes" poly_extract="great-britain"/>
+				<region name="england" map="no" roads="yes" wiki="yes" translate="England;entity=relation" inner_download_prefix="gb_england" hillshade="yes" slope="yes" heightmap="yes" poly_extract="great-britain" join_map_files="no" join_road_files="yes">
+					<region name="east-midlands" translate="East Midlands;entity=relation" srtm="no" hillshade="no" slope="no" heightmap="no"/>
+					<region name="east-of-england" translate="East of England;entity=relation" srtm="no" hillshade="no" slope="no" heightmap="no"/>
+					<region name="north-east-england" translate="North East England;entity=relation" srtm="no" hillshade="no" slope="no" heightmap="no"/>
+					<region name="north-west-england" translate="North West England;entity=relation" srtm="no" hillshade="no" slope="no" heightmap="no"/>
+					<region name="south-east-england" translate="South East England;entity=relation" srtm="no" hillshade="no" slope="no" heightmap="no"/>
+					<region name="south-west-england" translate="South West England;entity=relation" srtm="no" hillshade="no" slope="no" heightmap="no"/>
+					<region name="west-midlands" translate="West Midlands;entity=relation" srtm="no" hillshade="no" slope="no" heightmap="no"/>
+					<region name="yorkshire-and-the-humber" translate="Yorkshire and the Humber;entity=relation" srtm="no" hillshade="no" slope="no" heightmap="no"/>
+					<region name="channel-islands" translate="=Channel Islands" hillshade="no" slope="no" heightmap="no"> <!-- TODO: add translations -->
+						<region name="jersey" map="no"/>
+						<region name="guernsey" translate="Guernsey;admin_level=2;entity=relation" map="no" hillshade="no" slope="no" heightmap="no"/>
+					</region>
+					<region name="greater-london" translate="Greater London;entity=relation" srtm="no" hillshade="no" slope="no" heightmap="no"/>
+				</region>
+			</region>
+			<region name="ireland" lang="ga,en" translate="name:en=Ireland;entity=node" poly_extract="west-europe" left_hand_navigation="yes"/>
+			<region name="isle-of-man" translate="Isle of Man;entity=relation" lang="en,gv" poly_extract="west-europe"/>
+			<region name="liechtenstein" translate="Liechtenstein;entity=relation" lang="de" poly_extract="west-europe"/>
+			<region name="luxembourg" lang="fr,de,lb" poly_extract="west-europe"/>
+			<region name="monaco" translate="Monaco;border_type=nation;entity=relation" lang="fr" poly_extract="west-europe"/>
+			<region name="netherlands" map="no" roads="yes" wiki="yes" inner_download_prefix="$name" translate="Nederland;entity=relation" lang="nl" poly_extract="west-europe" join_map_files="no" join_road_files="yes">
+				<region type="map" name="drenthe" translate="Drenthe;entity=relation"/>
+				<region type="map" name="flevoland" translate="Flevoland;entity=relation"/>
+				<region type="map" name="friesland" translate="Fryslân;entity=relation"/>
+				<region type="map" name="gelderland" translate="Gelderland;entity=relation"/>
+				<region type="map" name="groningen" translate="Groningen;entity=relation"/>
+				<region type="map" name="limburg" translate="Limburg;entity=relation"/>
+				<region type="map" name="noord-brabant" translate="Noord-Brabant;entity=relation"/>
+				<region type="map" name="noord-holland" translate="Noord-Holland;entity=relation"/>
+				<region type="map" name="overijssel" translate="Overijssel;entity=relation"/>
+				<region type="map" name="utrecht" translate="Utrecht;entity=relation"/>
+				<region type="map" name="zeeland" translate="Zeeland;entity=relation"/>
+				<region type="map" name="zuid-holland" translate="Zuid-holland;entity=relation"/>
+			</region>
+			<region name="switzerland" inner_download_prefix="$name" lang="de,fr,it" poly_extract="west-europe" join_map_files="yes">
+				<region type="map" name="basel"/>
+				<region type="map" name="bern"/>
+				<region type="map" name="central" translate="Central;is_in:country=Switzerland;entity=node" boundary="switzerland/central"/>
+				<region type="map" name="eastern" translate="Eastern;is_in:country=Switzerland;entity=node"/>
+				<region type="map" name="lake-geneva" translate="name:en=Geneva;entity=relation"/>
+				<region type="map" name="ticino" translate="name:en=Ticino;wikidata=Q12724;entity=relation"/>
+				<region type="map" name="zurich" translate="Zürich;entity=relation"/>
+			</region>
+		</region>
+
+		<region type="continent" name="centralamerica" translate="=Central America" inner_download_suffix="centralamerica" boundary="no" poly_extract="planet">
+			<region name="anguilla" lang="en"/>
+			<region name="antigua-and-barbuda" translate="Antigua and Barbuda;entity=relation" lang="en" metric="km,miles" left_hand_navigation="yes"/>
+			<region name="aruba" translate="name:en=Aruba;entity=node" lang="nl"/>
+			<region name="bahamas" lang="en" metric="miles" left_hand_navigation="yes"/>
+			<region name="barbados" lang="en" left_hand_navigation="yes"/>
+			<region name="belize" lang="en" metric="miles"/>
+			<region name="carribean-archipelago-all" translate="Caribbean archipelago;entity=relation" srtm="no" lang="en"/>
+			<region name="cayman-islands" translate="Cayman Islands;entity=relation" lang="en" metric="miles"/>
+			<region name="costa-rica" translate="Costa Rica;entity=relation" lang="es"/>
+			<region name="cuba" lang="es"/>
+			<region name="dominica" lang="en" metric="miles"/>
+			<region name="dominican-republic" translate="Dominican Republic;entity=relation" lang="es"/>
+			<region name="el-salvador" translate="El Salvador;entity=relation" lang="es"/>
+			<region name="grenada" lang="en" metric="miles"/>
+			<region name="guadeloupe" lang="fr"/>
+			<region name="guatemala" translate="name:en=Guatemala;admin_level=2;entity=relation" lang="es"/>
+			<region name="haiti" lang="fr"/>
+			<region name="honduras" lang="es,en"/>
+			<region name="jamaica" lang="en" left_hand_navigation="yes"/>
+			<region name="martinique" lang="fr"/>
+			<region name="montserrat" lang="en"/>
+			<region name="netherlands-antilles" translate="Netherlands Antilles;entity=relation" lang="nl,en"/>
+			<region name="nicaragua" lang="es"/>
+			<region name="panama" lang="es"/>
+			<region name="puerto-rico" translate="Puerto Rico;entity=relation" lang="es,en" metric="km,miles"/>
+			<region name="saint-barthelemy" translate="name:en=Saint Barthélemy;entity=relation" lang="fr"/>
+			<region name="saint-lucia" translate="Saint Lucia;entity=node" lang="en" metric="miles"/>
+			<region name="saint-kitts-and-nevis" translate="Saint Kitts and Nevis;entity=node" lang="en"/>
+			<region name="saint-martin" translate="name:en=Saint Martin (France);entity=node" lang="fr"/>
+			<region name="saint-vincent-and-the-grenadines" translate="Saint Vincent and the Grenadines;entity=node" lang="en" metric="miles"/>
+			<region name="trinidad-and-tobago" translate="Trinidad and Tobago;entity=node" lang="en"/>
+			<region name="turks-and-caicos-islands" translate="name:en=Turks and Caicos Islands;entity=node" lang="en"/>
+			<region name="virgin-islands-british" translate="British Virgin Islands;entity=node" lang="en" metric="miles"/>
+			<region name="virgin-islands-us" translate="United States Virgin Islands;entity=node" lang="en" metric="miles"/>
+		</region>
+
+		<region type="continent" name="northamerica" translate="=North America" inner_download_suffix="northamerica" boundary="no" poly_extract="planet">
+			<region name="bermuda" lang="en" translate="name:en=Bermuda;entity=relation"/>
+			<region name="canada" map="no" srtm="no" hillshade="no" slope="no" heightmap="no" inner_download_prefix="$name" lang="en,fr" road_signs="american" roads="no" join_road_files="no">
+				<region name="alberta"/>
+				<region name="british-columbia" translate="British Columbia;entity=node" srtm="no" hillshade="yes" slope="no" heightmap="yes" inner_download_prefix="canada_british-columbia" join_map_files="yes">
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="alberni-clayoquot" translate="Alberni-Clayoquot Regional District;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="bulkley-nechako" translate="Regional District of Bulkley-Nechako;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="capital-regional" translate="Capital Regional District;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="cariboo" translate="Cariboo Regional District;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="central-coast" translate="Central Coast Regional District;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="central-kootenay" translate="Regional District of Central Kootenay;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="central-okanagan" translate="Regional District of Central Okanagan;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="columbia-shuswap" translate="Columbia-Shuswap Regional District;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="comox-valley" translate="Comox Valley Regional District;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="cowichan-valley" translate="Cowichan Valley Regional District;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="east-kootenay" translate="Regional District of East Kootenay;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="fraser-fort-george" translate="Regional District of Fraser-Fort George;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="fraser-valley" translate="Fraser Valley Regional District;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="greater-vancouver" translate="name:en=Metro Vancouver Regional District;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="kitimat-stikine" translate="Regional District of Kitimat-Stikine;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="kootenay-boundary" translate="Regional District of Kootenay Boundary;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="mount-waddington" translate="Regional District of Mount Waddington;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="nanaimo" translate="Regional District of Nanaimo;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="northern-rockies" translate="Northern Rockies Regional Municipality;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="north-okanagan" translate="Regional District of North Okanagan;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="okanagan-similkameen" translate="Regional District of Okanagan-Similkameen;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="peace-river" translate="Peace River Regional District;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="powell-river" translate="name=qathet Regional District;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="skeena-queen-charlotte" translate="North Coast Regional District;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="squamish-lillooet" translate="Squamish-Lillooet Regional District;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="stikine" translate="Stikine Region;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="strathcona" translate="Strathcona Regional District;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="sunshine-coast" translate="Sunshine Coast Regional District;entity=relation"/>
+					<region map="yes" srtm="yes" wiki="no" heightmap="no" name="thompson-nicola" translate="Thompson-Nicola Regional District;entity=relation"/>
+				</region>
+				<region name="manitoba"/>
+				<region name="new-brunswick" translate="New Brunswick;entity=node"/>
+				<region name="newfoundland-and-labrador" translate="Newfoundland and Labrador;entity=node"/>
+				<region name="northwest-territories" translate="Northwest Territories;entity=node" srtm="no" hillshade="no" slope="no" heightmap="no">
+					<region map="no" wiki="no" name="northwest-territories-ne" translate="no"/>
+					<region map="no" wiki="no" name="northwest-territories-nw" translate="no"/>
+					<region map="no" wiki="no" name="northwest-territories-se" translate="no"/>
+					<region map="no" wiki="no" name="northwest-territories-sw" translate="no"/>
+				</region>
+				<region name="nova-scotia" translate="name:en=Nova Scotia;entity=relation"/>
+				<region name="nunavut" srtm="no" hillshade="no" slope="no" heightmap="no" translate="name:en=Nunavut;entity=relation">
+					<region srtm="yes" map="no" wiki="no" name="nunavut-central-east" translate="no"/>
+					<region srtm="yes" map="no" wiki="no" name="nunavut-central-west" translate="no"/>
+					<region srtm="yes" map="no" wiki="no" name="nunavut-north-east" translate="no"/>
+					<region srtm="yes" map="no" wiki="no" name="nunavut-north-west" translate="no"/>
+					<region srtm="yes" map="no" wiki="no" name="nunavut-se" translate="no"/>
+					<region srtm="yes" map="no" wiki="no" name="nunavut-sw" translate="no"/>
+				</region>
+				<region name="ontario" inner_download_prefix="canada_ontario" join_map_files="yes">
+					<region type="map" name="barrie"/>
+					<region type="map" name="kingston"/>
+					<region type="map" name="london" translate="name:en=London;entity=node"/>
+					<region type="map" name="moosonee" translate="Moosonee;entity=relation"/>
+					<region type="map" name="northwestern" boundary="ontario/northwestern"/>
+					<region type="map" name="sault-ste-marie" translate="Sault Sainte Marie;entity=node"/>
+					<region type="map" name="sudbury"/>
+					<region type="map" name="temiskaming-shores" translate="Temiskaming Shores;entity=node"/>
+					<region type="map" name="thunder-bay" translate="name:en=Thunder Bay;entity=node"/>
+					<region type="map" name="timmins"/>
+					<region type="map" name="toronto"/>
+					<region type="map" name="wawa"/>
+				</region>
+				<region name="prince-edward-island" translate="Prince Edward Island;entity=node"/>
+				<region name="quebec" translate="Québec;entity=node" inner_download_prefix="canada_quebec" hillshade="no" slope="no" heightmap="yes" join_map_files="yes">
+					<region wiki="no" heightmap="no" name="abitibi-temiscamingue" translate="Abitibi-Témiscamingue;entity=relation"/>
+					<region wiki="no" heightmap="no" name="bas-saint-laurent" translate="Bas-Saint-Laurent;entity=relation"/>
+					<region wiki="no" heightmap="no" name="capitale-nationale" translate="Capitale-Nationale;entity=relation"/>
+					<region wiki="no" heightmap="no" name="centre-du-quebec" translate="Centre-du-Québec;entity=relation"/>
+					<region wiki="no" heightmap="no" name="chaudiere-appalaches" translate="name=Chaudière-Appalaches;entity=relation"/>
+					<region wiki="no" heightmap="no" name="cote-nord" translate="Côte-Nord;entity=relation"/>
+					<region wiki="no" heightmap="no" name="estrie" translate="Estrie;entity=relation"/>
+					<region wiki="no" heightmap="no" name="gaspesie-iles-de-la-madeleine" translate="Gaspésie–Îles-de-la-Madeleine;entity=relation"/>
+					<region wiki="no" heightmap="no" name="lanaudiere" translate="Lanaudière;entity=relation"/>
+					<region wiki="no" heightmap="no" name="laurentides" translate="Laurentides;entity=relation"/>
+					<region wiki="no" heightmap="no" name="mauricie" translate="Mauricie;entity=relation"/>
+					<region wiki="no" heightmap="no" name="monteregie" translate="Montérégie;entity=relation"/>
+					<region wiki="no" heightmap="no" name="montreal" translate="name:en=Montreal (administrative region);entity=relation"/>
+					<region wiki="no" heightmap="no" name="nord-du-quebec" translate="Nord-du-Québec;entity=relation"/>
+					<region wiki="no" heightmap="no" name="outaouais" translate="Outaouais;entity=relation"/>
+					<region wiki="no" heightmap="no" name="saguenay-lac-saint-jean" translate="Saguenay–Lac-Saint-Jean;entity=relation"/>
+				</region>
+				<region name="saskatchewan"/>
+				<region name="yukon" srtm="no">
+					<region type="srtm" name="yukon-n" translate="no"/>
+					<region type="srtm" name="yukon-se" translate="no"/>
+					<region type="srtm" name="yukon-sw" translate="no"/>
+				</region>
+			</region>
+			<region name="greenland" lang="kl" srtm="no" hillshade="no" slope="no" heightmap="no">
+				<region map="no" wiki="no" srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="greenland-north" translate="name:en=Greenland (north);entity=relation"/>
+				<region map="no" wiki="no" srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="greenland-central-west" translate="name:en=Greenland (central-west);entity=relation"/>
+				<region map="no" wiki="no" srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="greenland-north-east" translate="name:en=Greenland (north-east);entity=relation"/>
+				<region map="no" wiki="no" srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="greenland-north-west" translate="name:en=Greenland (north-west);entity=relation"/>
+				<region map="no" wiki="no" srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="greenland-south-east" translate="name:en=Greenland (south-east);entity=relation"/>
+				<region map="no" wiki="no" srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="greenland-south-west" translate="name:en=Greenland (south-west);entity=relation"/>
+			</region>
+			<region name="mexico" srtm="no" wiki="no" boundary="north-america/mexico" inner_download_prefix="$name" lang="es" join_map_files="yes">
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="aguascalientes"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="baja-california" translate="name:en=Baja California;entity=relation"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="baja-california-sur" translate="name=Baja California Sur;entity=relation"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="campeche"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="chiapas"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="chihuahua"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="coahuila"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="colima"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="distrito-federal" translate="name:en=Mexico City;entity=relation" boundary="mexico/distrito-federal"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="durango"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="guanajuato"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="guerrero"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="hidalgo"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="jalisco"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="mexico" translate="name:en=State of Mexico;place=state;entity=relation" boundary="mexico/mexico"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="michoacan" translate="Michoacán;entity=node"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="morelos"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="nayarit" translate="name:en=Nayarit;entity=relation"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="nuevo-leon" translate="Nuevo León;entity=node"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="oaxaca"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="puebla"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="queretaro" translate="Querétaro;entity=node"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="quintana-roo" translate="Quintana Roo;entity=node"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="san-luis-potosi" translate="San Luis Potosi;entity=node"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="sinaloa"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="sonora"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="tabasco"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="tamaulipas"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="tlaxcala"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="veracruz"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="yucatan" translate="Yucatán;entity=node"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" name="zacatecas" translate="name:en=zacatecas;entity=relation"/>
+			</region>
+			<region name="saint-pierre-and-miquelon" translate="name:en=Saint Pierre and Miquelon;entity=relation" lang="fr"/>
+			<region name="us" translate="United States of America;entity=node" map="no" roads="no" srtm="no" hillshade="no" slope="no" heightmap="no" inner_download_prefix="$name" lang="en" metric="miles" road_signs="american">
+
+				<region type="area-extract" name="us-northcentral" boundary="no" poly_extract="us_northamerica" download_prefix="" download_suffix=""/>
+				<region type="area-extract" name="us-northeast" boundary="no" poly_extract="us_northamerica" download_prefix="" download_suffix=""/>
+				<region type="area-extract" name="us-south" boundary="no" poly_extract="us_northamerica" download_prefix="" download_suffix=""/>
+				<region type="area-extract" name="us-west" boundary="no" poly_extract="us_northamerica" download_prefix="" download_suffix=""/>
+
+				<!-- us-west -->
+				<region name="alaska" srtm="no" hillshade="no" slope="no" heightmap="no" inner_download_prefix="us_alaska" poly_extract="us-west">
+					<region map="no" wiki="no" name="aleutians-east" translate="Aleutians East;entity=relation"/>
+					<region map="no" wiki="no" name="aleutians-west" translate="Aleutians West Census Area;entity=relation"/>
+					<region map="no" wiki="no" name="anchorage" translate="Anchorage;entity=relation"/>
+					<region map="no" wiki="no" name="bethel" translate="Bethel;entity=relation"/>
+					<region map="no" wiki="no" name="denali" translate="Denali;entity=relation"/>
+					<region map="no" wiki="no" name="dillingham" translate="Dillingham;entity=relation"/>
+					<region map="no" wiki="no" name="fairbanks-north-star" translate="Fairbanks North Star;entity=relation"/>
+					<region map="no" wiki="no" name="haines" translate="Haines;entity=relation"/>
+					<region map="no" wiki="no" name="hoonah-angoon" translate="Hoonah-Angoon;entity=relation"/>
+					<region map="no" wiki="no" name="juneau" translate="Juneau;entity=relation"/>
+					<region map="no" wiki="no" name="kenai-peninsula" translate="Kenai Peninsula;entity=relation"/>
+					<region map="no" wiki="no" name="ketchikan-gateway" translate="Ketchikan Gateway;entity=relation"/>
+					<region map="no" wiki="no" name="kodiak-island" translate="Kodiak Island;entity=relation"/>
+					<region map="no" wiki="no" name="lake-and-peninsula" translate="Lake and Peninsula;entity=relation"/>
+					<region map="no" wiki="no" name="matanuska-susitna" translate="Matanuska-Susitna;entity=relation"/>
+					<region map="no" wiki="no" name="nome" translate="Nome;entity=relation"/>
+					<region map="no" wiki="no" name="north-slope" translate="North Slope;entity=relation"/>
+					<region map="no" wiki="no" name="northwest-arctic" translate="Northwest Arctic;entity=relation"/>
+					<region map="no" wiki="no" name="petersburg-borough" translate="Petersburg Borough;entity=relation"/>
+					<region map="no" wiki="no" name="prince-of-wales-hyder" translate="Prince of Wales-Hyder;entity=relation"/>
+					<region map="no" wiki="no" name="sitka" translate="Sitka;entity=relation"/>
+					<region map="no" wiki="no" name="skagway" translate="Skagway;entity=relation"/>
+					<region map="no" wiki="no" name="southeast-fairbanks" translate="Southeast Fairbanks;entity=relation"/>
+					<region map="no" wiki="no" name="valdez-cordova" translate="Valdez-Cordova;entity=relation"/>
+					<region map="no" wiki="no" name="wade-hampton" translate="Kusilvak Census Area;entity=relation"/>
+					<region map="no" wiki="no" name="wrangell" translate="Wrangell;entity=relation"/>
+					<region map="no" wiki="no" name="yakutat" translate="Yakutat;entity=relation"/>
+					<region map="no" wiki="no" name="yukon-koyukuk" translate="Yukon-Koyukuk;entity=relation"/>
+				</region>
+				<region name="arizona" poly_extract="us-west"/>
+				<region name="california" inner_download_prefix="us_california" map="no" poly_extract="us-west" join_road_files="yes" join_map_files="no">
+					<region type="map" name="bakersfield" translate="name:en=Bakersfield;entity=node"/>
+					<region type="map" name="chico" translate="name:en=Chico;entity=node"/>
+					<region type="map" name="fresno" translate="name=Fresno;entity=node"/>
+					<region type="map" name="lancaster" translate="name:en=Lancaster;entity=node"/>
+					<region type="map" name="los-angeles" translate="Los Angeles;entity=node"/>
+					<region type="map" name="los-angeles-north" translate="Los Angeles north;entity=node"/>
+					<region type="map" name="redding" translate="name=Redding;entity=node"/>
+					<region type="map" name="sacramento" translate="name=Sacramento;entity=node"/>
+					<region type="map" name="san-diego" translate="name=San Diego;entity=node"/>
+					<region type="map" name="san-francisco" translate="name=San Francisco;entity=node"/>
+					<region type="map" name="santa-cruz" translate="name=Santa Cruz;is:in=California;entity=node" boundary="california/santa-cruz"/>
+					<region type="map" name="stockton" translate="name=Stockton;entity=node"/>
+				</region>
+				<region name="colorado" poly_extract="us-west"/>
+				<region name="hawaii" poly_extract="us-west"/>
+				<region name="idaho" poly_extract="us-west"/>
+				<region name="montana" poly_extract="us-west"/>
+				<region name="nevada" poly_extract="us-west"/>
+				<region name="new-mexico" translate="New Mexico;entity=node" poly_extract="us-west"/>
+				<region name="oregon" poly_extract="us-west"/>
+				<region name="utah" poly_extract="us-west"/>
+				<region name="washington" poly_extract="us-west"/>
+				<region name="wyoming" poly_extract="us-west"/>
+
+				<!-- us-northcentral -->
+				<region name="illinois" poly_extract="us-northcentral"/>
+				<region name="indiana" poly_extract="us-northcentral"/>
+				<region name="iowa" poly_extract="us-northcentral"/>
+				<region name="kansas" poly_extract="us-northcentral"/>
+				<region name="michigan" poly_extract="us-northcentral"/>
+				<region name="minnesota" poly_extract="us-northcentral"/>
+				<region name="missouri" poly_extract="us-northcentral"/>
+				<region name="nebraska" poly_extract="us-northcentral"/>
+				<region name="north-dakota" translate="North Dakota;entity=node" poly_extract="us-northcentral"/>
+				<region name="south-dakota" translate="South Dakota;entity=node" poly_extract="us-northcentral"/>
+				<region name="wisconsin" poly_extract="us-northcentral"/>
+
+				<!-- us-northeast -->
+				<region name="connecticut" poly_extract="us-northeast"/>
+				<region name="delaware" poly_extract="us-northeast"/>
+				<region name="district-of-columbia" translate="District of Columbia;entity=relation" poly_extract="us-northeast"/>
+				<region name="maine" poly_extract="us-northeast"/>
+				<region name="maryland" translate="name:en=Maryland;entity=relation" poly_extract="us-northeast"/>
+				<region name="massachusetts" poly_extract="us-northeast"/>
+				<region name="new-hampshire" translate="New Hampshire;entity=node" poly_extract="us-northeast"/>
+				<region name="new-jersey" translate="New Jersey;entity=node" poly_extract="us-northeast"/>
+				<region name="new-york" inner_download_prefix="us_new-york" translate="New York;entity=node" join_map_files="yes" join_road_files="yes" poly_extract="us-northeast">
+					<region type="map" name="albany" translate="name:en=Albany and surroundings;entity=relation"/>
+					<region type="map" name="buffalo" translate="name:en=Buffalo and surroundings;entity=relation"/>
+					<region type="map" name="new-york-city" translate="name:en=New York City and surroundings;entity=relation"/>
+					<region type="map" name="syracuse" translate="name:en=Syracuse and surroundings;entity=relation"/>
+					<region type="map" name="utica" translate="name:en=Utica and surroundings;entity=relation"/>
+				</region>
+				<region name="north-carolina" translate="North Carolina;entity=node" poly_extract="us-northeast"/>
+				<region name="ohio" poly_extract="us-northeast"/>
+				<region name="pennsylvania" poly_extract="us-northeast" translate="name:en=Pennsylvania;entity=relation"/>
+				<region name="rhode-island" translate="Rhode Island;entity=node" poly_extract="us-northeast"/>
+				<region name="vermont" poly_extract="us-northeast"/>
+				<region name="virginia" poly_extract="us-northeast"/>
+				<region name="west-virginia" translate="West Virginia;entity=node" poly_extract="us-northeast"/>
+
+				<!-- us-south -->
+				<region name="alabama" poly_extract="us-south"/>
+				<region name="arkansas" poly_extract="us-south"/>
+				<region name="florida" inner_download_prefix="us_florida" translate="Florida;is_in:country_code=US;entity=node" join_map_files="yes" join_road_files="yes" poly_extract="us-south">
+					<region type="map" name="cape-coral" translate="name:en=Cape Coral and surroundings;entity=relation"/>
+					<region type="map" name="jacksonville" translate="name:en=Jacksonville and surroundings;entity=relation"/>
+					<region type="map" name="miami" translate="name:en=Miami and surroundings;entity=relation"/>
+					<region type="map" name="orlando" translate="name:en=Orlando and surroundings;entity=relation"/>
+					<region type="map" name="pensacola" translate="name:en=Pensacola and surroundings;entity=relation"/>
+					<region type="map" name="port-saint-lucie" translate="name:en=Port Saint Lucie and surroundings;entity=relation"/>
+					<region type="map" name="tallahassee" translate="name:en=Tallahassee and surroundings;entity=relation"/>
+					<region type="map" name="tampa" translate="name:en=Tampa and surroundings;entity=relation"/>
+				</region>
+				<region name="georgia" translate="name=Georgia;place=state;entity=node" boundary="us/georgia" poly_extract="us-south"/>
+				<region name="kentucky" poly_extract="us-south"/>
+				<region name="louisiana" poly_extract="us-south"/>
+				<region name="mississippi" poly_extract="us-south"/>
+				<region name="oklahoma" poly_extract="us-south"/>
+				<region name="south-carolina" translate="South Carolina;entity=node" poly_extract="us-south"/>
+				<region name="tennessee" poly_extract="us-south"/>
+				<region name="texas" poly_extract="us-south" inner_download_prefix="us_texas" join_road_files="yes" join_map_files="yes">
+					<region type="map" name="amarillo"/>
+					<region type="map" name="austin"/>
+					<region type="map" name="dallas"/>
+					<region type="map" name="houston"/>
+					<region type="map" name="lubbock"/>
+					<region type="map" name="san-antonio" translate="San Antonio;entity=node"/>
+					<region type="map" name="del-rio" translate="Del Rio;entity=node"/>
+					<region type="map" name="tyler"/>
+					<region type="map" name="victoria" boundary="texas/victoria" translate="Victoria;is_in=USA;entity=node"/>
+					<region type="map" name="waco"/>
+					<region type="map" name="san-angelo" translate="San Angelo;entity=node"/>
+				</region>
+			</region>
+		</region>
+
+		<region type="continent" name="australia-oceania-all" translate="Australia and Oceania;entity=relation" map="no" roads="no" inner_download_suffix="australia-oceania" boundary="no" poly_extract="planet" left_hand_navigation="yes">
+			<region name="new-zealand" translate="New Zealand;entity=node" lang="en,mi"/>
+			<region name="papua-new-guinea" translate="Papua New Guinea;entity=node" lang="en,ho"/>
+
+			<!-- This is Australia only -->
+			<region name="australia-oceania" translate="Australia;capital_city=Canberra;entity=node" map="yes" hillshade="no" slope="no" heightmap="no" srtm="no" inner_download_prefix="australia-oceania" inner_download_suffix="australia-oceania" download_suffix="" download_prefix="" lang="en" join_map_files="yes">
+				<region name="ashmore-and-cartier-islands" translate="name:en=Ashmore and Cartier Islands;entity=relation"/> <!-- srtm: 1k -->
+				<region name="australian-capital-territory" translate="name:en=Australian Capital Territory;entity=relation"/>
+				<region name="coral-sea-islands" translate="name:en=Coral Sea Islands;entity=relation"/>
+				<region name="new-south-wales" translate="New South Wales;entity=node"/>
+				<region name="northern-territory" translate="name:en=Northern Territory;entity=relation"/>
+				<region name="queensland"/>
+				<region name="south-australia" translate="South Australia;entity=node"/>
+				<region name="tasmania"/>
+				<region name="victoria" boundary="australia/victoria" translate="Victoria;ISO3166-2=AU-VIC;entity=relation"/>
+				<region name="western-australia" translate="Western Australia;entity=node"/>
+				<region name="cocos-islands" translate="name:en=Cocos (Keeling) Islands;entity=relation"/>
+			</region>
+			<region name="oceania" translate="name:en=Oceania;entity=relation" map="yes" srtm="yes" hillshade="yes" slope="yes" heightmap="yes">
+				<region type="wiki" name="new-caledonia" translate="name:en=New Caledonia;entity=relation" boundary="no"/>
+			</region>
+		</region>
+
+		<region name="russia" map="no" roads="no" hillshade="no" slope="no" heightmap="no" srtm="no" inner_download_prefix="$name" download_suffix="asia" lang="ru" boundary="no" poly_extract="planet">
+			<region name="central-federal-district" translate="Центральный федеральный округ;entity=relation" hillshade="no" slope="no" heightmap="yes" srtm="no" join_map_files="no">
+				<region name="belgorod" translate="Белгородская область;entity=relation"/>
+				<region name="bryansk" translate="Брянская область;entity=relation"/>
+				<region name="ivanov" translate="Ивановская область;entity=relation"/>
+				<region name="kaluga" translate="Калужская область;entity=relation"/>
+				<region name="kostroma" translate="Костромская область;entity=relation"/>
+				<region name="kursk" translate="Курская область;entity=relation"/>
+				<region name="lipetsk" translate="Липецкая область;entity=relation"/>
+				<region name="moscow" translate="Москва;entity=relation" srtm="no" hillshade="no" slope="no" heightmap="no"/>
+				<region name="moskovskaya-oblast" translate="Московская область;entity=relation"/>
+				<region name="orel" translate="Орловская область;entity=relation"/>
+				<region name="ryazan" translate="Рязанская область;entity=relation"/>
+				<region name="smolensk" translate="Смоленская область;entity=relation"/>
+				<region name="tambov" translate="Тамбовская область;entity=relation"/>
+				<region name="tula" translate="Тульская область;entity=relation"/>
+				<region name="tver" translate="Тверская область;entity=relation"/>
+				<region name="vladimir" translate="Владимирская область;entity=relation"/>
+				<region name="voronezh" translate="Воронежская область;entity=relation"/>
+				<region name="yaroslavl" translate="Ярославская область;entity=relation"/>
+			</region>
+			<region name="far-eastern-federal-district" translate="Дальневосточный федеральный округ;entity=relation" hillshade="no" slope="no" heightmap="no" srtm="no" join_map_files="yes">
+				<region name="amur" translate="Амурская область;entity=relation"/>
+				<region name="chukotka" translate="name:ru=Чукотский автономный округ;entity=relation" srtm="no" hillshade="no" slope="no" heightmap="yes" inner_download_prefix="russia_chukotka">
+					<region map="no" wiki="no" name="anadyrsky" translate="Anadyrsky District;entity=relation"/>
+					<region map="no" wiki="no" name="bilibinsky" translate="Bilibinsky District;entity=relation"/>
+					<region map="no" wiki="no" name="pevek" translate="name:en=Pevek urban district;entity=relation"/>
+					<region map="no" wiki="no" name="chukotsky" translate="Chukotsky District;entity=relation"/>
+					<region map="no" wiki="no" name="iultinsky" translate="городской округ Эгвекинот;entity=relation"/> <!-- translate="Iultinsky District;entity=relation"-->
+					<region map="no" wiki="no" name="providensky" translate="Providensky urban district;entity=relation"/>
+				</region>
+				<region name="evreyskaya" translate="Еврейская автономная область;entity=relation"/>
+				<region name="kamchatka" translate="name:ru=Камчатский край;entity=relation"/>
+				<region name="khabarovsk" translate="Хабаровский край;entity=relation" srtm="no" inner_download_prefix="russia_khabarovsk">
+					<region type="srtm" name="amursky" translate="Amursky Rayon;entity=relation"/>
+					<region type="srtm" name="ayano-maysky" translate="Ayano-Maysky Rayon;entity=relation"/>
+					<region type="srtm" name="bikinsky" translate="Bikinsky Rayon;entity=relation"/>
+					<region type="srtm" name="khabarovsky" translate="name:en=Khabarovsky District;entity=relation"/>
+					<region type="srtm" name="komsomolsky" translate="Komsomolsky;entity=relation"/>
+					<region type="srtm" name="lazo" translate="name:en=Imeni Lazo District;entity=relation"/>
+					<region type="srtm" name="nanaysky" translate="Nanaysky Rayon;entity=relation"/>
+					<region type="srtm" name="nikolayevsky" translate="Nikolayevsky District;entity=relation"/>
+					<region type="srtm" name="okhotsky" translate="Okhotsky Rayon;entity=relation"/>
+					<region type="srtm" name="poliny-osipenko" translate="imeni Poliny Osipenko Rayon;entity=relation"/>
+					<region type="srtm" name="solnechny" translate="Solnechny Rayon;entity=relation"/>
+					<region type="srtm" name="sovetsko-gavansky" translate="Sovetsko-Gavansky Rayon;entity=relation"/>
+					<region type="srtm" name="tuguro-chumikansky" translate="Tuguro-Chumikansky Rayon;entity=relation"/>
+					<region type="srtm" name="ulchsky" translate="Ulchsky Rayon;entity=relation"/>
+					<region type="srtm" name="vaninsky" translate="Vaninsky Rayon;entity=relation"/>
+					<region type="srtm" name="verkhnebureinsky" translate="Verkhnebureinsky District;entity=relation"/>
+					<region type="srtm" name="vyazemsky" translate="Vyazemsky Rayon;entity=relation"/>
+				</region>
+				<region name="magadan" translate="Магаданская область;entity=relation" srtm="no" inner_download_prefix="russia_magadan">
+					<region type="srtm" name="khasynsky" translate="Khasynsky Urban District;entity=relation"/>
+					<region type="srtm" name="magadan-city" translate="Magadan Urban District;entity=relation"/>
+					<region type="srtm" name="olsky" translate="Olsky Urban District;entity=relation"/>
+					<region type="srtm" name="omsukchansky" translate="Omsukchansky Urban District;entity=relation"/>
+					<region type="srtm" name="severo-evensky" translate="Severo-Evensky Urban District;entity=relation"/>
+					<region type="srtm" name="srednekansky" translate="Srednekansky Urban District;entity=relation"/>
+					<region type="srtm" name="susumansky" translate="Susumansky Urban District;entity=relation"/>
+					<region type="srtm" name="tenkinsky" translate="Tenkinsky Urban District;entity=relation"/>
+					<region type="srtm" name="yagodninsky" translate="Yagodninsky Urban District;entity=relation"/>
+				</region>
+				<region name="primorskii" translate="Приморский край;entity=relation"/>
+				<region name="sakhalin" translate="Сахалинская область;entity=relation"/>
+				<region name="yakutia" hillshade="no" slope="no" heightmap="no" translate="Республика Саха (Якутия);entity=relation" srtm="no" inner_download_prefix="russia_yakutia">
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="abyysky" translate="Abyysky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="aldansky" translate="Aldansky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="allaikhovsky" translate="Allaikhovsky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="amginsky" translate="Amginsky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="anabarsky" translate="Anabarsky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="bulunsky" translate="Bulunsky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="churapchinsky" translate="Churapchinsky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="eveno-bytantaysky" translate="Eveno-Bytantaysky National Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="gorny" translate="Gorny Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="khangalassky" translate="Khangalassky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="kobyaysky" translate="Kobyaysky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="lensky" translate="Lensky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="megino-kangalassky" translate="Megino-Kangalassky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="mirninsky" translate="Mirninsky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="momsky" translate="Momsky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="namsky" translate="Namsky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="neryungrinsky" translate="Neryungrinsky Municipal District;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="nizhnekolymsky" translate="Nizhnekolymsky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="nyurbinsky" translate="Nyurbinsky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="olenyoksky" translate="Olenyoksky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="olyokminsky" translate="Olyokminsky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="oymyakonsky" translate="Oymyakonsky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="srednekolymsky" translate="Srednekolymsky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="suntarsky" translate="Suntarsky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="tattinsky" translate="Tattinsky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="tomponsky" translate="Tomponsky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="ust-aldansky" translate="Ust-Aldansky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="ust-maysky" translate="Ust-Maysky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="ust-yansky" translate="Ust-Yansky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="verkhnekolymsky" translate="Verkhnekolymsky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="verkhnevilyuysky" translate="Verkhnevilyuysky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="verkhoyansky" translate="Verkhoyansky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="vilyuysky" translate="Vilyuysky Ulus;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="yakutsk" translate="name:en=Yakutsk Urban District;admin_level=6;entity=relation"/>
+					<region srtm="yes" map="no" hillshade="yes" slope="yes" heightmap="yes" wiki="no" name="zhigansky" translate="Zhigansky Ulus;entity=relation"/>
+				</region>
+			</region>
+			<region name="north-caucasus-federal-district" translate="Северо-Кавказский федеральный округ;entity=relation" hillshade="no" slope="no" heightmap="yes" srtm="no" join_map_files="yes">
+				<region name="chechenskaya" translate="Чечня;entity=relation"/>
+				<region name="dagestan" translate="Дагестан;entity=relation"/>
+				<region name="ingushetia" translate="Ингушетия;entity=relation"/>
+				<region name="kabardino-balkaria" translate="Кабардино-Балкария;entity=relation"/>
+				<region name="karachaevo" translate="name:en=Karachay-Cherkesia;entity=node"/>
+				<region name="stavropol" translate="Ставропольский край;entity=relation"/>
+				<region name="osetiya" translate="Северная Осетия — Алания;entity=relation"/>
+			</region>
+			<region name="northwestern-federal-district" translate="Северо-Западный федеральный округ;entity=relation" hillshade="no" slope="no" heightmap="no" srtm="no" join_map_files="yes">
+				<region name="arkhangelsk" translate="Архангельская область;entity=relation"/>
+				<region name="kaliningrad" translate="Калининградская область;entity=relation"/>
+				<region name="karelia" translate="Карелия;entity=relation"/>
+				<region name="komi" translate="name:en=Komi Republic;entity=relation" inner_download_prefix="russia_komi">
+					<region type="srtm" name="inta" translate="Inta Urban Okrug;entity=relation"/>
+					<region type="srtm" name="izhemsky" translate="Izhemsky District;entity=relation"/>
+					<region type="srtm" name="knyazhpogostsky" translate="Knyazhpogostsky District;entity=relation"/>
+					<region type="srtm" name="kortkerossky" translate="Kortkerossky District;entity=relation"/>
+					<region type="srtm" name="koygorodsky" translate="Koygorodsky District;entity=relation"/>
+					<region type="srtm" name="pechora" translate="Pechora Municipal District;entity=relation"/>
+					<region type="srtm" name="priluzsky" translate="Priluzsky District;entity=relation"/>
+					<region type="srtm" name="sosnogorsk" translate="Sosnogorsk Municipal District;entity=relation"/>
+					<region type="srtm" name="syktyvdinsky" translate="Syktyvdinsky District;entity=relation"/>
+					<region type="srtm" name="sysolsky" translate="Sysolsky District;entity=relation"/>
+					<region type="srtm" name="troitsko-pechorsky" translate="Troitsko-Pechorsky District;entity=relation"/>
+					<region type="srtm" name="udorsky" translate="Udorsky District;entity=relation"/>
+					<region type="srtm" name="ukhta" translate="name=муниципальный округ Ухта;entity=relation"/>
+					<region type="srtm" name="usinsk" translate="Usinsk Urban Okrug;entity=relation"/>
+					<region type="srtm" name="ust-kulomsky" translate="Ust-Kulomsky District;entity=relation"/>
+					<region type="srtm" name="ust-tsilemsky" translate="Ust-Tsilemsky District;entity=relation"/>
+					<region type="srtm" name="ust-vymsky" translate="Ust-Vymsky District;entity=relation"/>
+					<region type="srtm" name="vorkuta" translate="Vorkuta Urban Okrug;entity=relation"/>
+					<region type="srtm" name="vuktyl" translate="Vuktyl Municipal District;entity=relation"/>
+				</region>
+				<region name="leningradskaya" translate="Ленинградская область;entity=relation"/>
+				<region name="murmansk" translate="Мурманская область;entity=relation"/>
+				<region name="novgorod" translate="Новгородская область;entity=relation"/>
+				<region name="neneckaya" translate="Ненецкий автономный округ;entity=relation"/>
+				<region name="pskov" translate="Псковская область;entity=relation"/>
+				<region name="sankt-peterburg" translate="Санкт-Петербург;entity=relation"/>
+				<region name="vologda" translate="Вологодская область;entity=relation"/>
+			</region>
+			<region name="siberian-federal-district" translate="Сибирский федеральный округ;entity=relation" hillshade="no" slope="no" heightmap="no" srtm="no" join_map_files="yes">
+				<region name="altay" translate="Республика Алтай;entity=relation"/>
+				<region name="altayskiy" translate="Алтайский край;entity=relation"/>
+				<region name="buryatia" translate="name:en=Buryatia;entity=relation"/>
+				<region name="irkutsk" translate="Иркутская область;entity=relation"/>
+				<region name="kemerovo" translate="Кемеровская область;entity=relation"/>
+				<region name="khakasia" translate="Республика Хакасия;entity=relation"/>
+				<region name="krasnoyarsk" translate="Красноярский край;entity=relation" srtm="no" hillshade="no" slope="no" heightmap="no" inner_download_prefix="russia_krasnoyarsk">
+					<region map="no" wiki="no" name="abansky" translate="Abansky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="achinsky" translate="Achinsky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="balakhtinsky" translate="Balakhtinsky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="beryozovsky" translate="Beryozovsky Rayon;entity=relation" boundary="krasnoyarsk/beryozovsky"/>
+					<region map="no" wiki="no" name="birilyussky" translate="Birilyussky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="bogotolsky" translate="Bogotolsky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="boguchansky" translate="Boguchansky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="bolshemurtinsky" translate="Bolshemurtinsky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="bolsheuluysky" translate="Bolsheuluysky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="divnogorsk" translate="name:en=Divnogorsk Urban Okrug;entity=relation"/>
+					<region map="no" wiki="no" name="dzerzhinsky" translate="Dzerzhinsky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="evenkiysky" hillshade="no" slope="no" heightmap="no" translate="Evenkiysky Rayon;entity=relation">
+						<region map="no" wiki="no" name="evenkiysky-north" translate="name:en=Evenkiysky Rayon (north);entity=relation"/>
+						<region map="no" wiki="no" name="evenkiysky-central" translate="name:en=Evenkiysky Rayon (central);entity=relation"/>
+						<region map="no" wiki="no" name="evenkiysky-south" translate="name:en=Evenkiysky Rayon (south);entity=relation"/>
+					</region>
+					<region map="no" wiki="no" name="idrinsky" translate="Idrinsky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="ilansky" translate="Ilansky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="irbeysky" translate="Irbeysky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="kansky" translate="Kansky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="karatuzsky" translate="Karatuzsky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="kazachinsky" translate="Kazachinsky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="kezhemsky" translate="Kezhemsky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="kozulsky" translate="Kozulsky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="krasnoturansky" translate="Krasnoturansky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="krasnoyarsk-okrug" translate="Krasnoyarsk Urban Okrug;entity=relation"/>
+					<region map="no" wiki="no" name="kuraginsky" translate="Kuraginsky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="mansky" translate="Mansky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="minusinsky" translate="Minusinsky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="motyginsky" translate="Motyginsky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="nazarovsky" translate="Nazarovsky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="nizhneingashsky" translate="Nizhneingashsky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="novosyolovsky" translate="Novosyolovsky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="partizansky" translate="Partizansky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="pirovsky" translate="Pirovsky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="rybinsky" translate="Rybinsky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="sayansky" translate="Sayansky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="severo-yeniseysky" translate="Severo-Yeniseysky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="sharypovsky" translate="Sharypovsky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="shushensky" translate="Shushensky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="sukhobuzimsky" translate="Sukhobuzimsky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="taseyevsky" translate="Taseyevsky Rayon;entity=relation"/>
+					<region map="no" wiki="no" hillshade="no" slope="no" heightmap="no" name="taymyrsky-dolgano-nenetsky" inner_download_prefix="russia_krasnoyarsk_taymyrsky-dolgano-nenetsky" translate="Taymyrsky Dolgano-Nenetsky District;entity=relation">
+						<region map="no" wiki="no" name="dikson" translate="name=городское поселение Диксон;entity=relation"/>
+						<region map="no" wiki="no" name="dudinka" translate="name=городское поселение Дудинка;entity=relation"/>
+						<region map="no" wiki="no" name="khatanga" translate="name=сельское поселение Хатанга;entity=relation"/>
+						<region map="no" wiki="no" name="karaul" translate="name=сельское поселение Караул;entity=relation"/>
+					</region>
+					<region map="no" wiki="no" name="turukhansky" translate="Turukhansky District;entity=relation"/>
+					<region map="no" wiki="no" name="tyukhtetsky" translate="Tyukhtetsky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="uyarsky" translate="Uyarsky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="uzhursky" translate="Uzhursky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="yemelyanovsky" translate="Yemelyanovsky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="yeniseysky" translate="Yeniseisk Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="yermakovsky" translate="Yermakovsky Rayon;entity=relation"/>
+					<region map="no" wiki="no" name="zheleznogorsk" translate="Closed administrative-territorial formation of Zheleznogorsk;entity=relation"/>
+				</region>
+				<region name="novosibirsk" translate="Новосибирская область;entity=relation"/>
+				<region name="omsk" translate="Омская область;entity=relation"/>
+				<region name="tomsk" translate="Томская область;entity=relation"/>
+				<region name="tyva" translate="Республика Тыва;entity=relation"/>
+				<region name="zabaikalie" translate="Забайкальский край;entity=relation"/>
+			</region>
+			<region name="south-federal-district" translate="Южный федеральный округ;entity=relation" hillshade="no" slope="no" heightmap="yes" srtm="no" join_map_files="yes">
+				<region name="adygeya" translate="Адыгея;entity=relation"/>
+				<region name="astrakhan" translate="Астраханская область;entity=relation"/>
+				<region name="kalmykia" translate="name:en=Republic of Kalmykia;entity=relation"/>
+				<region name="krasnodar" translate="Краснодарский край;entity=relation"/>
+				<region name="rostovskaya" translate="Ростовская область;entity=relation"/>
+				<region name="volgograd" translate="Волгоградская область;entity=relation"/>
+			</region>
+			<region name="ural-federal-district" translate="Уральский федеральный округ;entity=relation" hillshade="no" slope="no" heightmap="yes" srtm="no" join_map_files="yes">
+				<region name="cheliabinsk" translate="Челябинская область;entity=relation"/>
+				<region name="khanty-mansiisk" translate="Ханты-Мансийский автономный округ — Югра;entity=node" inner_download_prefix="russia_khanty-mansiisk">
+					<region type="srtm" name="beloyarsky" translate="Beloyarsky District;entity=relation"/>
+					<region type="srtm" name="beryozovsky" translate="Beryozovsky Rayon;entity=relation" boundary="khanty-mansiisk/beryozovsky"/>
+					<region type="srtm" name="khanty-mansiysky" translate="Khanty-Mansiysky District;entity=relation"/>
+					<region type="srtm" name="kondinsky" translate="Kondinsky District;entity=relation"/>
+					<region type="srtm" name="nefteyugansky" translate="Nefteyugansky District;entity=relation"/>
+					<region type="srtm" name="nizhnevartovsky" translate="Nizhnevartovsky District;entity=relation"/>
+					<region type="srtm" name="oktyabrsky" translate="Oktyabrsky District;entity=relation"/>
+					<region type="srtm" name="sovetsky" translate="Sovetsky District;entity=relation"/>
+					<region type="srtm" name="surgutsky" translate="Surgutsky District;entity=relation"/>
+				</region>
+				<region name="kurgan" translate="Курганская область;entity=relation"/>
+				<region name="sverdlovsk" translate="Свердловская область;entity=relation"/>
+				<region name="tumen" translate="Тюменская область;entity=relation"/>
+				<region name="yamal" translate="Ямало-Ненецкий автономный округ;entity=relation" inner_download_prefix="russia_yamal">
+					<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="yes" name="krasnoselkupsky" translate="Krasnoselkupsky Rayon;entity=relation"/>
+					<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="yes" name="nadymsky" translate="Nadymsky Rayon;entity=relation"/>
+					<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="yes" name="priuralsky" translate="Priuralsky Rayon;entity=relation"/>
+					<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="yes" name="purovsky" translate="Purovsky Rayon;entity=relation"/>
+					<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="yes" name="salekhard" translate="Salekhard Urban Okrug;entity=relation"/>
+					<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="yes" name="shuryshkarsky" translate="Shuryshkarsky Rayon;entity=relation"/>
+					<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="yes" name="tazovsky" translate="Tazovsky Rayon;entity=relation"/>
+					<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="yes" name="yamalsky" translate="Yamalsky Rayon;entity=relation"/>
+				</region>
+			</region>
+			<region name="volga-federal-district" translate="Приволжский федеральный округ;entity=relation" hillshade="no" slope="no" heightmap="yes" srtm="no" join_map_files="yes">
+				<region name="orenburg" translate="Оренбургская область;entity=relation"/>
+				<region name="samara" translate="Самарская область;entity=relation"/>
+				<region name="tatarstan" translate="Татарстан;entity=relation"/>
+				<region name="saratov" translate="Саратовская область;entity=relation"/>
+				<region name="mordovia" translate="Мордовия;entity=relation"/>
+				<region name="nizhegorod" translate="Нижегородская область;entity=relation"/>
+				<region name="udmurtia" translate="Удмуртия;entity=node"/>
+				<region name="perm" translate="Пермский край;entity=relation"/>
+				<region name="kirov" translate="Кировская область;entity=relation"/>
+				<region name="mariyel" translate="Марий Эл;entity=relation"/>
+				<region name="chuvashia" translate="Чувашия;entity=relation"/>
+				<region name="penza" translate="Пензенская область;entity=relation"/>
+				<region name="bashkiria" translate="Башкортостан;entity=relation"/>
+				<region name="ulyanovsk" translate="Ульяновская область;entity=relation"/>
+			</region>
+		</region>
+
+		<region type="continent" name="asia" translate="=Asia" inner_download_suffix="asia" boundary="no" poly_extract="planet">
+
+			<region type="area-extract" name="east-asia" boundary="no" poly_extract="asia" download_suffix=""/>
+			<region type="area-extract" name="ocean-asia" boundary="no" poly_extract="asia" download_suffix=""/>
+
+			<!-- east-asia -->
+			<region name="afghanistan" srtm="no" inner_download_prefix="$name" lang="ps,fa" poly_extract="east-asia">
+				<region type="srtm" name="badakhshan" translate="name:en=Badakhshan Province;entity=relation"/>
+				<region type="srtm" name="badghis" translate="name:en=Badghis Province;entity=relation"/>
+				<region type="srtm" name="baghlan" translate="name:en=Baghlan;entity=node"/>
+				<region type="srtm" name="balkh" translate="name:en=Balkh Province;entity=relation"/>
+				<region type="srtm" name="bamyan" translate="name:en=Bamyan;entity=node"/>
+				<region type="srtm" name="daykundi" translate="name:en=Daykundi;entity=node"/>
+				<region type="srtm" name="farah" translate="name:en=Farah;entity=node"/>
+				<region type="srtm" name="faryab" translate="name:en=Faryab;entity=node"/>
+				<region type="srtm" name="ghazni" translate="name:en=Ghazni;entity=node"/>
+				<region type="srtm" name="ghor" translate="Ghōr;entity=node"/>
+				<region type="srtm" name="hilmand" translate="name:en=Helmand Province;entity=relation"/>
+				<region type="srtm" name="hirat" translate="name:en=Herat;entity=node"/>
+				<region type="srtm" name="jawzjan" translate="name:en=Jowzjan;entity=node"/>
+				<region type="srtm" name="kabul" translate="name:en=Kabul Province;entity=relation"/>
+				<region type="srtm" name="kandahar" translate="name:en=Kandahar;entity=node"/>
+				<region type="srtm" name="kapisa" translate="name:en=Kapisa;wikipedia=en:Kapisa Province;entity=node"/>
+				<region type="srtm" name="khost" translate="name:en=Khost;entity=node"/>
+				<region type="srtm" name="kunar" translate="name:en=Kunar Province;entity=relation"/>
+				<region type="srtm" name="kunduz" translate="name:en=Kunduz Province;entity=relation"/>
+				<region type="srtm" name="laghman" translate="name:en=Laghman;entity=node"/>
+				<region type="srtm" name="logar" translate="name:en=Logar Province;entity=relation"/>
+				<region type="srtm" name="nangarhar" translate="name:en=Nangarhar Province;entity=relation"/>
+				<region type="srtm" name="nimroz" translate="name:en=Nimruz;entity=node"/>
+				<region type="srtm" name="nuristan" translate="name:en=Nuristan;entity=node"/>
+				<region type="srtm" name="paktika" translate="name:en=Paktika;entity=node"/>
+				<region type="srtm" name="paktya" translate="name:en=Paktia Province;entity=relation"/>
+				<region type="srtm" name="panjshir" translate="name:en=Panjshir;entity=node"/>
+				<region type="srtm" name="parwan" translate="name:en=Parwan;entity=node"/>
+				<region type="srtm" name="samangan" translate="name:en=Samangan Province;entity=relation"/>
+				<region type="srtm" name="sari-pul" translate="name:en=Sar-e Pol Province;entity=relation"/>
+				<region type="srtm" name="takhar" translate="name:en=Takhar Province;entity=relation"/>
+				<region type="srtm" name="uruzgan" translate="name:en=Uruzgan Province;entity=relation"/>
+				<region type="srtm" name="wardak" translate="name:en=Maidan Wardak Province;entity=relation"/>
+				<region type="srtm" name="zabul" translate="name:en=Zabul Province;entity=relation"/>
+			</region>
+			<region name="armenia" lang="hy" poly_extract="east-asia"/>
+			<region name="azerbaijan" lang="az,hy" poly_extract="east-asia"/>
+			<region name="bahrain" lang="ar" poly_extract="east-asia"/>
+			<region name="bangladesh" lang="bn" left_hand_navigation="yes" poly_extract="east-asia"/>
+			<region name="bhutan" lang="dz" left_hand_navigation="yes" translate="name:en=Bhutan;entity=relation" poly_extract="east-asia"/>
+			<region name="british-indian-ocean-territory" translate="British Indian Ocean Territory;entity=relation" lang="en" poly_extract="east-asia"/>
+			<region name="georgia" translate="name:en=Georgia;admin_level=2;entity=relation" boundary="east-asia/georgia" lang="ka" poly_extract="east-asia"/>
+			<region name="india" srtm="no" map="no" hillshade="no" slope="no" heightmap="yes" wiki="yes" roads="yes" inner_download_prefix="$name" lang="en,hi" left_hand_navigation="yes" translate="name:en=India;entity=relation" poly_extract="east-asia" join_map_files="no" join_road_files="yes">
+				<region name="aksai-chin" translate="name:en=Aksai Chin;entity=relation"/>
+				<region name="andaman-and-nicobar-islands" translate="Andaman and Nicobar Islands;entity=node" lang="bn,ta,te"/>
+				<region name="andhra-pradesh" translate="Andhra Pradesh;entity=relation" lang="te"/>
+				<region name="arunachal-pradesh" translate="Arunachal Pradesh;entity=relation"/>
+				<region name="assam" translate="Assam;entity=relation" lang="as"/>
+				<region name="azad-kashmir" boundary="india/azad-kashmir" translate="name:en=Jammu and Kashmir;entity=relation"/>
+				<region name="bihar"/>
+				<region name="chandigarh" translate="Chandigarh;entity=relation" lang="pa"/>
+				<region name="chhattisgarh" translate="Chhattisgarh;entity=relation"/>
+				<region name="dadra-and-nagar-haveli" translate="name:en=Dadra and Nagar Haveli and Daman and Diu;entity=relation" lang="gu,mr"/>
+				<region name="daman-and-diu" translate="Daman;entity=relation" lang="gu,mr,pt"/>
+				<region name="delhi"/>
+				<region name="gilgit-baltistan" boundary="india/gilgit-baltistan" translate="name:en=Gilgit-Baltistan;entity=node"/>
+				<region name="goa" lang="mr,pt"/>
+				<region name="gujarat" lang="gu" translate="name:en=Gujarat;entity=relation"/>
+				<region name="haryana" translate="name:en=Haryana;entity=node" lang="pa"/>
+				<region name="himachal-pradesh" translate="Himachal Pradesh;entity=relation" lang="pa"/>
+				<region name="jammu-and-kashmir" translate="Jammu and Kashmir;entity=relation" lang="ks"/>
+				<region name="jharkhand"/>
+				<region name="karnataka" translate="Karnataka;entity=relation" lang="kn"/>
+				<region name="kerala" lang="ml"/>
+				<region name="ladakh" lang="hi,en" translate="name:en=Ladakh;entity=relation"/>
+				<region name="lakshadweep" translate="Lakshadweep;entity=relation"/>
+				<region name="madhya-pradesh" translate="Madhya Pradesh;entity=relation"/>
+				<region name="maharashtra" lang="mr" translate="Maharashtra;entity=relation"/>
+				<region name="manipur"/>
+				<region name="meghalaya" translate="Meghalaya;entity=relation"/>
+				<region name="mizoram"/>
+				<region name="nagaland" translate="Nagaland;entity=relation"/>
+				<region name="odisha" translate="name:en=Odisha;entity=relation"/> <!-- was: orissa -->
+				<region name="puducherry" translate="Puducherry;entity=relation" lang="fr,ml,ta,te"/>
+				<region name="punjab" translate="name:en=Punjab;is_in:country=India;entity=node" boundary="india/punjab" lang="pa"/>
+				<region name="rajasthan" translate="Rajasthan;entity=relation"/>
+				<region name="sikkim" translate="Sikkim;entity=relation" lang="ne"/>
+				<region name="tamil-nadu" translate="Tamil Nadu;entity=relation" lang="ta"/>
+				<region name="tripura" lang="bn"/>
+				<region name="telangana" lang="te"/>
+				<region name="uttarakhand" translate="Uttarakhand;entity=relation" lang="sa"/> <!-- was: uttaranchal -->
+				<region name="uttar-pradesh" translate="Uttar Pradesh;entity=node"/>
+				<region name="west-bengal" translate="West Bengal;entity=relation" lang="bn,ne"/>
+			</region>
+			<region name="iran" srtm="no" inner_download_prefix="$name" lang="fa" poly_extract="east-asia" join_map_files="yes">
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="alborz" translate="name:en=Alborz;entity=node"/> <!-- new, was formed by division of Tehran Province into two provinces -->
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="ardebil" translate="Ardabil;entity=node"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="bushehr"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="chahar-mahall-and-bakhtiari" translate="Chaharmahal and Bakhtiari;entity=node"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="east-azarbaijan" translate="name:en=East Azerbaijan Province;entity=relation"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="esfahan" translate="name:en=Isfahan Province;entity=relation"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="fars"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="gilan" translate="name:en=Gilan Province;entity=relation"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="golestan"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="hamadan" translate="name:en=Hamadan Province;entity=relation"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="hormozgan"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="ilam"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="kerman" translate="name:en=Kermanshah Province;entity=relation"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="kermanshah" translate="name:en=Kerman Province;entity=relation"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="khuzestan" translate="name:en=Khuzestan Province;entity=relation"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="kohgiluyeh-and-buyer-ahmad" translate="Kohgiluyeh and Boyer-Ahmad;entity=node"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="kordestan" translate="Kurdistan;entity=node"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="lorestan" translate="name:en=Lorestan Province;entity=relation"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="markazi" translate="name:en=Markazi Province;entity=relation"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="mazandaran"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="north-khorasan" translate="North Khorasan;entity=node"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="qazvin"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="qom"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="razavi-khorasan" translate="Razavi Khorasan;entity=node"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="semnan"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="sistan-and-baluchestan" translate="name:en=Sistan and Baluchestan Province;entity=relation"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="south-khorasan" translate="South Khorasan;entity=node"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="tehran" translate="name:en=Tehran Province;entity=relation"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="west-azarbaijan" translate="name:en=West Azerbaijan Province;entity=relation"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="yazd" translate="name:en=Yazd Province;entity=relation"/>
+				<region srtm="yes" hillshade="yes" slope="yes" heightmap="yes" wiki="yes" name="zanjan" translate="name:en=Zanjan Province;entity=relation"/>
+			</region>
+			<region name="iraq" lang="ar,ku" poly_extract="east-asia"/>
+			<!-- TODO (Split Israel and Palestine hillshade)-->
+			<region name="israel" lang="he,ar,en" poly_extract="east-asia"/>
+			<region name="jordan" lang="ar" poly_extract="east-asia"/>
+			<region name="kazakhstan" inner_download_prefix="$name" srtm="no" hillshade="no" slope="no" heightmap="yes" lang="kk,ru" poly_extract="east-asia">
+				<region map="no" name="akmola" translate="name:en=Akmola Region;entity=relation"/>
+				<region map="no" name="aktobe" translate="name:en=Aqtöbe region;entity=relation"/>
+				<region map="no" name="almaty" translate="Almaty Province;entity=node"/>
+				<region map="no" name="atyrau" translate="Atyrau Province;entity=node"/>
+				<region map="no" name="east-kazakhstan" translate="East Kazakhstan Province;entity=node"/>
+				<region map="no" name="karaghandy" translate="name:en=Karaganda Region;entity=relation"/>
+				<region map="no" name="kostanay" translate="name:en=Kostanay Region;entity=relation"/>
+				<region map="no" name="kyzylorda" translate="name:en=Kyzylorda Region;entity=relation"/>
+				<region map="no" name="mangghystau" translate="Mangystau Province;entity=node"/>
+				<region map="no" name="north-kazakhstan" translate="North Kazakhstan Province;entity=node"/>
+				<region map="no" name="pavlodar" translate="Pavlodar Province;entity=node"/>
+				<region map="no" name="south-kazakhstan" translate="name:en=Turkistan Region;entity=relation"/>
+				<region map="no" name="west-kazakhstan" translate="West Kazakhstan Province;entity=node"/>
+				<region map="no" name="zhambyl" translate="name:en=Jambyl Region;entity=relation"/>
+			</region>
+			<region name="kuwait" lang="ar" poly_extract="east-asia"/>
+			<region name="kyrgyzstan" inner_download_prefix="$name" lang="ky,ru" poly_extract="east-asia">
+				<region type="srtm" name="batken" translate="name:en=Batken Region;entity=relation"/>
+				<region type="srtm" name="bishkek" translate="name:en=Chuy Region;entity=relation" boundary="chui"/>
+				<region type="srtm" name="jalal-abad" translate="name:en=Jalal-Abad Region;entity=relation"/>
+				<region type="srtm" name="naryn" translate="name:en=Naryn Region;entity=relation"/>
+				<region type="srtm" name="osh" translate="name:en=Osh Region;entity=relation"/>
+				<region type="srtm" name="talas" translate="name:en=Talas Region;entity=relation"/>
+				<region type="srtm" name="ysyk-kol" translate="name:en=Issyk-Kul Region;entity=relation" boundary="issyk-kul"/>
+			</region>
+			<region name="lebanon" lang="ar" poly_extract="east-asia"/>
+			<region name="maldives" lang="dv" left_hand_navigation="yes" poly_extract="east-asia"/>
+			<region name="nepal" lang="ne" left_hand_navigation="yes" poly_extract="east-asia"/>
+			<region name="oman" lang="ar" poly_extract="east-asia"/>
+			<region name="pakistan" srtm="no" inner_download_prefix="$name" lang="ur,en" left_hand_navigation="yes" poly_extract="east-asia">
+				<region type="srtm" name="azad-kashmir" boundary="pakistan/azad-kashmir" translate="name:en=Jammu and Kashmir;entity=relation"/>
+				<region type="srtm" name="balochistan" translate="name:en=Balochistan;entity=node"/>
+				<region type="srtm" name="federally-administered-tribal-areas" translate="name:en=Former Federally Administered Tribal Areas (FATA);entity=relation"/>
+				<region type="srtm" name="gilgit-baltistan" boundary="pakistan/gilgit-baltistan" translate="name:en=Gilgit-Baltistan;entity=node"/>
+				<region type="srtm" name="islamabad-capital" translate="name:de=Hauptstadtterritorium Islamabad;entity=relation"/>
+				<region type="srtm" name="khyber-pakhtunkhwa" translate="name:en=Khyber Pakhtunkhwa;entity=relation"/>
+				<region type="srtm" name="punjab" translate="name:en=Punjab;state_capital=Lahore;entity=node" boundary="pakistan/punjab"/>
+				<region type="srtm" name="sindh" translate="name:en=Sindh;entity=node"/>
+			</region>
+			<region name="palestine" lang="ar" translate="name:en=Palestinian Territories;entity=relation" poly_extract="east-asia"/>
+			<!-- TODO (Split Israel and Palestine hillshade)-->
+			<region name="qatar" lang="ar" poly_extract="east-asia"/>
+			<region name="saudi-arabia" translate="Saudi Arabia;entity=node" heightmap="yes" srtm="no" inner_download_prefix="$name" lang="ar" poly_extract="east-asia">
+				<region map="no" hillshade="yes" slope="yes" srtm="yes" heightmap="yes" wiki="no" name="al-bahah" translate="name:en=Al-Bahah Province;entity=relation"/>
+				<region map="no" hillshade="yes" slope="yes" srtm="yes" heightmap="yes" wiki="no" name="al-hudud-ash-shamaliyah" translate="name:en=Northern Borders Province;entity=relation"/>
+				<region map="no" hillshade="yes" slope="yes" srtm="yes" heightmap="yes" wiki="no" name="al-jawf" translate="Al Jawf Region;entity=relation" boundary="saudi-arabia/al-jawf"/>
+				<region map="no" hillshade="yes" slope="yes" srtm="yes" heightmap="yes" wiki="no" name="al-madinah" translate="name:en=Medina Province;entity=relation"/>
+				<region map="no" hillshade="yes" slope="yes" srtm="yes" heightmap="yes" wiki="no" name="al-quassim" translate="name:en=Al-Qassim Province;entity=relation"/>
+				<region map="no" hillshade="yes" slope="yes" srtm="yes" heightmap="yes" wiki="no" name="ar-riyad" translate="Riyadh Region;entity=relation"/>
+				<region map="no" hillshade="yes" slope="yes" srtm="yes" heightmap="yes" wiki="no" name="ash-sharqiyah" translate="name:en=Eastern Province;ISO3166-2=SA-04;entity=relation" boundary="saudi-arabia/ash-sharqiyah"/>
+				<region map="no" hillshade="yes" slope="yes" srtm="yes" heightmap="yes" wiki="no" name="-asir" translate="name:en='Asir Province;entity=relation" boundary="asir"/>
+				<region map="no" hillshade="yes" slope="yes" srtm="yes" heightmap="yes" wiki="no" name="ha-il" translate="name:en=Ḥa'il Province;entity=relation"/>
+				<region map="no" hillshade="yes" slope="yes" srtm="yes" heightmap="yes" wiki="no" name="jizan" translate="name:en=Jazan Province;entity=relation"/>
+				<region map="no" hillshade="yes" slope="yes" srtm="yes" heightmap="yes" wiki="no" name="makkah" translate="Makkah Region;entity=relation"/>
+				<region map="no" hillshade="yes" slope="yes" srtm="yes" heightmap="yes" wiki="no" name="najran" translate="Najran Region;entity=relation"/>
+				<region map="no" hillshade="yes" slope="yes" srtm="yes" heightmap="yes" wiki="no" name="tabuk" translate="name:en=Tabuk Province;entity=relation"/>
+			</region>
+			<region name="sri-lanka" translate="Sri Lanka;entity=relation" lang="si,ta" left_hand_navigation="yes" poly_extract="east-asia"/>
+			<region name="syria" lang="ar" translate="name:en=Syria;entity=relation" poly_extract="east-asia"/>
+			<region name="tajikistan" lang="tg,ru" poly_extract="east-asia"/>
+			<region name="turkmenistan" lang="tk,ru" poly_extract="east-asia"/>
+			<region name="united-arab-emirates" translate="United Arab Emirates;entity=node" lang="ar" poly_extract="east-asia"/>
+			<region name="uzbekistan" lang="uz,ru" translate="name:en=Uzbekistan;entity=relation" poly_extract="east-asia"/>
+			<region name="yemen" lang="ar" poly_extract="east-asia"/>
+
+
+			<!-- ocean-asia -->
+			<region name="brunei" lang="ms,en" left_hand_navigation="yes" translate="name:en=Brunei;entity=relation" poly_extract="ocean-asia"/>
+			<region name="cambodia" lang="km" poly_extract="ocean-asia"/>
+			<region name="christmas-island" translate="name:en=Christmas Island;entity=relation" lang="en" poly_extract="ocean-asia"/>
+			<region name="east-timor" translate="Timor-Leste;entity=node" lang="pt" left_hand_navigation="yes" poly_extract="ocean-asia"/>
+			<region name="hong-kong" translate="Hong Kong;entity=relation" lang="zh,en" left_hand_navigation="yes" poly_extract="ocean-asia"/>
+			<region name="indonesia" srtm="no" map="no" roads="yes" wiki="yes" inner_download_prefix="$name" lang="id" left_hand_navigation="yes" poly_extract="ocean-asia" translate="name:en=Indonesia;entity=relation"  join_map_files="no" join_road_files="yes">
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="aceh"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="bali" translate="Bali;entity=relation"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="bangka-belitung" translate="Kepulauan Bangka Belitung;entity=relation"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="banten" translate="name:en=Banten;ISO3166-2=ID-BT;entity=relation"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="bengkulu" translate="Bengkulu;entity=relation"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="gorontalo"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="irian-jaya-barat" translate="name:en=West Papua;entity=relation"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="jakarta-raya" translate="name:en=Special capital Region of Jakarta;entity=relation"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="jambi" translate="name=Jambi;entity=relation"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="jawa-barat" translate="West Java;entity=relation"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="jawa-tengah" translate="Central Java;entity=node"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="jawa-timur" translate="name:en=East Java;ISO3166-2=ID-JI;entity=relation"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="kalimantan-barat" translate="West Kalimantan;entity=relation"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="kalimantan-selatan" translate="South Kalimantan;entity=node"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="kalimantan-tengah" translate="Central Kalimantan;entity=node"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="kalimantan-timur" translate="East Kalimantan;entity=node"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="kalimantan-utara" translate="North Kalimantan;entity=node"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="kepulauan-riau" translate="Kepulauan Riau;entity=node"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="lampung"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="maluku"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="maluku-utara" translate="North Maluku;entity=node"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="nusa-tenggara-barat" translate="West Nusa Tenggara;entity=relation"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="nusa-tenggara-timur" translate="East Nusa Tenggara;entity=node"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="papua"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="riau"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="sulawesi-barat" translate="West Sulawesi;entity=node"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="sulawesi-selatan" translate="South Sulawesi;entity=node"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="sulawesi-tengah" translate="Central Sulawesi;entity=node"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="sulawesi-tenggara" translate="Southeast Sulawesi;entity=node"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="sulawesi-utara" translate="North Sulawesi;entity=node"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="sumatera-barat" translate="West Sumatra;entity=node"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="sumatera-selatan" translate="South Sumatra;entity=node"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="sumatera-utara" translate="North Sumatra;entity=node"/>
+				<region hillshade="no" slope="no" heightmap="no" srtm="yes" wiki="no" name="yogyakarta" translate="Special Region of Yogyakarta;entity=relation"/>
+			</region>
+			<region name="japan" inner_download_prefix="$name" srtm="no" map="no" roads="yes" wiki="yes" lang="ja" left_hand_navigation="yes" poly_extract="ocean-asia" join_road_files="no">
+				<region name="chubu" inner_download_prefix="japan_chubu" translate="Chubu Region;entity=relation" heightmap="no" join_map_files="yes">
+					<region type="map" name="aichi" translate="name:en=Aichi Prefecture;entity=relation"/>
+					<region type="map" name="fukui" translate="name:en=Fukui Prefecture;entity=relation"/>
+					<region type="map" name="gifu" translate="name:en=Gifu Prefecture;entity=relation"/>
+					<region type="map" name="ishikawa" translate="name:en=Ishikawa Prefecture;entity=relation"/>
+					<region type="map" name="nagano" translate="name:en=Nagano Prefecture;entity=relation"/>
+					<region type="map" name="niigata" translate="name:en=Niigata Prefecture;entity=relation"/>
+					<region type="map" name="shizuoka" translate="name:en=Shizuoka Prefecture;entity=relation"/>
+					<region type="map" name="toyama" translate="name:en=Toyama Prefecture;entity=relation"/>
+					<region type="map" name="yamanashi" translate="name:en=Yamanashi Prefecture;entity=relation"/>
+				</region>
+				<region name="chugoku" translate="Chugoku Region;entity=relation" heightmap="no"/>
+				<region name="hokkaido" translate="name:en=Hokkaido Prefecture;entity=relation" heightmap="no"/>
+				<region name="kanto" inner_download_prefix="japan_kanto" translate="Kanto;entity=relation" heightmap="no" join_map_files="yes">
+					<region type="map" name="chiba" translate="name:en=Chiba Prefecture;entity=relation"/>
+					<region type="map" name="gunma" translate="name:en=Gunma Prefecture;entity=relation"/>
+					<region type="map" name="ibaraki" translate="name:en=Ibaraki Prefecture;entity=relation"/>
+					<region type="map" name="kanagawa" translate="name:en=Kanagawa Prefecture;entity=relation"/>
+					<region type="map" name="saitama" translate="name:en=Saitama Prefecture;entity=relation"/>
+					<region type="map" name="tochigi" translate="name:en=Tochigi Prefecture;entity=relation"/>
+					<region type="map" name="tokyo" translate="name:en=Tokyo;entity=relation"/>
+				</region>
+				<region name="kinki" translate="name:en=Kansai Region;entity=relation" heightmap="no"/>
+				<region name="kyushu" translate="Kyushu Region;entity=relation" heightmap="no"/>
+				<region name="shikoku" translate="Shikoku Region;entity=relation" heightmap="no"/>
+				<region name="tohoku" translate="name:en=Tōhoku;entity=relation" heightmap="no"/>
+			</region>
+			<region name="laos" lang="lo" poly_extract="ocean-asia"/>
+			<region name="macao" translate="name:en=Macau;entity=node" lang="zh,pt" left_hand_navigation="yes" poly_extract="ocean-asia"/>
+			<region name="malaysia" translate="Malaysia;entity=relation" lang="ms,en" left_hand_navigation="yes" poly_extract="ocean-asia"/>
+			<region name="myanmar" srtm="no" inner_download_prefix="$name" lang="my" metric="miles" poly_extract="ocean-asia">
+				<region type="srtm" name="ayeyarwady" translate="name:en=Ayeyarwady;entity=relation"/>
+				<region type="srtm" name="bago" translate="name:en=Bago Region;entity=relation"/>
+				<region type="srtm" name="chin" translate="name:en=Chin;entity=relation"/>
+				<region type="srtm" name="kachin" translate="name:en=Kachin State;entity=relation"/>
+				<region type="srtm" name="kayah" translate="name:en=Kayah State;entity=relation"/>
+				<region type="srtm" name="kayin" translate="name:en=Kayin State;entity=relation"/>
+				<region type="srtm" name="magway" translate="name:en=Magway Region;entity=node"/>
+				<region type="srtm" name="mandalay" translate="name:en=Mandalay;entity=relation"/>
+				<region type="srtm" name="mon" translate="name:en=Mon State;entity=relation"/>
+				<region type="srtm" name="rakhine" translate="name:en=Rakhine;entity=relation"/>
+				<region type="srtm" name="sagaing" translate="name:en=Sagaing Region;entity=relation"/>
+				<region type="srtm" name="shan" translate="name:en=Shan State;entity=relation"/>
+				<region type="srtm" name="tanintharyi" translate="name:en=Tanintharyi Region;entity=relation"/>
+				<region type="srtm" name="yangon" translate="name:en=Yangon;entity=relation"/>
+			</region>
+			<region name="north-korea" translate="North Korea;entity=relation" lang="ko" poly_extract="ocean-asia"/>
+			<region name="philippines" lang="fil,en,es,ar" inner_download_prefix="$name" map="no" roads="yes" wiki="yes" join_map_files="yes" join_road_files="yes" poly_extract="ocean-asia">
+				<region type="map" name="metro-manila" translate="name:en=Metro Manila;admin_level=3;entity=relation"/>
+				<region type="map" name="ilocos-region" translate="name:en=Ilocos Region;admin_level=3;entity=relation"/>
+				<region type="map" name="cordillera-region" translate="name:en=Cordillera Administrative Region;admin_level=3;entity=relation"/>
+				<region type="map" name="cagayan-valley" translate="name:en=Cagayan Valley;admin_level=3;entity=relation"/>
+				<region type="map" name="central-luzon" translate="name:en=Central Luzon;admin_level=3;entity=relation"/>
+				<region type="map" name="calabarzon" translate="name:en=Calabarzon;admin_level=3;entity=relation"/>
+				<region type="map" name="mimaropa" translate="name:en=Mimaropa;admin_level=3;entity=relation"/>
+				<region type="map" name="bicol-region" translate="name:en=Bicol Region;admin_level=3;entity=relation"/>
+				<region type="map" name="western-visayas" translate="name:en=Western Visayas;admin_level=3;entity=relation"/>
+				<region type="map" name="central-visayas" translate="name:en=Central Visayas;admin_level=3;entity=relation"/>
+				<region type="map" name="eastern-visayas" translate="name:en=Eastern Visayas;admin_level=3;entity=relation"/>
+				<region type="map" name="zamboanga-peninsula" translate="name:en=Zamboanga Peninsula;admin_level=3;entity=relation"/>
+				<region type="map" name="northern-mindanao" translate="name:en=Northern Mindanao;admin_level=3;entity=relation"/>
+				<region type="map" name="davao-region" translate="name:en=Davao Region;admin_level=3;entity=relation"/>
+				<region type="map" name="soccsksargen" translate="name:en=Soccsksargen;admin_level=3;entity=relation"/>
+				<region type="map" name="caraga" translate="name:en=Caraga;admin_level=3;entity=relation"/>
+				<region type="map" name="bangsamoro" translate="name:en=Bangsamoro;admin_level=3;entity=relation"/>
+			</region>
+			<region name="singapore" lang="en,zh,ms,ta" left_hand_navigation="yes" poly_extract="ocean-asia"/>
+			<region name="south-korea" translate="South Korea;entity=node" lang="ko" poly_extract="ocean-asia"/>
+			<region name="spratly-islands" translate="name:en=Spratly Islands;entity=relation" poly_extract="ocean-asia"/>
+			<region name="taiwan" translate="name:en=Taiwan;admin_level=2" lang="zh" poly_extract="ocean-asia"/>
+			<region name="thailand" lang="th" left_hand_navigation="yes" poly_extract="ocean-asia"/>
+			<region name="vietnam" inner_download_prefix="$name" srtm="no" lang="vi" poly_extract="ocean-asia">
+				<region type="srtm" name="bac-trung-bo" translate="North Central Coast;entity=relation"/>
+				<region type="srtm" name="dong-bac" translate="Northeast;wikidata=Q1194516;entity=relation"/>
+				<region type="srtm" name="dong-bang-song-cuu-long" translate="Mekong Delta;entity=relation"/>
+				<region type="srtm" name="dong-bang-song-hong" translate="Red River Delta;entity=relation"/>
+				<region type="srtm" name="dong-nam-bo" translate="Southeast;wikidata=Q1068987;entity=relation"/>
+				<region type="srtm" name="nam-trung-bo" translate="South Central Coast;entity=relation"/>
+				<region type="srtm" name="tay-bac" translate="name:en=Northwest;wikidata=Q1194522;entity=relation"/>
+				<region type="srtm" name="tay-nguyen" translate="Central Highlands;entity=relation"/>
+			</region>
+
+
+
+			<region name="china" translate="name:en=China;entity=relation" srtm="no" map="no" roads="no" wiki="yes" hillshade="no" slope="no" heightmap="no" inner_download_prefix="$name" lang="zh" poly_extract="asia" join_map_files="no" join_road_files="no">
+				<region name="anhui" translate="Anhui Province;entity=node"/>
+				<region name="beijing" translate="Beijing;entity=relation"/>
+				<region name="chongqing"/>
+				<region name="fujian" translate="Fujian Province;entity=node"/>
+				<region name="gansu" translate="Gansu Province;entity=node"/>
+				<region name="guangdong" translate="name:en=Guangdong Province;entity=relation"/>
+				<region name="guangxi" translate="name:en=Guangxi;entity=relation"/>
+				<region name="guizhou" translate="name:en=Guizhou;entity=relation"/>
+				<region name="hainan" translate="Hainan Province;entity=relation"/> <!-- includes paracel-islands -->
+				<region name="hebei" translate="Hebei Province;entity=node"/>
+				<region name="heilongjiang" translate="Heilongjiang Province;entity=node"/>
+				<region name="henan" translate="Henan Province;entity=node"/>
+				<region name="hubei" translate="name:en=Hubei;entity=relation"/>
+				<region name="hunan" translate="Hunan Province;entity=node"/>
+				<region name="jiangsu" translate="Jiangsu Province;entity=node"/>
+				<region name="jiangxi" translate="name:en=Jiangxi;entity=relation"/>
+				<region name="jilin" translate="Jilin Province;entity=node"/>
+				<region name="liaoning" translate="name:en=Liaoning;entity=relation"/>
+				<region name="nei-mongol" translate="name:en=Inner Mongolia;entity=relation"/>
+				<region name="ningxia-hui" translate="Ningxia Hui Autonomous Region;entity=node"/>
+				<region name="qinghai" translate="name:en=Qinghai;entity=relation">
+					<region type="srtm" name="golog" translate="name:en=Golog;entity=relation"/>
+					<region type="srtm" name="haibei" translate="name:en=Haibei;entity=relation"/>
+					<region type="srtm" name="haidong" translate="name:en=Haidong;entity=relation"/>
+					<region type="srtm" name="hainan-tibetan" translate="name:en=Hainan;entity=relation"/>
+					<region type="srtm" name="haixi" translate="name:en=Haixi Mongol and Tibetan Autonomous Prefecture;entity=relation"/>
+					<region type="srtm" name="huangnan" translate="name:en=Huangnan;entity=relation"/>
+					<region type="srtm" name="xining" translate="name:en=Xining City;entity=relation"/>
+					<region type="srtm" name="yushu" translate="name:en=Yushu;entity=relation"/>
+				</region>
+				<region name="shaanxi" translate="Shaanxi Province;entity=node"/>
+				<region name="shandong" translate="Shandong Province;entity=node"/>
+				<region name="shanghai" translate="name:en=Shanghai;entity=relation"/>
+				<region name="shanxi" translate="Shanxi Province;entity=node"/>
+				<region name="sichuan" translate="Sichuan Province;entity=node" srtm="no" inner_download_prefix="china_sichuan">
+					<region type="srtm" name="bazhong" translate="name:en=Bazhong;entity=relation"/>
+					<region type="srtm" name="chengdu" translate="name:en=Chengdu;entity=relation"/>
+					<region type="srtm" name="dazhou" translate="name:en=Dazhou;entity=relation"/>
+					<region type="srtm" name="deyang" translate="name:en=Deyang;entity=relation"/>
+					<region type="srtm" name="garze-tibetan" translate="name:en=Kardze;entity=relation"/>
+					<region type="srtm" name="guang-an" translate="name:en=Guang'an;entity=relation"/>
+					<region type="srtm" name="guangyuan" translate="name:en=Guangyuan;entity=relation"/>
+					<region type="srtm" name="leshan" translate="name:en=Leshan;entity=relation"/>
+					<region type="srtm" name="liangshan-yi" translate="name:en=Liangshan;entity=relation"/>
+					<region type="srtm" name="luzhou" translate="name:en=Luzhou;entity=relation"/>
+					<region type="srtm" name="meishan" translate="name:en=Meishan;entity=relation"/>
+					<region type="srtm" name="mianyang" translate="name:en=Mianyang;entity=relation"/>
+					<region type="srtm" name="nanchong" translate="name:en=Nanchong;entity=relation"/>
+					<region type="srtm" name="neijiang" translate="name:en=Neijiang;entity=relation"/>
+					<region type="srtm" name="ngawa-and-qiang" translate="name:en=Ngawa Tibetan and Qiang Autonomous Prefecture;entity=relation"/>
+					<region type="srtm" name="panzhihua" translate="name:en=Panzhihua;entity=relation"/>
+					<region type="srtm" name="suining" translate="name:en=Suining;entity=relation"/>
+					<region type="srtm" name="yaan" translate="name:en=Ya'an;entity=relation"/>
+					<region type="srtm" name="yibin" translate="name:en=Yibin;entity=relation"/>
+					<region type="srtm" name="zigong" translate="name:en=Zigong;entity=relation"/>
+					<region type="srtm" name="ziyang" translate="name:en=Ziyang;entity=relation"/>
+				</region>
+				<region name="tianjin" translate="Tianjin;entity=relation"/>
+				<region name="xinjiang-uygur" translate="name:en=Xinjiang;entity=relation" srtm="no" inner_download_prefix="china_xinjiang-uygur">
+					<region type="srtm" name="aksu" translate="name:en=Aksu Prefecture;entity=relation"/>
+					<region type="srtm" name="altay-prefecture" translate="name:en=Altay Prefecture;entity=relation"/>
+					<region type="srtm" name="bayingolin-mongol" translate="name:en=Bayingolin;entity=relation"/>
+					<region type="srtm" name="bortala-mongol" translate="name:en=Bortala;entity=relation"/>
+					<region type="srtm" name="changji-hui" translate="name:en=Changji;entity=relation"/>
+					<region type="srtm" name="hotan" translate="name:en=Hotan Prefecture;entity=relation"/>
+					<region type="srtm" name="ili-kazakh" translate="name:en=Ili;entity=relation"/>
+					<region type="srtm" name="kashgar" translate="name:en=Kachgar;entity=relation"/>
+					<region type="srtm" name="kizilsu-kirghiz" translate="name:en=Kizilsu;entity=relation"/>
+					<region type="srtm" name="kumul" translate="name:en=Hami;entity=relation"/>
+					<region type="srtm" name="tacheng" translate="name:en=Tacheng Prefecture;entity=relation"/>
+					<region type="srtm" name="tihwa" translate="name:en=Ürümqi;entity=relation"/> <!-- New region name: Ürümqi -->
+					<region type="srtm" name="turpan" translate="name:en=Turpan;entity=relation"/>
+				</region>
+				<region name="xizang" translate="name:en=Tibet;entity=relation" srtm="no" inner_download_prefix="china_xizang">
+					<region type="srtm" name="chamdo" translate="name:en=Chamdo City;entity=relation"/>
+					<region type="srtm" name="lhasa" translate="name:en=Lhasa;entity=relation"/>
+					<region type="srtm" name="nagqu" translate="name:en=Nagqu City;entity=relation"/>
+					<region type="srtm" name="ngari" translate="name:en=Ngari Prefecture;entity=relation"/>
+					<region type="srtm" name="nyingchi" translate="name:en=Nyingchi Prefecture;entity=relation"/>
+					<region type="srtm" name="shannan" translate="name:en=Lhoka;entity=relation"/>
+					<region type="srtm" name="shigatse" translate="name:en=Shigatse Prefecture;entity=relation"/>
+				</region>
+				<region name="yunnan" translate="Yunnan Province;entity=node" srtm="no" inner_download_prefix="china_yunnan">
+					<region type="srtm" name="baoshan" translate="name:en=Baoshan;entity=relation"/>
+					<region type="srtm" name="chuxiong-yi" translate="name:en=Chuxiong;entity=relation"/>
+					<region type="srtm" name="dali" translate="name:en=Dali Bai Autonomous Prefecture;entity=relation"/>
+					<region type="srtm" name="dehong-dai-and-jingpo" translate="name:en=Dehong;entity=relation"/>
+					<region type="srtm" name="deqen" translate="name:en=Diqing;entity=relation"/>
+					<region type="srtm" name="honghe-hani-and-yi" translate="name:en=Honghe;entity=relation"/>
+					<region type="srtm" name="kunming" translate="name:en=Kunming;entity=relation"/>
+					<region type="srtm" name="lijiang" translate="name:en=Lijiang City;entity=relation"/>
+					<region type="srtm" name="lincang" translate="name:en=Lincang;entity=relation"/>
+					<region type="srtm" name="nujiang-lisu" translate="name:en=Nujiang;entity=relation"/>
+					<region type="srtm" name="puer" translate="name:en=Pu'er City;entity=relation"/>
+					<region type="srtm" name="qujing" translate="name:en=Qujing City;entity=relation"/>
+					<region type="srtm" name="wenshan-zhuang-and-miao" translate="name:en=Wenshan;entity=relation"/>
+					<region type="srtm" name="xishuangbanna-dai" translate="name:en=Xishuangbanna;entity=relation"/>
+					<region type="srtm" name="yuxi" translate="name:en=Yuxi;entity=relation"/>
+					<region type="srtm" name="zhaotong" translate="name:en=Zhaotong City;entity=relation"/>
+				</region>
+				<region name="zhejiang" translate="name:en=Zhejiang;entity=relation"/>
+			</region>
+ 			<region name="mongolia" inner_download_prefix="$name" hillshade="no" slope="no" heightmap="yes" srtm="no" lang="mn" poly_extract="asia">
+				<region map="no" wiki="no" name="arhangay" translate="Arkhangai;entity=relation"/>
+				<region map="no" wiki="no" name="bayanhongor" translate="Bayankhongor;entity=relation"/>
+				<region map="no" wiki="no" name="bayan-olgiy" translate="Bayan-Ölgii;entity=relation"/>
+				<region map="no" wiki="no" name="bulgan" translate="Bulgan;entity=relation"/>
+				<region map="no" wiki="no" name="darhan-uul" translate="Darkhan-Uul;entity=relation"/>
+				<region map="no" wiki="no" name="dornod" translate="Dornod;entity=relation"/>
+				<region map="no" wiki="no" name="dornogovi" translate="name:en=Dornogovi;entity=relation"/>
+				<region map="no" wiki="no" name="dundgovi" translate="name:en=Dundgovi;entity=relation"/>
+				<region map="no" wiki="no" name="dzavhan" translate="Zavkhan;entity=relation"/>
+				<region map="no" wiki="no" name="govi-altay" translate="Govi-Altai;entity=relation"/>
+				<region map="no" wiki="no" name="govisumber" translate="name:en=Govisümber;entity=node"/>
+				<region map="no" wiki="no" name="hentiy" translate="Khentii;entity=relation"/>
+				<region map="no" wiki="no" name="hovd" translate="Khovd;entity=relation"/>
+				<region map="no" wiki="no" name="hovsgol" translate="name:en=Khövsgöl;entity=node"/>
+				<region map="no" wiki="no" name="omnogovi" translate="name:en=Ömnögovi;entity=relation"/>
+				<region map="no" wiki="no" name="orhon" translate="Orkhon;entity=relation"/>
+				<region map="no" wiki="no" name="ovorhangay" translate="name:en=Uvurkhangai;entity=node"/>
+				<region map="no" wiki="no" name="selenge" translate="Selenge;entity=relation"/>
+				<region map="no" wiki="no" name="suhbaatar" translate="Sükhbaatar;entity=relation"/>
+				<region map="no" wiki="no" name="tov" translate="alt_name:en=Central;ISO3166-2=MN-047;entity=relation"/>
+				<region map="no" wiki="no" name="ulaanbaatar" translate="name:en=Ulaanbaatar;entity=relation"/>
+				<region map="no" wiki="no" name="uvs" translate="Uvs;entity=relation"/>
+			</region>
+
+		</region>
+
+		<region type="continent" name="africa" translate="Africa;entity=node" map="no" roads="no" srtm="no" hillshade="no" slope="no" heightmap="no" wiki="no" download_suffix="africa" poly_extract="planet" boundary="no">
+			<region name="algeria" srtm="no" hillshade="no" slope="no" heightmap="yes" inner_download_prefix="$name" lang="ar,fr">
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="adrar" translate="name:en=Adrar;ISO3166-2=DZ-01;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="ain-defla" translate="Aïn Defla;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="ain-temouchent" translate="Aïn Témouchent;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="alger" translate="Algiers;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="annaba" translate="Annaba;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="batna" translate="Batna;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="bechar" translate="name:en=Bechar;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="bejaia" translate="name:en=Bejaia;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="biskra" translate="Biskra;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="blida" translate="Blida;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="bordj-bou-arreridj" translate="name:en=Bordj Bou Arreridj;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="bouira" translate="Bouira;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="boumerdes" translate="name:en=Boumerdes;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="chlef" translate="Chlef;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="constantine" translate="Constantine;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="djelfa" translate="Djelfa;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="el-bayadh" translate="El Bayadh;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="el-oued" translate="El Oued;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="el-tarf" translate="El Tarf;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="ghardaia" translate="Ghardaia;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="guelma" translate="Guelma;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="illizi" translate="Illizi;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="jijel" translate="Jijel;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="khenchela" translate="Khenchela;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="laghouat" translate="Laghouat;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="mascara" translate="Mascara;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="medea" translate="Médéa;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="mila" translate="Mila;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="mostaganem" translate="Mostaganem;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="m-sila" translate="M'Sila;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="naama" translate="Naâma;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="oran" translate="Oran;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="ouargla" translate="Ouargla;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="oum-el-bouaghi" translate="Oum El Bouaghi;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="relizane" translate="Relizane;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="saida" translate="Saïda;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="setif" translate="name:en=Setif;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="sidi-bel-abbes" translate="Sidi Bel Abbès;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="skikda" translate="Skikda;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="souk-ahras" translate="Souk Ahras;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="tamanghasset" translate="Tamanrasset;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="tebessa" translate="Tébessa;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="tiaret" translate="Tiaret;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="tindouf" translate="name:en=Tinduf;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="tipaza" translate="Tipaza;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="tissemsilt" translate="Tissemsilt;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="tizi-ouzou" translate="Tizi Ouzou;entity=relation"/>
+				<region srtm="yes" map="no" wiki="no" hillshade="yes" slope="yes" heightmap="no" name="tlemcen" translate="name:en=Tlemcen;entity=relation"/>
+			</region>
+			<region name="angola" inner_download_prefix="$name" lang="pt">
+				<region type="srtm" name="bengo" translate="Bengo;entity=relation"/>
+				<region type="srtm" name="benguela" translate="Benguela;entity=relation"/>
+				<region type="srtm" name="bie" translate="Bié;entity=relation"/>
+				<region type="srtm" name="cabinda" translate="Cabinda;entity=relation"/>
+				<region type="srtm" name="cuando-cubango" translate="Cuando Cubango;entity=relation"/>
+				<region type="srtm" name="cuanza-norte" translate="Cuanza Norte;entity=relation"/>
+				<region type="srtm" name="cuanza-sul" translate="Cuanza Sul;entity=relation"/>
+				<region type="srtm" name="cunene" translate="Cunene;entity=relation"/>
+				<region type="srtm" name="huambo" translate="Huambo;entity=relation"/>
+				<region type="srtm" name="huila" translate="Huíla;entity=relation" boundary="angola/huila"/>
+				<region type="srtm" name="luanda" translate="Luanda;entity=relation"/>
+				<region type="srtm" name="lunda-norte" translate="Lunda Norte;entity=relation"/>
+				<region type="srtm" name="lunda-sul" translate="Lunda Sul;entity=relation"/>
+				<region type="srtm" name="malanje" translate="Malanje;entity=relation"/>
+				<region type="srtm" name="moxico" translate="Moxico;entity=relation"/>
+				<region type="srtm" name="namibe" translate="Namibe;entity=relation"/>
+				<region type="srtm" name="uige" translate="Uíge;entity=relation"/>
+				<region type="srtm" name="zaire" translate="Zaire;entity=relation"/>
+			</region>
+			<region name="benin" lang="fr"/>
+			<region name="botswana" lang="en,tn" left_hand_navigation="yes"/>
+			<region name="burkina-faso" translate="Burkina Faso;entity=node" lang="fr"/>
+			<region name="burundi" lang="fr"/>
+			<region name="cameroon" lang="en,fr"/>
+			<region name="cape-verde" translate="Cabo Verde;entity=node" lang="pt"/>
+			<region name="central-african-republic" translate="Central African Republic;entity=node" lang="fr"/>
+			<region name="chad" inner_download_prefix="$name" lang="ar,fr">
+				<region type="srtm" name="bahr-el-gazel" translate="name:en=Bahr el Gazel;entity=relation"/> <!-- new. included in Kanem but it is a separate region -->
+				<region type="srtm" name="batha" translate="Batha Region;entity=node"/>
+				<!--				<region type="srtm" name="bet" translate="=Borkou-Ennedi-Tibesti" boundary="no"/>  Borkou-Ennedi-Tibesti is now borkou, ennedi, tibesti -->
+				<region type="srtm" name="borkou" translate="name:en=Borkou;entity=relation"/>
+				<region type="srtm" name="chari-baguirmi" translate="Chari-Baguirmi Region;entity=node"/>
+				<region type="srtm" name="ennedi" translate="name:en=Ennedi-Ouest;entity=relation"/>
+				<region type="srtm" name="guera" translate="Guéra Region;entity=node"/>
+				<region type="srtm" name="hadjer-lamis" translate="Hadjer-Lamis Region;entity=node"/>
+				<region type="srtm" name="kanem" translate="Kanem Region;entity=node"/>
+				<region type="srtm" name="lac" translate="name:en=Lac;entity=relation"/>
+				<region type="srtm" name="logone-occidental" translate="name:en=Logone Occidental;entity=relation"/>
+				<region type="srtm" name="logone-oriental" translate="name:en=Logone Oriental;entity=relation"/>
+				<region type="srtm" name="mandoul" translate="name:en=Mandoul;entity=relation"/>
+				<region type="srtm" name="mayo-kebbi-est" translate="name:en=Mayo-Kebbi Est;entity=relation"/>
+				<region type="srtm" name="mayo-kebbi-ouest" translate="name:en=Mayo-Kebbi Ouest;entity=relation"/>
+				<region type="srtm" name="moyen-chari" translate="Moyen-Chari Region;entity=node"/>
+				<region type="srtm" name="ouaddai" translate="Ouaddaï Region;entity=node"/>
+				<region type="srtm" name="salamat" translate="Salamat Region;entity=node"/>
+				<region type="srtm" name="sila" translate="Sila Region;entity=node"/>
+				<region type="srtm" name="tandjile" translate="name:en=Tandjilé;entity=relation"/>
+				<region type="srtm" name="tibesti" translate="name:en=Tibesti;entity=relation"/>
+				<region type="srtm" name="ville-de-n-djamena" translate="name:en=N'Djamena;entity=relation"/>
+				<region type="srtm" name="wadi-fira" translate="name:en=Wadi Fira Region;entity=node"/>
+			</region>
+			<region name="congo-brazzaville" translate="République du Congo;entity=node" lang="fr"/>
+			<region name="congo-democratic-republic" translate="République Démocratique du Congo;entity=node" srtm="no" inner_download_prefix="$name" join_map_files="yes" join_road_files="yes" lang="fr">
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="bas-uele" translate="name:en=Lower Uele;entity=relation"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="equateur" translate="name:en=Équateur;entity=relation"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="haut-katanga" translate="name:en=Haut-Katanga;entity=relation"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="haut-lomami" translate="name:en=Haut-Lomami;entity=relation"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="haut-uele" translate="name:en=Upper Uele;entity=relation"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="ituri" translate="name=Ituri;entity=relation"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="kasai" translate="name:en=Kasai;entity=relation"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="kasai-central" translate="name:en=Central Kasai;entity=relation"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="kasai-oriental" translate="name:en=Kasai-Oriental;entity=relation"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="kinshasa" translate="name:en=Kinshasa;entity=relation"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="kongo-central" translate="name:en=Kongo Central;entity=relation"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="kwango" translate="name:en=Kwango;entity=relation"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="kwilu" translate="name:en=Kwilu;entity=relation"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="lomami" translate="name:en=Lomami;entity=relation"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="lualaba" translate="name:en=Lualaba;entity=relation"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="mai-ndombe" translate="name:en=Mai-Ndombe;entity=relation"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="maniema" translate="name:en=Maniema;entity=relation"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="mongala" translate="name:en=Mongala;entity=relation"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="nord-kivu" translate="name:en=North Kivu;entity=relation"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="nord-ubangi" translate="name:en=Nord-Ubangi;entity=relation"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="sankuru" translate="name:en=Sankuru;entity=relation"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="sud-kivu" translate="name:en=South Kivu;entity=relation"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="sud-ubangi" translate="name:en=Sud-Ubangi;entity=relation"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="tanganyika" translate="name:en=Tanganyika;entity=relation"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="tshopo" translate="name:en=Tshopo;entity=relation"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="tshuapa" translate="name:en=Tshuapa;entity=relation"/>
+			</region>
+			<region name="djibouti" translate="name:en=Djibouti;admin_level=2;entity=relation" lang="ar,fr,so"/>
+			<region name="egypt" inner_download_prefix="$name" lang="ar">
+				<region type="srtm" name="ad-daqahliyah" translate="name:en=Ad Dakahliya;entity=relation"/>
+				<region type="srtm" name="al-bahr-al-ahmar" translate="name:en=Red Sea;entity=relation" boundary="egypt/al-bahr-al-ahmar"/>
+				<region type="srtm" name="al-buhayrah" translate="name:en=The Lake;entity=relation"/>
+				<region type="srtm" name="al-fayyum" translate="name:en=Faiyum;entity=relation"/>
+				<region type="srtm" name="al-gharbiyah" translate="name:en=Western;ISO3166-2=EG-GH;entity=relation"/>
+				<region type="srtm" name="al-iskandariyah" translate="name:en=Alexandria;entity=relation"/>
+				<region type="srtm" name="al-isma-iliyah" translate="name:en=Al Ismailiya;entity=relation"/>
+				<region type="srtm" name="al-jizah" translate="name:en=Giza;entity=relation"/>
+				<region type="srtm" name="al-minufiyah" translate="name:en=Al Minufiya;entity=relation"/>
+				<region type="srtm" name="al-minya" translate="name:en=Al Minya;entity=relation"/>
+				<region type="srtm" name="al-qahirah" translate="name:en=Cairo;ISO3166-2=EG-C;entity=relation"/>
+				<region type="srtm" name="al-qalyubiyah" translate="name:en=Al Qalyubiya;entity=relation"/>
+				<region type="srtm" name="al-wadi-al-jadid" translate="name:en=New Valley;entity=relation"/>
+				<region type="srtm" name="ash-sharqiyah" translate="name:en=Eastern;entity=relation" boundary="egypt/ash-sharqiyah"/>
+				<region type="srtm" name="as-suways" translate="name:en=Suez;entity=relation"/>
+				<region type="srtm" name="aswan" translate="name:en=Aswan Governorate;entity=node"/>
+				<region type="srtm" name="asyut" translate="name:en=Asyut;entity=relation"/>
+				<region type="srtm" name="bani-suwayf" translate="name:en=Bani Sweif;entity=relation"/>
+				<region type="srtm" name="bur-sa-id" translate="name:en=Port Said;entity=relation"/>
+				<region type="srtm" name="dumyat" translate="name:en=Damietta;entity=relation"/>
+				<region type="srtm" name="janub-sina" translate="name:en=South Sinai;entity=relation"/>
+				<region type="srtm" name="kafr-ash-shaykh" translate="name:en=Kafr El Sheikh;entity=relation"/>
+				<region type="srtm" name="luxor" translate="name:de=Luxor;entity=relation"/>
+				<region type="srtm" name="matruh" translate="name:en=Matruh;entity=relation"/>
+				<region type="srtm" name="qina" translate="name:en=Qena;entity=relation"/>
+				<region type="srtm" name="shamal-sina" translate="name:en=North Sinai;entity=relation"/>
+				<region type="srtm" name="suhaj" translate="name:en=Suhaj;entity=relation"/>
+			</region>
+			<region name="eritrea" translate="name:en=Eritrea;entity=node" lang="en,ar,ti"/>
+			<region name="ethiopia" srtm="no" inner_download_prefix="$name" lang="en,so,ti">
+				<region type="srtm" name="addis-ababa" translate="Addis Ababa;entity=relation"/>
+				<region type="srtm" name="afar" translate="Afar Region;entity=node"/>
+				<region type="srtm" name="amhara" translate="Amhara Region;entity=node"/>
+				<region type="srtm" name="benshangul-gumaz" translate="name:en=Benishangul-Gumuz Region;entity=relation"/>
+				<region type="srtm" name="dire-dawa" translate="name:en=Dire Dawa;entity=node"/>
+				<region type="srtm" name="gambela-peoples" translate="Gambela Region;entity=node"/>
+				<region type="srtm" name="harari-people" translate="Harari Region;entity=node"/>
+				<region type="srtm" name="oromia" translate="Oromia Region;entity=node"/>
+				<region type="srtm" name="somali" translate="name:en=Somali Region;entity=relation"/>
+				<region type="srtm" name="southern-nations-nationalities-and-peoples" translate="name:en=Southern Nations, Nationalities, and Peoples;entity=relation"/>
+				<region type="srtm" name="tigray" translate="name:en=Tigray;entity=relation"/>
+			</region>
+			<region name="equatorial-guinea" translate="Equatorial Guinea;entity=node" lang="es,fr,pt"/>
+			<region name="french-southern-and-antarctic-lands" translate="French Southern and Antarctic Lands;entity=relation" lang="fr"/>
+			<region name="gabon" lang="fr"/>
+			<region name="gambia" translate="name:en=The Gambia;entity=relation" lang="en"/>
+			<region name="ghana" lang="en"/>
+			<region name="guinea" lang="fr,ff"/>
+			<region name="guinea-bissau" lang="pt"/>
+			<region name="ivory-coast" translate="Ivory Coast;entity=node" lang="fr"/>
+			<region name="kenya" lang="en,sw" left_hand_navigation="yes"/>
+			<region name="comoros" translate="Comoros;entity=node" lang="ar,fr"/>
+			<region name="lesotho" translate="name:en=Lesotho;admin_level=2;entity=relation" lang="en" left_hand_navigation="yes"/>
+			<region name="liberia" lang="en"/>
+			<region name="libya" inner_download_prefix="$name" srtm="no" lang="ar">
+				<region type="srtm" name="al-kufrah" translate="name:en=Al Kufrah;entity=node"/>
+				<region type="srtm" name="al-murgub" translate="name:en=Al Margab;entity=node"/>
+				<region type="srtm" name="al-wahat" translate="name:en=Al Wahat;entity=node"/>
+				<region type="srtm" name="benghazi" translate="name:en=Benghazi;entity=relation"/>
+				<region type="srtm" name="butnan" translate="name:en=Al Butnan;entity=node"/>
+				<region type="srtm" name="derna" translate="name:en=Darnah;entity=node"/>
+				<region type="srtm" name="ghat" translate="name:en=Ghat;entity=node"/>
+				<region type="srtm" name="jabal-al-akhdar" translate="Al Jabal Al Akhdar;entity=node"/>
+				<region type="srtm" name="jabal-al-gharbi" translate="Al Jabal Al Gharbi;entity=node"/>
+				<region type="srtm" name="jafara" translate="Jafara;entity=relation"/>
+				<region type="srtm" name="jufra" translate="Al Jufrah;entity=node"/>
+				<region type="srtm" name="marj" translate="Al Marj;entity=node"/>
+				<region type="srtm" name="misrata" translate="name:en=Bani Walid;entity=relation"/>
+				<region type="srtm" name="murzuq" translate="name:en=Murzuq;entity=node"/>
+				<region type="srtm" name="nalut" translate="name:en=Nalut;entity=node"/>
+				<region type="srtm" name="nuqat-al-khams" translate="An Niquat Al Khums;entity=node"/>
+				<region type="srtm" name="sabha" translate="Sabha District;entity=node"/>
+				<region type="srtm" name="sirte" translate="Surt;entity=node"/>
+				<region type="srtm" name="tripoli" translate="name:en=Tripoli;entity=node"/>
+				<region type="srtm" name="wadi-al-hayaa" translate="Wadi al Hayaa;entity=relation"/>
+				<region type="srtm" name="wadi-al-shatii" translate="Ash Shati;entity=node"/>
+				<region type="srtm" name="zawiya" translate="Az Zawiyah;entity=node"/>
+			</region>
+			<region name="madagascar" lang="fr,mg"/>
+			<region name="malawi" lang="en,ny"/>
+			<region name="mali" inner_download_prefix="$name" lang="fr">
+				<region type="srtm" name="bamako" translate="name:en=Bamako;entity=relation"/>
+				<region type="srtm" name="gao" translate="Gao;entity=relation"/>
+				<region type="srtm" name="kayes" translate="Kayes;entity=relation"/>
+				<region type="srtm" name="kidal" translate="Kidal;entity=relation"/>
+				<region type="srtm" name="koulikoro" translate="Koulikoro;entity=relation"/>
+				<region type="srtm" name="mopti" translate="Mopti;entity=relation"/>
+				<region type="srtm" name="segou" translate="Ségou;entity=relation"/>
+				<region type="srtm" name="sikasso" translate="name:en=Sikasso Region;entity=relation"/>
+				<region type="srtm" name="timbuktu" translate="Tombouctou;entity=relation"/>
+			</region>
+			<region name="mauritania" lang="ar,fr"/>
+			<region name="mauritius" lang="en,fr" left_hand_navigation="yes"/>
+			<region name="mayotte" lang="fr"/> <!-- no hillshade -->
+			<region name="morocco" lang="ar,fr"/>
+			<region name="mozambique" lang="pt" left_hand_navigation="yes"/>
+			<region name="namibia" lang="en,af,de" left_hand_navigation="yes"/>
+			<region name="niger" translate="Niger;place=country;entity=node" boundary="africa/niger" inner_download_prefix="$name" lang="fr,ha">
+				<region type="srtm" name="agadez" translate="Agadez;entity=relation"/>
+				<region type="srtm" name="diffa" translate="Diffa;entity=relation"/>
+				<region type="srtm" name="dosso" translate="Dosso;entity=relation"/>
+				<region type="srtm" name="maradi" translate="Maradi;entity=relation"/>
+				<region type="srtm" name="niamey" translate="Niamey;entity=relation"/>
+				<region type="srtm" name="tahoua" translate="Tahoua;entity=relation"/>
+				<region type="srtm" name="tillabery" translate="Tillabéri;entity=relation"/>
+				<region type="srtm" name="zinder" translate="Zinder;entity=relation"/>
+			</region>
+			<region name="nigeria" lang="fr,ha,yo,ig"/>
+			<region name="reunion" translate="La Réunion;entity=node" lang="fr"/>
+			<region name="rwanda" lang="en,fr,rw"/>
+			<region name="saint-helena-ascension-and-tristan-da-cunha" translate="name:en=Saint Helena, Ascension and Tristan da Cunha;entity=relation" lang="en" metric="miles"/>
+			<region name="sao-tome-and-principe" translate="São Tomé and Príncipe;entity=node" lang="pt"/>
+			<region name="senegal" translate="name:en=Senegal;entity=relation" lang="fr"/>
+			<region name="seychelles" lang="en,fr" left_hand_navigation="yes"/>
+			<region name="sierra-leone" translate="Sierra Leone;entity=relation" lang="en"/>
+			<region name="somalia" lang="so,ar"/>
+			<region name="south-africa" translate="South Africa;entity=node" srtm="no" inner_download_prefix="$name" lang="af,en,ts,tn" left_hand_navigation="yes" join_map_files="yes" join_road_files="yes">
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="eastern-cape" translate="Eastern Cape;entity=node"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="gauteng"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="kwazulu-natal" translate="KwaZulu-Natal;entity=node"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="limpopo"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="mpumalanga"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="northern-cape" translate="Northern Cape;entity=node"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="north-west" translate="North West;entity=node" boundary="south-africa/north-west"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="orange-free-state" translate="Free State;entity=node"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="prince-edward-islands" translate="name=Prince Edward Islands;entity=way"/>
+				<region srtm="yes" map="yes" wiki="no" hillshade="no" slope="no" heightmap="no" name="western-cape" translate="Western Cape;entity=node"/>
+			</region>
+			<region name="south-sudan" translate="name:en=South Sudan;entity=relation" inner_download_prefix="$name" lang="en">
+				<region type="srtm" name="central-equatoria" translate="Central Equatoria State;entity=node"/>
+				<region type="srtm" name="eastern-equatoria" translate="Eastern Equatoria State;entity=node"/>
+				<region type="srtm" name="jonglei" translate="Jonglei State;entity=node"/>
+				<region type="srtm" name="lakes" translate="name:en=Lakes;entity=relation"/>
+				<region type="srtm" name="northern-bahr-el-ghazal" translate="Northern Bahr el Ghazal State;entity=node"/>
+				<region type="srtm" name="unity" translate="Unity State;entity=node"/>
+				<region type="srtm" name="warrap" translate="name:en=Warrap;entity=relation"/>
+				<region type="srtm" name="western-bahr-el-ghazal" translate="name:en=Western Bahr el Ghazal State;entity=relation"/>
+				<region type="srtm" name="western-equatoria" translate="name:en=Western Equatoria;entity=relation"/>
+				<region type="srtm" name="upper-nile" translate="Upper Nile State;entity=node"/>
+			</region>
+			<region name="sudan" inner_download_prefix="$name" lang="ar,en">
+				<region type="srtm" name="al-bahr-al-ahmar" translate="name:en=Red Sea State;entity=node" boundary="sudan/al-bahr-al-ahmar"/>
+				<region type="srtm" name="al-jazeera" translate="name:en=Al Jazirah;entity=node"/>
+				<region type="srtm" name="al-khartum" translate="name:en=Khartoum State;entity=node"/>
+				<region type="srtm" name="al-qadarif" translate="name:en=Al Qadarif State;entity=node"/>
+				<region type="srtm" name="an-nil-al-abyad" translate="name:en=White Nile State;entity=node"/>
+				<region type="srtm" name="an-nil-al-azraq" translate="name:en=Blue Nile State;entity=relation"/>
+				<region type="srtm" name="ash-shamaliyah" translate="name:en=Northern State;entity=node"/>
+				<region type="srtm" name="central-darfur" translate="name:en=Central Darfur State;entity=relation"/>
+				<region type="srtm" name="east-darfur" translate="East Darfur State;entity=node"/>
+				<region type="srtm" name="kassala" translate="Kassala State;entity=node"/>
+				<region type="srtm" name="nahr-an-nil" translate="name:en=River Nile State;entity=node"/>
+				<region type="srtm" name="north-darfur" translate="North Darfur State;entity=node"/>
+				<region type="srtm" name="sennar" translate="Sennar State;entity=node"/>
+				<region type="srtm" name="shamal-kurdufan" translate="name:en=North Kurdufan State;entity=node"/>
+				<region type="srtm" name="south-darfur" translate="South Darfur State;entity=node"/>
+				<region type="srtm" name="south-kordofan" translate="name:en=South Kurdufan State;entity=node"/>
+				<region type="srtm" name="west-darfur" translate="name:en=West Darfur;entity=relation"/>
+			</region>
+			<region name="swaziland" lang="en" translate="name:en=eSwatini;entity=relation" left_hand_navigation="yes"/>
+			<region name="tanzania" lang="sw,en" left_hand_navigation="yes" inner_download_prefix="$name" join_map_files="yes">
+				<region type="map" name="central" translate="Central Zone;entity=relation" boundary="tanzania/central"/>
+				<region type="map" name="coastal" translate="Coastal Zone;entity=relation"/>
+				<region type="map" name="lake" translate="Lake Zone;entity=relation"/>
+				<region type="map" name="northern" translate="Northern Zone;entity=relation"/>
+				<region type="map" name="southern-highlands" translate="Southern Highlands Zone;entity=relation"/>
+				<region type="map" name="western" translate="Western Zone;entity=relation"/>
+				<region type="map" name="zanzibar" translate="name:en=Zanzibar;entity=relation"/>
+			</region>
+			<region name="togo" lang="fr"/>
+			<region name="tunisia" lang="ar"/>
+			<region name="uganda" lang="en,sw" left_hand_navigation="yes"/>
+			<region name="western-sahara" lang="ar,es" translate="name:en=Sahrawi Arab Democratic Republic;entity=relation"/>
+			<region name="zambia" lang="en" left_hand_navigation="yes"/>
+			<region name="zimbabwe" lang="en,sn" left_hand_navigation="yes"/>
+
+		</region>
+
+		<region type="continent" name="southamerica" translate="=South America" inner_download_suffix="southamerica" boundary="no" poly_extract="planet">
+			<region name="argentina" srtm="no" hillshade="no" slope="no" heightmap="yes" inner_download_prefix="$name" lang="es" join_map_files="yes">
+				<region name="buenos-aires" translate="Buenos Aires;entity=relation"/>
+				<region name="ciudad-de-buenos-aires" translate="name:en=Autonomous City of Buenos Aires;entity=relation" map="no" slope="yes" hillshade="yes" srtm="yes" heightmap="yes"/>
+				<region name="catamarca" translate="Catamarca;entity=relation"/>
+				<region name="chaco" translate="Chaco;entity=relation"/>
+				<region name="chubut" translate="Chubut;entity=relation"/>
+				<region name="cordoba" translate="name:en=Córdoba;is_in:country=Argentina;entity=relation" boundary="argentina/cordoba"/>
+				<region name="corrientes" translate="Corrientes;entity=relation"/>
+				<region name="entre-rios" translate="Entre Ríos;entity=relation"/>
+				<region name="formosa" translate="Formosa;entity=relation"/>
+				<region name="jujuy" translate="Jujuy;entity=relation"/>
+				<region name="la-pampa" translate="La Pampa;entity=relation"/>
+				<region name="la-rioja" translate="La Rioja;is_in:country=Argentina;entity=relation"/>
+				<region name="mendoza" translate="Mendoza;entity=relation"/>
+				<region name="misiones"/>
+				<region name="neuquen" translate="Neuquén;entity=relation"/>
+				<region name="rio-negro" translate="Río Negro;is_in:country=Argentina;entity=relation"/>
+				<region name="salta" translate="Salta;entity=relation"/>
+				<region name="san-juan" translate="San Juan;is_in:country=Argentina;entity=relation"/>
+				<region name="san-luis" translate="San Luis;entity=node"/>
+				<region name="santa-cruz" translate="Santa Cruz;iso3166-2=AR-Z;entity=relation" boundary="argentina/santa-cruz"/>
+				<region name="santa-fe" translate="Santa Fe;entity=relation"/>
+				<region name="santiago-del-estero" translate="Santiago del Estero;entity=relation"/>
+				<region name="tierra-del-fuego" translate="Tierra del Fuego;entity=relation"/>
+				<region name="tucuman" translate="Tucumán;entity=relation"/>
+			</region>
+			<region name="bolivia" lang="es,ay,qu"/>
+			<region name="brazil" translate="Brazil;admin_level=2;entity=relation" map="no" wiki="yes" hillshade="no" slope="no" heightmap="no" srtm="no" roads="no" join_map_files="no" inner_download_prefix="$name" lang="pt,de" join_road_files="no">
+				<region name="acre" translate="Acre;entity=relation"/>
+				<region name="alagoas" translate="Alagoas;entity=relation"/>
+				<region name="amapa" translate="Amapá;entity=relation"/>
+				<region name="amazonas" translate="Amazonas;ISO3166-2=BR-AM;is_in:country=Brazil;entity=relation" boundary="brazil/amazonas"/>
+				<region name="bahia" translate="Bahia;entity=relation"/>
+				<region name="ceara" translate="Ceará;entity=relation"/>
+				<region name="distrito-federal" translate="Federal District;is_in:country=Brazil;entity=relation" boundary="brazil/distrito-federal"/>
+				<region name="espirito-santo" translate="Espírito Santo;entity=relation"/>
+				<region name="goias" translate="Goiás;entity=relation"/>
+				<region name="maranhao" translate="Maranhão;entity=relation"/>
+				<region name="mato-grosso" translate="Mato Grosso;entity=relation"/>
+				<region name="mato-grosso-do-sul" translate="Mato Grosso do Sul;entity=relation"/>
+				<region name="minas-gerais" translate="Minas Gerais;entity=relation"/>
+				<region name="para" translate="Pará;entity=relation"/>
+				<region name="paraiba" translate="Paraíba;entity=relation"/>
+				<region name="parana" translate="Paraná;entity=relation"/>
+				<region name="pernambuco" translate="Pernambuco;entity=relation"/>
+				<region name="piaui" translate="Piauí;entity=relation"/>
+				<region name="rio-de-janeiro" translate="name:en=Rio de Janeiro;entity=relation"/>
+				<region name="rio-grande-do-norte" translate="Rio Grande do Norte;entity=relation"/>
+				<region name="rio-grande-do-sul" translate="Rio Grande do Sul;entity=relation"/>
+				<region name="rondonia" translate="Rondônia;entity=relation"/>
+				<region name="roraima" translate="Roraima;entity=relation"/>
+				<region name="santa-catarina" translate="Santa Catarina;entity=relation"/>
+				<region name="sao-paulo" translate="São Paulo;entity=relation"/>
+				<region name="sergipe" translate="Sergipe;entity=relation"/>
+				<region name="tocantins" translate="Tocantins;entity=relation"/>
+			</region>
+			<region name="chile" srtm="no" inner_download_prefix="$name" lang="es">
+				<region type="srtm" name="antofagasta" translate="Antofagasta Region;entity=node"/>
+				<region type="srtm" name="araucania" translate="Araucanía Region;entity=node"/>
+				<region type="srtm" name="arica-y-parinacota" translate="Arica and Parinacota Region;entity=node"/>
+				<region type="srtm" name="atacama" translate="Región de Atacama;entity=node"/>
+				<region type="srtm" name="aysen-del-general-carlos-ibanez-del-campo" translate="name:en=Aysén Region;entity=node"/>
+				<region type="srtm" name="biobio" translate="Biobío Region;entity=node"/>
+				<region type="srtm" name="coquimbo" translate="Coquimbo Region;entity=node"/>
+				<region type="srtm" name="libertador-bernardo-ohiggins" translate="name:en=O'Higgins Region;entity=node"/>
+				<region type="srtm" name="los-lagos" translate="Los Lagos Region;entity=node"/>
+				<region type="srtm" name="los-rios" translate="Región de Los Ríos;entity=node"/>
+				<region type="srtm" name="magallanes-and-chilean-antarctica" translate="name:en=Magallanes and Chilean Antarctica Region;entity=relation"/>
+				<region type="srtm" name="maule" translate="Maule Region;entity=node"/>
+				<region type="srtm" name="metropolitana-de-santiago" translate="Región Metropolitana de Santiago;entity=relation"/>
+				<region type="srtm" name="tarapaca" translate="name:en=Tarapacá Region;entity=node"/>
+				<region type="srtm" name="valparaiso" translate="Valparaiso Region;entity=node"/>
+			</region>
+			<region name="colombia" lang="es"/>
+			<region name="ecuador" lang="es,qu"/>
+			<region name="falkland-islands" translate="name:en=Falkland Islands;entity=node" lang="en,es" metric="miles"/>
+			<region name="guyana" lang="en" translate="name:en=Guyana;entity=relation" left_hand_navigation="yes"/>
+			<region name="french-guiana" translate="name:en=French Guiana;entity=node" lang="fr"/>
+			<region name="paraguay" lang="es,gn"/>
+			<region name="peru" srtm="no" inner_download_prefix="$name" lang="es,ay,qu">
+				<region type="srtm" name="amazonas" translate="Amazonas;ISO3166-2=PE-AMA;entity=relation" boundary="peru/amazonas"/>
+				<region type="srtm" name="ancash" translate="Ancash;entity=relation"/>
+				<region type="srtm" name="apurimac" translate="Apurímac;entity=relation"/>
+				<region type="srtm" name="arequipa" translate="Arequipa;entity=relation"/>
+				<region type="srtm" name="ayacucho" translate="Ayacucho;entity=relation"/>
+				<region type="srtm" name="cajamarca" translate="Cajamarca;entity=relation"/>
+				<region type="srtm" name="cusco" translate="Cusco;entity=relation"/>
+				<region type="srtm" name="huancavelica" translate="Huancavelica;entity=relation"/>
+				<region type="srtm" name="huanuco" translate="Huánuco;entity=relation"/>
+				<region type="srtm" name="ica" translate="Ica;entity=relation"/>
+				<region type="srtm" name="junin" translate="Junín;entity=relation"/>
+				<region type="srtm" name="la-libertad" translate="La Libertad;is_in:country=Peru;entity=relation"/>
+				<region type="srtm" name="lambayeque" translate="Lambayeque;entity=relation"/>
+				<region type="srtm" name="lima" translate="name:en=Department of Lima;entity=node"/>
+				<region type="srtm" name="loreto" translate="Loreto;entity=relation"/>
+				<region type="srtm" name="madre-de-dios" translate="Madre de Dios;entity=relation"/>
+				<region type="srtm" name="moquegua" translate="Moquegua;entity=relation"/>
+				<region type="srtm" name="pasco" translate="Pasco;entity=relation"/>
+				<region type="srtm" name="piura" translate="name:en=Piura;entity=relation"/>
+				<region type="srtm" name="puno" translate="Puno;entity=relation"/>
+				<region type="srtm" name="san-martin" translate="San Martín;entity=relation"/>
+				<region type="srtm" name="tacna" translate="Tacna;entity=relation"/>
+				<region type="srtm" name="tumbes" translate="Tumbes;entity=relation"/>
+				<region type="srtm" name="ucayali" translate="Ucayali;entity=relation"/>
+			</region>
+			<region name="south-georgia-and-south-sandwich-islands" translate="South Georgia and South Sandwich Islands;entity=node" lang="en"/>
+			<region name="suriname" lang="nl" left_hand_navigation="yes"/>
+			<region name="uruguay" lang="es"/>
+			<region name="venezuela" lang="es"/>
+		</region>
+
+		<region type="continent" name="antarctica" translate="name:en=Antarctica;entity=relation" boundary="no" poly_extract="planet">
+			<region name="antarctica" translate="name:en=Antarctica;entity=relation" map="yes" lang="en" srtm="no" hillshade="no" slope="no" heightmap="no"/>
+		</region>
+
+		<region name="World_basemap" type="map" roads="no" wiki="no" boundary="no" translate="=World basemap"/>
+		<region name="World_seamarks" type="map" roads="no" wiki="no" boundary="no" translate="=World seamarks"/>
+</regions_list>

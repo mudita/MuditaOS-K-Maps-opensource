@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title">Settings</string>
+    <string name="is_downloading">Can’t change storage - wait for downloads to finish.</string>
+</resources>

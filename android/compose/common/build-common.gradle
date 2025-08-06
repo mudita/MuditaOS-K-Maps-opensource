@@ -1,0 +1,293 @@
+task printc {
+    configurations.each { if (it.isCanBeResolved()) println it.name }
+}
+
+android {
+    namespace "net.osmand"
+    // compileNdkVersion "android-ndk-r17b"
+
+    defaultConfig {
+        targetSdkVersion 34
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+        ndk {
+            abiFilter 'armeabi-v7a'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    // related to kuromoji
+    //packagingOptions {
+    //	exclude '/META-INF/CONTRIBUTORS.md'
+    //	exclude '/META-INF/LICENSE.md'
+    //	exclude '/META-INF/NOTICE.md'
+    //}
+
+    // This is from OsmAndCore_android.aar - for some reason it's not inherited
+    aaptOptions {
+        // Don't compress any embedded resources
+        noCompress "qz"
+        cruncherEnabled = false
+        // Flag notifies aapt to keep the attribute IDs around
+        // additionalParameters "--no-version-vectors"
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+        }
+        release {
+            debuggable false
+        }
+    }
+}
+
+clean.doFirst {
+    delete fileTree('assets') {
+        include '*.obf'
+        include 'fonts/**'
+        include 'feature_articles/**'
+        include 'voice/**'
+    }
+}
+
+task validateTranslate {
+    println "Validating translations"
+
+    file("res").eachFileRecurse groovy.io.FileType.FILES, {
+        if (it.name == "strings.xml" || it.name == "phrases.xml") {
+            it.eachLine { line ->
+                if (line.contains("\$ s") || line.contains("\$ d") || line.contains("\$ f") ||
+                        line.contains(" \$s") || line.contains(" \$d") || line.contains(" \$f") ||
+                        line.contains("1\$ ") || line.contains("2\$ ") || line.contains("3\$ ") ||
+                        line.contains("%1s") || line.contains(" 1\$s") ||
+                        (line.contains("% \$") || line.contains("% 1") || line.contains("% 2") ||
+                                line.contains("% 3") || line.contains("% s"))) {
+                    throw new GradleException("Incorrect translation " + it.getAbsolutePath() + " " + line);
+                }
+            }
+        }
+    }
+}
+
+
+task downloadDefaultWikivoyage(type: Download) {
+    src 'https://builder.osmand.net/wikivoyage-gen/sqlite/Default_wikivoyage_2.travel.obf'
+    dest 'assets/Default_wikivoyage.travel.obf'
+    onlyIfModified true
+}
+
+task downloadWorldMiniBasemap(type: Download) {
+    src 'https://maps.mudita.com/download/World_basemap_mini.obf'
+    dest 'assets/World_basemap_mini.obf'
+    onlyIfModified true
+}
+
+task downloadDefaultWikivoyageAnt {
+    doLast {
+        ant.get(src: 'https://builder.osmand.net/wikivoyage-gen/sqlite/Default_wikivoyage_2.travel.obf', dest: 'assets/Default_wikivoyage.travel.obf', skipexisting: 'true')
+    }
+}
+
+task downloadWorldMiniBasemapAnt {
+    doLast {
+        ant.get(src: 'https://maps.mudita.com/download/World_basemap_mini.obf', dest: 'assets/World_basemap_mini.obf', skipexisting: 'true')
+    }
+}
+
+task collectVoiceAssets(type: Sync) {
+    from "../../resources/voice"
+    into "assets/voice"
+    include "**/*.js", "**/*.mp3"
+}
+
+task collectFonts(type: Copy) {
+    from "../../resources/rendering_styles/fonts"
+//	from "../../resources/rendering_styles/fonts/OpenSans"
+    into "assets/fonts"
+    include "*.ttf"
+}
+
+task collectUiFonts(type: Copy) {
+    from "../../resources/fonts"
+    into "assets/ui-fonts"
+    include "*.ttf"
+}
+
+task collectHelpContentsStyle(type: Copy) {
+    from("../../help/website/help/") {
+        include "style.css"
+    }
+    into "assets"
+}
+
+task collectHelpContentsAssets(type: Copy) {
+    from("../../help/website/help") {
+        include "about.html"
+        include "changes.html"
+        include "faq.html"
+        include "map-legend.html"
+    }
+    from("../../help/website/feature_articles") {
+        include "*.html"
+    }
+    into "assets/feature_articles"
+}
+
+task copyProjDb(type: Copy) {
+    from("../../resources/proj") {
+        include "proj.db"
+    }
+    into "assets"
+}
+
+task copyWeatherFiles(type: Copy) {
+    from "../../resources/weather"
+    into "assets/weather"
+    include "*.*"
+}
+
+task copyPoiCategories(type: Copy) {
+    from("../../resources/poi") {
+        include "poi_categories.json"
+    }
+    into "assets"
+}
+
+task copyMapShaderIcons(type: Sync) {
+    // from "../../resources/rendering_styles/style-icons/map-shaders-png"
+    // into "res/"
+    from "../../resources/rendering_styles/style-icons/map-shaders-vector"
+    into "res/drawable"
+    include "**/*.png", "**/*.xml"
+    preserve {
+        include '**/*'
+        exclude "**/h_*"
+    }
+}
+
+task copyMapPOIIcons(type: Sync) {
+    from "../../resources/rendering_styles/style-icons/map-icons-vector"
+    into "res/drawable/"
+    // from "../../resources/rendering_styles/style-icons/map-icons-png"
+    // into "res/"
+
+    include "**/*.png", "**/*.xml"
+    preserve {
+        include '**/*'
+        exclude "**/mm_*"
+    }
+}
+
+task copyLargePOIIcons(type: Sync) {
+    from "../../resources/rendering_styles/style-icons/poi-icons-vector"
+    into "res/drawable/"
+    include "**/*.png", "**/*.xml"
+    preserve {
+        include '**/*'
+        exclude "**/mx_*"
+    }
+}
+
+task copyWidgetIconsXhdpi(type: Sync) {
+    from "res/drawable-xxhdpi/"
+    into "res/drawable-large-xhdpi/"
+    include "**/widget_*.png", "**/widget_*.xml", "**/map_*.xml", "**/map_*.png"
+    preserve {
+        include '*'
+        exclude "**/widget_*.png", "**/widget_*.xml", "**/map_*.xml", "**/map_*.png"
+    }
+}
+
+task copyWidgetIconsHdpi(type: Sync) {
+    from "res/drawable-xhdpi/"
+    into "res/drawable-large-hdpi/"
+    include "**/widget_*.png", "**/widget_*.xml", "**/map_*.xml", "**/map_*.png"
+    preserve {
+        include '*'
+        exclude "**/widget_*.png", "**/widget_*.xml", "**/map_*.xml", "**/map_*.png"
+    }
+}
+
+task copyWidgetIcons(type: Sync) {
+    from "res/drawable-hdpi/"
+    into "res/drawable-large/"
+    include "**/widget_*.png", "**/widget_*.xml", "**/map_*.xml", "**/map_*.png"
+    preserve {
+        include '*'
+        exclude "**/widget_*.png", "**/widget_*.xml", "**/map_*.xml", "**/map_*.png"
+    }
+}
+
+task collectExternalResources {
+    dependsOn downloadWorldMiniBasemap,
+            collectVoiceAssets,
+            collectFonts,
+            collectUiFonts
+//            collectHelpContentsAssets,
+//            collectHelpContentsStyle,
+//            copyMapShaderIcons,
+//            copyMapPOIIcons,
+//            copyLargePOIIcons,
+//            validateTranslate,
+//            copyWidgetIcons,
+//            copyWidgetIconsHdpi,
+//            copyWidgetIconsXhdpi,
+//            copyProjDb,
+//            copyWeatherFiles,
+//            copyPoiCategories
+//            downloadWorldMiniBasemap,
+//            downloadDefaultWikivoyage
+}
+
+// Legacy core build
+import org.apache.tools.ant.taskdefs.condition.Os
+
+task buildOsmAndCore(type: Exec) {
+
+    description "Build Legacy OsmAndCore"
+
+    if (!Os.isFamily(Os.FAMILY_WINDOWS)) commandLine "bash", file("./old-ndk-build.sh").getAbsolutePath()
+    else commandLine "cmd", "/c", "echo", "Not supported"
+
+}
+
+task cleanupDuplicatesInCore() {
+    dependsOn buildOsmAndCore
+    // doesn't work for legacy debug builds
+    doLast {
+        file("libc++/armeabi-v7a").mkdirs()
+        file("libs/armeabi-v7a/libc++_shared.so").renameTo(file("libc++/armeabi-v7a/libc++_shared.so"))
+        file("libc++/arm64-v8a").mkdirs()
+        file("libs/arm64-v8a/libc++_shared.so").renameTo(file("libc++/arm64-v8a/libc++_shared.so"))
+        file("libc++/x86").mkdirs()
+        file("libs/x86/libc++_shared.so").renameTo(file("libc++/x86/libc++_shared.so"))
+        file("libc++/x86_64").mkdirs()
+        file("libs/x86_64/libc++_shared.so").renameTo(file("libc++/x86_64/libc++_shared.so"))
+    }
+}
+
+task appStart(type: Exec) {
+    // linux
+    commandLine 'adb', 'shell', 'am', 'start', '-n', 'net.osmand.plus/net.osmand.plus.activities.MapActivity'
+    // windows
+    // commandLine 'cmd', '/c', 'adb', 'shell', 'am', 'start', '-n', 'net.osmand.plus/net.osmand.plus.activities.MapActivity'
+}
+
+dependencies {
+    implementation libs.cardview
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.preference
+    implementation fileTree(include: ['gnu-trove-osmand.jar', 'icu4j-49_1_patched.jar', 'antpluginlib.aar'], dir: 'libs')
+
+    implementation libs.commonsLogging
+    implementation libs.commonsCodec
+    implementation libs.junidecode
+    implementation libs.openLocationCode
+    // JS core
+    implementation libs.rhino
+}

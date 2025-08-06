@@ -1,0 +1,7 @@
+ext {
+    sentry_sdk_version = "0.0.61"
+}
+
+dependencies {
+    implementation "com.mudita:sentry-sdk:$sentry_sdk_version"
+}

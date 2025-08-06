@@ -1,0 +1,44 @@
+import com.mudita.sentry.plugins.tasks.SentryReleaseTask
+import com.mudita.sentry.plugins.tasks.model.AppMetadata
+import com.mudita.sentry.plugins.util.SentryUuidGeneratorKt
+
+apply plugin: 'com.mudita.sentry.plugins.release'
+apply from: "$rootDir/gradle/dependencies/sentry.gradle"
+
+android {
+    defaultConfig {
+        buildConfigField("String", "PROGUARD_UUID", "\"${SentryUuidGeneratorKt.generateSentryUuid(project)}\"")
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+}
+
+tasks.named("createReleaseAndUploadMapping", SentryReleaseTask) {
+    def variantOutput = project.android.applicationVariants
+            .find { variant ->
+                gradle.startParameter.taskNames.any { taskName ->
+                    taskName.toLowerCase().contains(variant.name.toLowerCase())
+                }
+            }
+    if (variantOutput == null) {
+        throw new IllegalStateException("No matching variant found for the task name.")
+    }
+
+    def buildVariant
+    if (variantOutput.buildType.name.equalsIgnoreCase("release") || variantOutput.buildType.name.equalsIgnoreCase("qa")) {
+        buildVariant = variantOutput.buildType.name
+    } else {
+        throw new IllegalStateException(
+                "Invalid build variant: ${variantOutput.buildType.name}. " +
+                        "Supported variants are: \"release\", \"qa\"")
+    }
+
+    appMetadata = new AppMetadata(
+            variantOutput.applicationId,
+            variantOutput.versionName,
+            variantOutput.versionCode.toString(),
+            buildVariant,
+    )
+}

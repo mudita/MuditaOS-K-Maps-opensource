@@ -1,0 +1,29 @@
+package net.osmand.map;
+
+import net.osmand.util.Algorithms;
+
+public enum ParameterType {
+   UNDEFINED(null),
+   DATE("date"),
+   NUMERIC("numeric");
+
+   private final String paramName;
+
+   private ParameterType(String paramName) {
+      this.paramName = paramName;
+   }
+
+   public String getParamName() {
+      return this.paramName;
+   }
+
+   public static ParameterType fromName(String paramName) {
+      for(ParameterType value : values()) {
+         if (Algorithms.stringsEqual(value.paramName, paramName)) {
+            return value;
+         }
+      }
+
+      return UNDEFINED;
+   }
+}

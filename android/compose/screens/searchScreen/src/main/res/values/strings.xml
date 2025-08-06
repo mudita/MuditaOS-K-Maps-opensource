@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="show_on_map">Show on map</string>
+    <string name="search_placeholder">Search</string>
+    <string name="search_postcode_placeholder">Type postcode</string>
+    <string name="distance_km">%.0f km</string>
+    <string name="distance_m">%.1f m</string>
+    <string name="increase_radius">Search wider area</string>
+    <string name="modify_query">Try downloading more maps or search a wider area for better results.</string>
+    <string name="could_not_find_anything">We couldn’t find anything…</string>
+</resources>

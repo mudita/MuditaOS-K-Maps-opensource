@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="my_places_title">Saved Locations</string>
+    <string name="my_places_search">Search</string>
+    <string name="my_places_empty_view">"You have not saved any places"</string>
+
+    <!-- Add place -->
+    <string name="my_places_title_edit">Edit details</string>
+    <string name="my_place_sheet_title">Leave without saving?</string>
+    <string name="my_place_sheet_desc">This location won’t be added to Saved Locations.</string>
+    <string name="my_place_sheet_leave">Leave</string>
+    <string name="my_place_sheet_stay">Stay</string>
+
+    <string name="my_place_delete_sheet_title">Delete saved place?</string>
+    <string name="my_place_delete_sheet_desc">This location will be removed from Saved Locations.</string>
+    <string name="my_place_delete_sheet_delete">Delete</string>
+    <string name="my_place_delete_sheet_cancel">Cancel</string>
+
+</resources>

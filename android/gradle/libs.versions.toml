@@ -1,0 +1,97 @@
+[versions]
+accompanist = "0.28.0"
+androidGradlePlugin = "8.1.1"
+appcompat = "1.7.0"
+cardview = "1.0.0"
+buildInfo = "4.31.0"
+commonsCodec = "1.11"
+commonsLogging = "1.2"
+compose = "1.7.7"
+composeNavigation = "2.8.6"
+coreKtx = "1.12.0"
+coroutinesTest = "1.8.1"
+datastore = "1.1.2"
+gson = "2.10.1"
+hilt = "2.51.1"
+hiltNavigation = "1.2.0"
+junitJupiter = "5.9.2"
+json = "20180813"
+junidecode = "0.1.1"
+kompaktSdk = "1.0.0"
+kompaktUI = "31.0.38-maps"
+kotlin = "2.0.10"
+kxml = "2.1.8"
+licensee = "1.12.0"
+material = "1.12.0"
+material3 = "1.3.1"
+mockito = "5.1.1"
+mockk = "1.13.12"
+mockitoKotlin = "4.1.0"
+okhttp = "4.12.0"
+openLocationCode = "1.0.4"
+preference = "1.2.1"
+retrofit = "2.11.0"
+rhino = "1.7.9"
+room = "2.6.1"
+splashscreen = "1.0.1"
+supportAnnotations = "28.0.0"
+timber = "5.0.1"
+turbine = "0.8.0"
+
+[libraries]
+accompanistPager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanist" }
+accompanistPagerIndicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanist" }
+androidGradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "androidGradlePlugin" }
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+buildInfoExtractorGradle = { module = "org.jfrog.buildinfo:build-info-extractor-gradle", version.ref = "buildInfo" }
+cardview = { module = "androidx.cardview:cardview", version.ref = "cardview" }
+commonsCodec = { module = "commons-codec:commons-codec", version.ref = "commonsCodec" }
+commonsLogging = { module = "commons-logging:commons-logging", version.ref = "commonsLogging" }
+composeFoundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
+composeNavigation = { module = "androidx.navigation:navigation-compose", version.ref = "composeNavigation" }
+composeUITooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+composeUIToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
+coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+coroutinesTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutinesTest" }
+datastore = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+hiltAndroidGradlePlugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
+hiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hiltCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+hiltNavigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigation" }
+json = { module = "org.json:json", version.ref = "json" }
+junidecode = { module = "com.moparisthebest:junidecode", version.ref = "junidecode" }
+junitJupiterApi = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiter" }
+junitJupiterEngine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junitJupiter" }
+junitJupiterGradlePlugin = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junitJupiter" }
+kompaktSdk = { module = "com.mudita:kompakt-sdk-android", version.ref = "kompaktSdk" }
+kompaktUI = { module = "com.mudita:kompakt-ui", version.ref = "kompaktUI" }
+kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kxml = { module = "net.sf.kxml:kxml2", version.ref = "kxml" }
+licenseeGradlePlugin = { module = "app.cash.licensee:licensee-gradle-plugin", version.ref = "licensee" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
+material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
+mockitoInline = { module = "org.mockito:mockito-inline", version.ref = "mockito" }
+mockitoKotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+openLocationCode = { module = "com.google.openlocationcode:openlocationcode", version.ref = "openLocationCode" }
+preference = { module = "androidx.preference:preference", version.ref = "preference" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofitGsonConverter = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+rhino = { module = "org.mozilla:rhino", version.ref = "rhino" }
+roomKtx = { module = "androidx.room:room-ktx", version.ref = "room" }
+roomCompiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+splashcreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
+supportAnnotations = { module = "com.android.support:support-annotations", version.ref = "supportAnnotations" }
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+
+[plugins]
+artifactory = { id = "com.jfrog.artifactory", version = "4.31.0" }
+kotlinComposeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+download = { id = "de.undercouch.download", version = "4.1.1" }
+hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

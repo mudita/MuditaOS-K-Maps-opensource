@@ -1,0 +1,10 @@
+{
+	"library": false,
+	"projects": [
+		{
+			"name": "Maps",
+			"id": "6d082e5a-ec63-4508-af15-7426d5bc1dc1"
+		}
+	],
+	"filePath": "./src/main/res/values/strings.xml"
+}

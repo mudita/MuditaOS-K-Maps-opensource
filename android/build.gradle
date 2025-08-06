@@ -1,0 +1,98 @@
+buildscript {
+    ext {
+        compile_sdk                                         = 34
+        min_sdk                                             = 31
+        target_sdk                                          = 34
+    }
+
+    repositories {
+        google()
+        mavenLocal()
+        mavenCentral()
+        maven {
+            url 'https://developer.huawei.com/repo/'
+        }
+    }
+
+    dependencies {
+        classpath libs.androidGradlePlugin
+        classpath libs.kotlinGradlePlugin
+        classpath libs.buildInfoExtractorGradle
+        classpath libs.junitJupiterGradlePlugin
+        classpath libs.hiltAndroidGradlePlugin
+        classpath libs.licenseeGradlePlugin
+    }
+}
+
+plugins {
+    alias libs.plugins.download
+    alias libs.plugins.kotlinAndroid apply false
+    alias libs.plugins.kotlinJvm apply false
+    alias libs.plugins.artifactory
+    alias libs.plugins.hiltAndroid apply false
+    alias libs.plugins.kotlinSerialization apply false
+    alias libs.plugins.kotlinComposeCompiler apply false
+}
+
+def licenseeSupportedPlugins = [
+        "java-library",
+        "java",
+        "com.android.application",
+        "com.android.library",
+        "org.jetbrains.kotlin.jvm",
+]
+
+allprojects {
+    group "net.osmand"
+    
+    repositories {
+        google()
+        mavenLocal()
+        mavenCentral()
+        maven {
+            url "https://jitpack.io"
+        }
+        maven {
+            url 'https://developer.huawei.com/repo/'
+        }
+
+        def muditaRepoUsername = getLocalProperty("mudita_repo_username") ?: System.getenv("ARTIFACTORY_USERNAME")
+        def muditaRepoPassword = getLocalProperty("mudita_repo_password") ?: System.getenv("ARTIFACTORY_PASSWORD")
+        def muditaNexusRepoUrl = getLocalProperty("mudita_nexus_repo_url")
+
+        maven {
+            url = uri(muditaNexusRepoUrl)
+            credentials {
+                username = muditaRepoUsername?.toString()
+                password = muditaRepoPassword?.toString()
+            }
+        }
+    }
+    afterEvaluate {
+        if (licenseeSupportedPlugins.any { pluginManager.hasPlugin(it) }) {
+            it.pluginManager.apply("app.cash.licensee")
+            it.licensee {
+                allow("Apache-2.0")
+                allowUrl("http://www.debian.org/misc/bsd.license")
+                allowUrl("http://json.org/license.html")
+                allowUrl("http://www.mozilla.org/MPL/2.0/index.txt")
+                ignoreDependencies("com.mudita")
+                ignoreDependencies("net.sf.kxml") // BSD, CC0 1.0, Public licenses, as per https://mvnrepository.com/artifact/net.sf.kxml/kxml2
+                ignoreDependencies("com.google.openlocationcode") // Apache-2.0, as per https://github.com/google/open-location-code?tab=Apache-2.0-1-ov-file
+            }
+        }
+    }
+}
+
+static def getLocalProperty(String key, String file = "local.properties") {
+    Properties properties = new Properties()
+    File localProperties = new File(file)
+    if (localProperties.isFile()) {
+        localProperties.withInputStream { stream ->
+            properties.load(new InputStreamReader(stream, "UTF-8"))
+        }
+    } else {
+        return null
+    }
+    return properties.getProperty(key)
+}
