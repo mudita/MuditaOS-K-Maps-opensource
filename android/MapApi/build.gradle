@@ -1,0 +1,42 @@
+apply plugin: 'com.android.library'
+
+
+android {
+    namespace "net.osmand.aidlapi"
+
+    defaultConfig {
+        compileSdk 34
+        minSdkVersion 31
+        targetSdkVersion 34
+        versionCode 2
+        versionName "2.0"
+    }
+    lintOptions {
+        abortOnError false
+    }
+    sourceSets {
+        main {
+            manifest.srcFile "AndroidManifest.xml"
+            aidl.srcDirs = ["src"]
+            java.srcDirs = ["src"]
+        }
+    }
+    buildFeatures {
+        aidl true
+    }
+}
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation libs.supportAnnotations
+}
+
+tasks.register('sourcesJar', Jar) {
+    archiveClassifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+
+artifacts {
+    archives sourcesJar
+}

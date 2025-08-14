@@ -1,0 +1,40 @@
+apply plugin: 'com.android.library'
+apply from: '../compose/common/build-common.gradle'
+
+android {
+	namespace "net.osmand.build"
+
+	defaultConfig {
+		compileSdk 34
+		minSdkVersion 31
+	}
+
+	lintOptions {
+		tasks.lint.enabled = false
+	}
+
+	sourceSets {
+		main {
+			manifest.srcFile "AndroidManifest-library.xml"
+			java.srcDirs = ["src", "src-gms"]
+		}
+	}
+
+	libraryVariants.configureEach {
+		def variant = it
+		def taskName = variant.name.capitalize()
+		def packageAssetsTaskName = "package${taskName}Assets"
+		tasks.named(packageAssetsTaskName).configure { osmandTask ->
+			println(osmandTask.getName())
+			osmandTask.dependsOn(downloadWorldMiniBasemap)
+		}
+	}
+}
+
+afterEvaluate {
+	android.libraryVariants.configureEach { variant ->
+		variant.javaCompileProvider.configure {
+			dependsOn collectExternalResources, buildOsmAndCore, cleanupDuplicatesInCore
+		}
+	}
+}

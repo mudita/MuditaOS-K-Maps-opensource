@@ -1,0 +1,12 @@
+diff -rupN upstream.original/src/google/protobuf/stubs/once.cc upstream.patched/src/google/protobuf/stubs/once.cc
+--- upstream.original/src/google/protobuf/stubs/once.cc	2013-02-26 18:56:38.000000000 +0100
++++ upstream.patched/src/google/protobuf/stubs/once.cc	2016-07-03 17:18:39.000000000 +0200
+@@ -47,6 +47,8 @@
+ 
+ #include <google/protobuf/stubs/atomicops.h>
+ 
++#include "config.h"
++
+ namespace google {
+ namespace protobuf {
+ 

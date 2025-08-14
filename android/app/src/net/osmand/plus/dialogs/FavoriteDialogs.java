@@ -1,0 +1,181 @@
+package net.osmand.plus.dialogs;
+
+
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
+import android.content.res.Resources;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+
+import com.mudita.maps.R;
+
+import net.osmand.data.FavouritePoint;
+import net.osmand.data.PointDescription;
+import net.osmand.plus.OsmandApplication;
+import net.osmand.plus.activities.MapActivity;
+import net.osmand.plus.myplaces.FavoriteGroup;
+import net.osmand.plus.myplaces.FavouritesHelper;
+import net.osmand.plus.myplaces.ui.FavoritesListFragment.FavouritesAdapter;
+import net.osmand.plus.utils.AndroidUtils;
+import net.osmand.plus.utils.UiUtilities;
+import net.osmand.util.Algorithms;
+
+import java.util.List;
+
+public class FavoriteDialogs {
+
+	public static final String KEY_FAVORITE = "favorite";
+
+	public static void prepareAddFavouriteDialog(Activity activity, Dialog dialog, Bundle args, double lat, double lon, PointDescription desc) {
+		Resources resources = activity.getResources();
+		String name = desc == null ? "" : desc.getName();
+		OsmandApplication app = (OsmandApplication) activity.getApplication();
+		FavouritePoint point = new FavouritePoint(lat, lon, name, app.getSettings().LAST_FAV_CATEGORY_ENTERED.get());
+		args.putSerializable(KEY_FAVORITE, point);
+		EditText editText = dialog.findViewById(R.id.Name);
+		editText.setText(point.getName());
+		editText.selectAll();
+		editText.requestFocus();
+		AutoCompleteTextView cat = dialog.findViewById(R.id.Category);
+		cat.setText(point.getCategory());
+		AndroidUtils.softKeyboardDelayed(activity, editText);
+	}
+
+	public static Dialog createAddFavouriteDialog(Activity activity, Bundle args) {
+		OsmandApplication app = (OsmandApplication) activity.getApplication();
+		Context themedContext = UiUtilities.getThemedContext(activity, false);
+		AlertDialog.Builder builder = new AlertDialog.Builder(themedContext);
+		View v = UiUtilities.getInflater(activity, false).inflate(R.layout.favorite_edit_dialog, null, false);
+		FavouritesHelper helper = app.getFavoritesHelper();
+		builder.setView(v);
+		EditText editText = v.findViewById(R.id.Name);
+		EditText description = v.findViewById(R.id.description);
+		AutoCompleteTextView cat = v.findViewById(R.id.Category);
+		List<FavoriteGroup> gs = helper.getFavoriteGroups();
+		String[] list = new String[gs.size()];
+		for (int i = 0; i < list.length; i++) {
+			list[i] = gs.get(i).getName();
+		}
+		cat.setAdapter(new ArrayAdapter<>(activity, R.layout.list_textview, list));
+		if (app.accessibilityEnabled()) {
+			TextView textButton = v.findViewById(R.id.TextButton);
+			textButton.setClickable(true);
+			textButton.setFocusable(true);
+			textButton.setOnClickListener(view -> {
+				AlertDialog.Builder b = new AlertDialog.Builder(themedContext);
+				b.setTitle(R.string.access_category_choice);
+				b.setItems(list, (dialog, which) -> cat.setText(list[which]));
+				b.setNegativeButton(R.string.shared_string_cancel, null);
+				b.show();
+			});
+		}
+
+		builder.setNegativeButton(R.string.shared_string_cancel, null);
+		builder.setPositiveButton(R.string.shared_string_add, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				FavouritePoint point = (FavouritePoint) args.getSerializable(KEY_FAVORITE);
+				String categoryStr = cat.getText().toString().trim();
+				FavouritesHelper helper = app.getFavoritesHelper();
+				app.getSettings().LAST_FAV_CATEGORY_ENTERED.set(categoryStr);
+				point.setName(editText.getText().toString().trim());
+				point.setDescription(description.getText().toString().trim());
+				point.setCategory(categoryStr);
+				AlertDialog.Builder bld = checkDuplicates(point, activity);
+				if (bld != null) {
+					bld.setPositiveButton(R.string.shared_string_ok, (dialog1, which1) -> addFavorite(activity, point, helper));
+					bld.show();
+				} else {
+					addFavorite(activity, point, helper);
+				}
+			}
+
+			protected void addFavorite(Activity activity, FavouritePoint point, FavouritesHelper helper) {
+				boolean added = helper.addFavourite(point);
+				if (activity instanceof MapActivity) {
+					((MapActivity) activity).getMapView().refreshMap(true);
+				}
+			}
+		});
+		return builder.create();
+	}
+
+	@NonNull
+	public static AlertDialog showFavoritesDialog(
+			Context uiContext,
+			FavouritesAdapter favouritesAdapter, OnItemClickListener click,
+			OnDismissListener dismissListener, Dialog[] dialogHolder, boolean sortByDist) {
+		ListView listView = new ListView(uiContext);
+		AlertDialog.Builder bld = new AlertDialog.Builder(uiContext);
+		favouritesAdapter.sortByDefault(sortByDist);
+		listView.setAdapter(favouritesAdapter);
+		listView.setOnItemClickListener(click);
+		bld.setPositiveButton(sortByDist ? R.string.sort_by_name : R.string.sort_by_distance,
+				(dialog, which) -> showFavoritesDialog(uiContext, favouritesAdapter, click, dismissListener, dialogHolder, !sortByDist));
+		bld.setNegativeButton(R.string.shared_string_cancel, null);
+		bld.setView(listView);
+		AlertDialog dlg = bld.show();
+		if (dialogHolder != null) {
+			dialogHolder[0] = dlg;
+		}
+		dlg.setOnDismissListener(dismissListener);
+		return dlg;
+	}
+
+	public static AlertDialog.Builder checkDuplicates(@NonNull FavouritePoint point, @NonNull Activity activity) {
+		OsmandApplication app = (OsmandApplication) activity.getApplication();
+		FavouritesHelper helper = app.getFavoritesHelper();
+
+		String name = AndroidUtils.checkEmoticons(point.getName());
+		boolean emoticons = name.length() != point.getName().length();
+
+		String index = "";
+		int number = 0;
+		point.setCategory(AndroidUtils.checkEmoticons(point.getCategory()));
+		if (!Algorithms.isEmpty(point.getDescription())) {
+			point.setDescription(AndroidUtils.checkEmoticons(point.getDescription()));
+		}
+
+		boolean fl = true;
+		while (fl) {
+			fl = false;
+			for (FavouritePoint fp : helper.getFavouritePoints()) {
+				if (fp.getName().equals(name)
+						&& point.getLatitude() != fp.getLatitude()
+						&& point.getLongitude() != fp.getLongitude()
+						&& fp.getCategory().equals(point.getCategory())) {
+					number++;
+					index = " (" + number + ")";
+					name = point.getName() + index;
+					fl = true;
+					break;
+				}
+			}
+		}
+		if ((index.length() > 0 || emoticons)) {
+			Context themedContext = UiUtilities.getThemedContext(activity, false);
+			AlertDialog.Builder builder = new AlertDialog.Builder(themedContext);
+			builder.setTitle(R.string.fav_point_dublicate);
+			if (emoticons) {
+				builder.setMessage(activity.getString(R.string.fav_point_emoticons_message, name));
+			} else {
+				builder.setMessage(activity.getString(R.string.fav_point_dublicate_message, name));
+			}
+			point.setName(name);
+			return builder;
+		}
+		return null;
+	}
+}

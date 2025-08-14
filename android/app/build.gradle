@@ -1,0 +1,259 @@
+import tasks.DeployTask
+import tasks.GenerateChangelogTask
+
+import java.util.regex.Pattern
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply from: '../compose/common/build-common.gradle'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.dagger.hilt.android'
+apply plugin: "org.jetbrains.kotlin.plugin.compose"
+
+apply from: rootProject.file("test-common.gradle")
+apply from: "$rootDir/gradle/sentry-config.gradle"
+
+android {
+	namespace "com.mudita.maps"
+
+	signingConfigs {
+		development {
+			storeFile file("../keystores/debug.keystore")
+			storePassword "android"
+			keyAlias "system-debug"
+			keyPassword "android"
+		}
+
+		publishing {
+			storeFile file("../keystores/debug.keystore")
+			storePassword "android"
+			keyAlias "system-debug"
+			keyPassword "android"
+		}
+	}
+
+	def sentryDsn = getLocalProperty("sentry_dsn", "")
+
+	defaultConfig {
+		compileSdk compile_sdk
+		minSdkVersion min_sdk
+		targetSdkVersion target_sdk
+		versionCode 26
+		versionName "1.1.0"
+		dimension "version"
+		applicationId "com.mudita.maps"
+		resValue "string", "app_name", "Maps"
+		buildConfigField "String", "SENTRY_DSN", "\"${sentryDsn}\""
+		ndk {
+			abiFilters 'arm64-v8a', 'armeabi-v7a'
+		}
+		def appName = applicationId.split("\\.").last()
+		base.archivesName.set("${appName}-${versionName}")
+	}
+
+	lintOptions {
+		lintConfig file("lint.xml")
+		warningsAsErrors false
+	}
+
+	buildFeatures {
+		compose true
+		aidl true
+	}
+
+	kotlinOptions {
+		jvmTarget = "17"
+	}
+
+	kapt {
+		correctErrorTypes = true
+	}
+
+	bundle {
+		language {
+			// Specifies that the app bundle should not support
+			// configuration APKs for language resources. These
+			// resources are instead packaged with each base and
+			// dynamic feature APK.
+			enableSplit = false
+		}
+	}
+
+	// related to kuromoji
+	//packagingOptions {
+	//	exclude '/META-INF/CONTRIBUTORS.md'
+	//	exclude '/META-INF/LICENSE.md'
+	//	exclude '/META-INF/NOTICE.md'
+	//}
+
+	sourceSets {
+		debug {
+			java.srcDirs = ["src-osmand"]
+			manifest.srcFile "AndroidManifest-androidFull.xml"
+			jniLibs.srcDirs = ["libc++"]
+		}
+        main {
+			manifest.srcFile "AndroidManifest.xml"
+            aidl.srcDirs = ["src"]
+			jniLibs.srcDirs = ["libs"]
+			aidl.srcDirs = ["src"]
+			java.srcDirs = ["src"]
+			resources.srcDirs = ["src"]
+			renderscript.srcDirs = ["src"]
+			res.srcDirs = ["res"]
+			assets.srcDirs = ["assets"]
+        }
+		test {
+			java.srcDirs = ["test"]
+		}
+	}
+
+	buildTypes {
+		debug {
+			signingConfig signingConfigs.development
+			minifyEnabled false
+		}
+		release {
+			signingConfig signingConfigs.publishing
+			minifyEnabled true
+			proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+		}
+	}
+
+	applicationVariants.configureEach {
+		def variant = it
+		def taskName = variant.name.capitalize()
+		def mergeAssetsTaskName = "merge${taskName}Assets"
+		tasks.named(mergeAssetsTaskName).configure { osmandTask ->
+			println(osmandTask.getName() + " merge assets")
+			osmandTask.dependsOn(collectExternalResources)
+		}
+		if (taskName.endsWith("Debug")) {
+			def mergeAndroidTestAssetsTaskName = "merge${taskName}AndroidTestAssets"
+			tasks.named(mergeAndroidTestAssetsTaskName).configure { osmandTask ->
+				println(osmandTask.getName() + " merge test assets")
+				osmandTask.dependsOn(collectExternalResources)
+			}
+		}
+		def mergeResources= "merge${taskName}Resources"
+		tasks.named(mergeResources).configure { osmandTask ->
+			println(osmandTask.getName() + " merge resources")
+			osmandTask.dependsOn(collectExternalResources)
+		}
+	}
+
+	packagingOptions {
+		exclude("META-INF/DEPENDENCIES")
+		exclude("META-INF/LICENSE")
+		exclude("META-INF/LICENSE.txt")
+		exclude("META-INF/license.txt")
+		exclude("META-INF/NOTICE")
+		exclude("META-INF/NOTICE.txt")
+		exclude("META-INF/notice.txt")
+		exclude("META-INF/ASL2.0")
+		exclude("META-INF/*.kotlin_module")
+		exclude("META-INF/gradle/*")
+	}
+}
+
+afterEvaluate {
+	android.applicationVariants.configureEach { variant ->
+		if (variant.name.contains('Opengldebug')) {
+			variant.javaCompileProvider.configure {
+				dependsOn collectExternalResources, buildOsmAndCore, copyOsmAndCoreWithJNI, cleanupDuplicatesInCore
+			}
+		} else {
+			variant.javaCompileProvider.configure {
+				dependsOn collectExternalResources, buildOsmAndCore, cleanupDuplicatesInCore
+			}
+		}
+	}
+	Gradle gradle = getGradle()
+	String tskReqStr = gradle.getStartParameter().getTaskRequests().toString().toLowerCase()
+	if (tskReqStr.contains("huawei")) {
+		apply plugin: 'com.huawei.agconnect'
+	}
+}
+
+task copyOsmAndCoreWithJNI() {
+	dependsOn buildOsmAndCore
+	doLast {
+		file("libs/armeabi-v7a").mkdirs()
+		file("../../binaries/android/clang-armeabi-v7a/Debug/libOsmAndCoreWithJNI.so").renameTo(file("libs/armeabi-v7a/libOsmAndCoreWithJNI.so"))
+		file("libs/arm64-v8a").mkdirs()
+		file("../../binaries/android/clang-arm64-v8a/Debug/libOsmAndCoreWithJNI.so").renameTo(file("libs/arm64-v8a/libOsmAndCoreWithJNI.so"))
+		file("libs/x86").mkdirs()
+		file("../../binaries/android/clang-x86/Debug/libOsmAndCoreWithJNI.so").renameTo(file("libs/x86/libOsmAndCoreWithJNI.so"))
+		file("libs/x86_64").mkdirs()
+		file("../../binaries/android/clang-x86_64/Debug/libOsmAndCoreWithJNI.so").renameTo(file("libs/x86_64/libOsmAndCoreWithJNI.so"))
+	}
+}
+
+dependencies {
+	implementation fileTree(include:  ['OsmAndCore_android-4.3.aar'], dir: 'libs')
+
+	implementation project(":MapApi")
+	implementation project(":common")
+	new File(rootProject.projectDir.absolutePath, "compose/screens")
+			.listFiles()
+	        .each  { moduleFile -> implementation project(":${moduleFile.name}")}
+
+	implementation(libs.splashcreen)
+    implementation(libs.hiltAndroid)
+	implementation(libs.hiltNavigation)
+	kapt(libs.hiltCompiler)
+}
+
+tasks.register("uploadApkToNexus", DeployTask) {
+	versionName = android.defaultConfig.versionName
+	tagPrefix = getLocalProperty("tagPrefix", "development")
+	appName = android.defaultConfig.applicationId.split("\\.").last()
+
+	nexusUrl = getLocalProperty("nexusUrl")
+	nexusUsername = getLocalProperty("nexusUsername")
+	nexusPassword = getLocalProperty("nexusPassword")
+}
+
+tasks.register("generateChangelog", GenerateChangelogTask) {
+	appName = android.defaultConfig.applicationId.split("\\.").last()
+
+	versionName = android.defaultConfig.versionName
+	tagPrefix = getLocalProperty("tagPrefix", "development")
+}
+
+tasks.register("checkVersion") {
+	doFirst {
+		def currentVersion = android.defaultConfig.versionName
+
+		// Extracting the tag from the GITHUB_REF environment variable
+		def githubRef = System.getenv("GITHUB_REF")
+		// Example of githubRef: refs/tags/development.0.0.1
+
+		def pattern = Pattern.compile("(release|development|qa)\\.(\\d+\\.\\d+\\.\\d+(\\-\\w*)?)")
+		def matchResult = pattern.matcher(githubRef.replace("refs/tags/", ""))
+
+		if (!matchResult.find()) {
+			throw new GradleException("The git tag does not follow the required 'type.x.y.z' pattern.")
+		}
+
+		def tagVersion = matchResult.group(2)
+
+		if (currentVersion != tagVersion) {
+			throw new GradleException("The version in build.gradle ($currentVersion) does not match the tag version ($tagVersion).")
+		}
+	}
+}
+
+def getLocalProperty(String key, String defaultValue = "") {
+	Properties properties = new Properties()
+	File localProperties = new File("local.properties")
+	if (localProperties.isFile()) {
+		localProperties.withInputStream { stream ->
+			properties.load(new InputStreamReader(stream, "UTF-8"))
+		}
+	} else {
+		return project.hasProperty(key) ? project.property(key) : defaultValue
+	}
+	return properties.getProperty(key, project.hasProperty(key) ? project.property(key) : defaultValue)
+}
+

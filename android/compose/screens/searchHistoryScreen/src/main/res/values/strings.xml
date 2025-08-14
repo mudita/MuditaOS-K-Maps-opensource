@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_history_title">Search History</string>
+    <string name="clear_all">CLEAR ALL</string>
+    <string name="empty_history_title">Revisit past places...</string>
+    <string name="empty_history_text">We’ll list all the places you search or browse the map for, helping you find them again.</string>
+    <string name="clear_history_dialog_title">Clear History</string>
+    <string name="clear_history_dialog_text">Your saved places and maps are safe.</string>
+    <string name="back_history_btn">Back</string>
+    <string name="clear_history">Clear History</string>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="common_add">Add</string>
+    <string name="common_save">Save</string>
+    <string name="no_results">"No results found for %s</string>
+
+    <string name="driving">Driving</string>
+    <string name="driving_desc">Shows traffic, fuel stops and parking\n- for navigation by car or motorbike</string>
+    <string name="walking">Pedestrian</string>
+    <string name="walking_desc">Shows crossings and amenities\n- for easy navigation on foot</string>
+    <string name="cycling">Cycling</string>
+    <string name="cycling_desc">Shows cycle tracks and bicycle parking\n- for safer journeys by bike</string>
+</resources>

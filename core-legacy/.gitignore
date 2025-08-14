@@ -1,0 +1,13 @@
+# Ignore all externals upstream files
+/externals/**/upstream.*
+externals/.stamp
+.gradle
+# Ignore binary files
+/binaries
+*.vscode
+.idea
+# Ignore baked files
+/baked
+
+/moc
+.Ds_Store

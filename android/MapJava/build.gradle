@@ -1,0 +1,25 @@
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+configurations {
+	android
+}
+
+compileJava {
+	options.encoding = 'UTF-8'
+}
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
+}
+
+dependencies {
+	implementation libs.commonsLogging
+	implementation libs.json
+	implementation libs.junidecode
+	implementation libs.openLocationCode
+	implementation libs.kxml
+	implementation fileTree(include: ['*.jar'], dir: 'libs')
+}
+
